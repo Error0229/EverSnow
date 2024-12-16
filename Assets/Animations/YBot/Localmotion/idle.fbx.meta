@@ -413,7 +413,7 @@ ModelImporter:
     second: mixamorig:Spine2
   - first:
       74: 7400000
-    second: mixamo.com
+    second: idle
   - first:
       95: 9500000
     second: //RootNode
@@ -445,7 +445,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: idle
       takeName: mixamo.com
       internalID: 7400000
       firstFrame: 0

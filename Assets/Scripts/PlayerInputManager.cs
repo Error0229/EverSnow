@@ -1,33 +1,36 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class KeyboardInputManager : InputManager
+public class PlayerInputManager : InputManager
 {
+    private InputAction art;
     private Vector2 axis;
+    private InputAction block;
+    private InputAction cameraSet;
     private bool dialogClick;
+    private InputAction dodge;
+    private InputAction interact;
+    private bool isMoving;
+    private bool isRunning;
     private InputAction jump;
     private InputAction look;
     private InputAction move;
-    private InputAction normalAttack;
-    private InputAction strongAttack;
-    private InputAction interact;
-    private InputAction previous;
     private InputAction next;
-    private InputAction block;
-    private InputAction run;
-    private InputAction dodge;
-    private InputAction cameraSet;
-    private InputAction useItem;
-    private InputAction art;
-    private InputAction walk;
     private InputAction nextWeapon;
+    private InputAction normalAttack;
+    private InputAction previous;
+    private InputAction run;
+    private InputAction strongAttack;
+    private InputAction useItem;
+    private InputAction walk;
+
 
     protected override void Init()
     {
         move = InputSystem.actions.FindAction("Move");
         look = InputSystem.actions.FindAction("Look");
         run = InputSystem.actions.FindAction("Run");
+        run.canceled += _ => isRunning = false;
         jump = InputSystem.actions.FindAction("Jump");
         normalAttack = InputSystem.actions.FindAction("NormalAttack");
         strongAttack = InputSystem.actions.FindAction("StrongAttack");
@@ -50,14 +53,16 @@ public class KeyboardInputManager : InputManager
 
     protected override void CalculateJump()
     {
-        var j = jump.WasPressedThisFrame();
-        evtJump?.Invoke(j);
+        if (run.ReadValue<float>() == 0 || move.ReadValue<Vector2>().magnitude < 0.1f) return;
+        evtJump?.Invoke(jump.WasPressedThisFrame());
     }
 
     protected override void CalculateRun()
     {
-        var run = sprint.ReadValue<float>() > 0;
-        evtRun?.Invoke(run);
+        if (move.ReadValue<Vector2>().magnitude < 0.1f) return;
+        if (run.WasPerformedThisFrame()) isRunning = true;
+
+        evtRun?.Invoke(isRunning);
     }
 
     protected override void CalculateDialogClick()
@@ -74,5 +79,16 @@ public class KeyboardInputManager : InputManager
     {
         var lookValue = look.ReadValue<Vector2>();
         evtLook?.Invoke(lookValue);
+    }
+
+    protected override void CalculateDodge()
+    {
+        if (move.ReadValue<Vector2>().magnitude < 0.1f) return;
+        evtDodge?.Invoke(dodge.WasPerformedThisFrame());
+    }
+
+    protected override void CalculateLockOn()
+    {
+        evtLockOn?.Invoke(cameraSet.WasPressedThisFrame());
     }
 }
