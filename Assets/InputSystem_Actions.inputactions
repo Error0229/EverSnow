@@ -537,7 +537,7 @@
                 {
                     "name": "",
                     "id": "07bfadd9-cbfd-4599-8d10-f23330523866",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

@@ -9,6 +9,8 @@ public abstract class InputManager : Singleton<InputManager>
     public UnityEvent<Vector2> evtLook;
     public UnityEvent<bool> evtDodge;
     public UnityEvent<bool> evtLockOn;
+    public UnityEvent<bool> evtNormalAttack;
+    public UnityEvent<bool> evtStrongAttack;
 
     private void Update()
     {
@@ -20,6 +22,7 @@ public abstract class InputManager : Singleton<InputManager>
         PostProcessDpadAxis();
         CalculateLook();
         CalculateLockOn();
+        CalculateAttack();
     }
     private void FixedUpdate()
     {}
@@ -32,4 +35,5 @@ public abstract class InputManager : Singleton<InputManager>
     protected abstract void CalculateLook();
     protected abstract void CalculateDodge();
     protected abstract void CalculateLockOn();
+    protected abstract void CalculateAttack();
 }

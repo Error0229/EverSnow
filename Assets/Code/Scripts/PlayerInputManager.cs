@@ -47,6 +47,19 @@ public class PlayerInputManager : InputManager
         walk = InputSystem.actions.FindAction("Walk");
     }
 
+    protected override void CalculateAttack()
+    {
+       if (strongAttack.IsPressed() && normalAttack.WasPerformedThisFrame())
+       {
+           evtStrongAttack?.Invoke(true);
+           return;
+       }
+       if (normalAttack.WasPerformedThisFrame()) 
+       {
+           evtNormalAttack?.Invoke(true);
+       }
+    }
+
     protected override void CalculateMove()
     {
         axis = move.ReadValue<Vector2>();

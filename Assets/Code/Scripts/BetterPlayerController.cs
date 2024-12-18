@@ -22,6 +22,12 @@ public class BetterPlayerController : MonoBehaviour
     private bool triggerEnter;
     private ThirdPersonCamera camSoul;
     private GameObject lockOnTarget;
+    enum Attacks
+    {
+        Heavy,
+        Normal
+    }
+    private Attacks attack = Attacks.Normal;
     private AnimatorStateInfo StateInfo
     {
         get => anim.GetCurrentAnimatorStateInfo(0);
@@ -42,9 +48,23 @@ public class BetterPlayerController : MonoBehaviour
         PlayerInputManager.Instance.evtRun.AddListener(Run);
         PlayerInputManager.Instance.evtLook.AddListener(Look);
         PlayerInputManager.Instance.evtDodge.AddListener(Dodge);
+        PlayerInputManager.Instance.evtStrongAttack.AddListener(HeavyAttack);
+        PlayerInputManager.Instance.evtNormalAttack.AddListener(NormalAttack);
         camSoul = cam.GetComponent<ThirdPersonCamera>();
         camSoul.evtLock.AddListener(LockOn);
         camSoul.evtUnlock.AddListener(UnlockOn);
+    }
+    private void HeavyAttack(bool invoked)
+    {
+        if (!invoked || state == STATE.ATTACK) return;
+        attack = Attacks.Heavy; 
+        GoToState(STATE.ATTACK);
+    }
+    private void NormalAttack(bool invoked)
+    {
+        if (!invoked || state == STATE.ATTACK) return;
+        attack = Attacks.Normal; 
+        GoToState(STATE.ATTACK);
     }
 
     private void FixedUpdate()
@@ -106,6 +126,24 @@ public class BetterPlayerController : MonoBehaviour
                 }
 
                 // Keep the falling movement consistent with horizontal velocity
+                break;
+            case STATE.ATTACK:
+                newVelocity = lastVelocity;
+                if (triggerEnter)
+                {
+                    
+                    anim.CrossFadeInFixedTime(attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack", 0.1f);
+                    triggerEnter = false;
+                }
+
+                if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
+                {
+                    if (movingVec.magnitude <= 0.1f)
+                        GoToState(STATE.IDLE);
+                    else GoToState(STATE.LOCOMOTION);
+                }
+
+                // Maintain rolling direction and speed
                 break;
 
             case STATE.ROLL:
@@ -234,6 +272,7 @@ public class BetterPlayerController : MonoBehaviour
         IDLE,
         JUMP,
         FALL,
-        ROLL
+        ROLL,
+        ATTACK
     }
 }
