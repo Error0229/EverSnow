@@ -152,7 +152,7 @@ public class BetterPlayerController : MonoBehaviour
 
     private void MoveOn(Vector2 movingInputs, float currentVelocity)
     {
-        if (currentVelocity == 0.0f) return;
+        if (currentVelocity <= 0.01f) return;
         var cameraForward = cam.transform.forward;
         cameraForward.y = 0; // 移除垂直分量，保持水平運動
         cameraForward.Normalize();

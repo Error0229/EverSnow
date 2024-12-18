@@ -11,13 +11,17 @@ public class ThirdPersonCamera : MonoBehaviour
     [Header("Camera Movement")] public float smoothTime = 0.3f;
 
     public float rotationSpeed = 5f;
+    public float lockOnRotationSpeed = 5f;
+    public float autoLockDistance = 5f;
 
     [Header("Camera Collision")] public float minDistance = 1f;
-
     public LayerMask collisionLayers;
+    public LayerMask enemyLayer;
+
+    [Header("Lock On Settings")]
     public float lockOnFOV = 160f;
     public float lockOnDistance = 20f;
-    public LayerMask enemyLayer;
+    
     private bool _isLockOn;
     private Transform _lockOnTarget;
     private float currentRotationX;
@@ -55,17 +59,21 @@ public class ThirdPersonCamera : MonoBehaviour
                               target.right * offset.x +
                               Vector3.up * offset.y +
                               -transform.forward * Mathf.Abs(offset.z);
-
-        // 碰撞檢測與相機位置更新
         var finalPosition = CheckCameraCollision(desiredPosition);
+        
         transform.position = Vector3.SmoothDamp(transform.position, finalPosition, ref currentVelocity, smoothTime);
+        var dis = Vector3.Distance(transform.position, finalPosition);
+        
+        if (Vector3.Distance(transform.position, finalPosition) < autoLockDistance)
+            transform.position = finalPosition;
+        // transform.position = Vector3.MoveTowards(transform.position, finalPosition, Time.deltaTime * rotationSpeed);
 
 
         if (_lockOnTarget)
         {
             var lockOnPosition = _lockOnTarget.position + Vector3.up * offset.y;
             // transform.LookAt(lockOnPosition);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lockOnPosition - transform.position), rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation((lockOnPosition - transform.position).normalized), lockOnRotationSpeed * Time.deltaTime);
         }
         else
         {
@@ -84,23 +92,25 @@ public class ThirdPersonCamera : MonoBehaviour
     private void HandleCameraRotation()
     {
         // 水平旋轉
-        currentRotationY += lookDelta.x * rotationSpeed * Time.deltaTime;
-
+        currentRotationY += Mathf.Clamp(lookDelta.x * rotationSpeed, -90f, 90f);
+        // currentRotationY = Mathf.Clamp(currentRotationX, -90f, 90f);
+        
         // 垂直旋轉（加入限制）
-        currentRotationX -= lookDelta.y * rotationSpeed * Time.deltaTime;
+        currentRotationX -= lookDelta.y * rotationSpeed;
+        
         currentRotationX = Mathf.Clamp(currentRotationX, -40f, 40f);
-
+        
         // 應用旋轉
         var targetRotation = Quaternion.Euler(currentRotationX, currentRotationY, 0f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
     }
 
     private Vector3 CheckCameraCollision(Vector3 desiredPosition)
     {
-        RaycastHit hit;
-        if (Physics.Linecast(target.position, desiredPosition, out hit, collisionLayers))
-            // 如果檢測到碰撞，將鏡頭移近目標
-            return hit.point + transform.forward * minDistance;
+        // RaycastHit hit;
+        // if (Physics.Linecast(target.position, desiredPosition, out hit, collisionLayers))
+        //     // 如果檢測到碰撞，將鏡頭移近目標
+        //     return hit.point + transform.forward * minDistance;
         return desiredPosition;
     }
 
