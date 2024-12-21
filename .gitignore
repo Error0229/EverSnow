@@ -71,6 +71,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/[Aa]ssets/Dev-Assets/*
+!/[Aa]ssets/Dev-Assets/.gitkeep
+
 # editors
 .idea/
 .vscode/
