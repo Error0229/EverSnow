@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
 using MongoDB.Driver;
 using UnityEngine;
 public class MongoManager : Singleton<MongoManager>
 {
-    private IQueryable<Plot> Plots { get; set; }
+    private IMongoCollection<Plot> Plots { get; set; }
     protected override void Init()
     {
         var connectionUri = DotEnv.Instance.Get("MONGO_URI");
@@ -18,12 +17,21 @@ public class MongoManager : Singleton<MongoManager>
         var client = new MongoClient(settings);
         try
         {
-            Plots = client.GetDatabase("EverSnow").GetCollection<Plot>("Plot").AsQueryable();
-            Debug.Log(Plots.FirstOrDefault());
+            Plots = client.GetDatabase("EverSnow").GetCollection<Plot>("Plot");
+            Debug.Log("Connected to MongoDB");
         }
         catch (Exception ex)
         {
             Debug.Log(ex);
         }
+    }
+    public Plot GetPlotByStates(string playerState, string npcState)
+    {
+        return Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState).FirstOrDefault();
+    }
+
+    public Plot GetPlotByLabel(string label)
+    {
+        return Plots.Find(plot => plot.Label == label).FirstOrDefault();
     }
 }
