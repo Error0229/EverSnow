@@ -114,7 +114,6 @@ public class BetterPlayerController : MonoBehaviour
                 newVelocity = lastVelocity;
                 if (triggerEnter)
                 {
-
                     anim.CrossFadeInFixedTime(attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack", 0.1f);
                     triggerEnter = false;
                 }

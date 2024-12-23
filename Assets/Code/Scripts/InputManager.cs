@@ -29,7 +29,7 @@ public abstract class InputManager : Singleton<InputManager>
         CalculateDialogClick();
     }
     private void FixedUpdate()
-    {}
+    { }
 
     protected abstract void CalculateInteract();
     protected abstract void CalculateMove();

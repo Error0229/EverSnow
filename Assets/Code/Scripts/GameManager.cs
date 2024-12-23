@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Player player;
 
-    private IList<Npc> npcs;
+    private readonly IList<Npc> npcs = new List<Npc>();
 
     public Player PlayerInstance
     {
@@ -17,6 +17,12 @@ public class GameManager : Singleton<GameManager>
     {
         return npcs.FirstOrDefault(npc => npc.RealName == npcName);
     }
+
+    public void RegisterNpc(Npc npc)
+    {
+        npcs.Add(npc);
+    }
+
     public void UpdateStoryState(IList<PlotDialogEndState> states)
     {
         player.StoryState = states.First(s => s.Name == player.RealName).State;

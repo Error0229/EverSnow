@@ -90,7 +90,7 @@ public class PlayerInputManager : InputManager
     }
 
     protected override void PostProcessDpadAxis()
-    {}
+    { }
 
     protected override void CalculateLook()
     {
