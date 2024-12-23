@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 public class Story : MonoBehaviour
 {
-    public string State { get; set; }
+    [SerializeField]
+    private string state;
+    public string State { get => state; set => state = value; }
 }

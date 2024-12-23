@@ -147,8 +147,8 @@ public class ThirdPersonCamera : MonoBehaviour
     public Npc CheckLookAtNpc()
     {
         var lookAtCollider = new Collider[5];
-        _ = Physics.OverlapSphereNonAlloc(transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("NPC"));
-        foreach (var cldr in lookAtCollider)
+        var count = Physics.OverlapSphereNonAlloc(transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("NPC"));
+        foreach (var cldr in lookAtCollider.Take(count))
         {
             var directionToNpc = (cldr.transform.position - transform.position).normalized;
             var angle = Vector3.Angle(transform.forward, directionToNpc);

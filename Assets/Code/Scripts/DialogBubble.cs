@@ -14,11 +14,12 @@ public class DialogBubble : MonoBehaviour
     [SerializeField]
     private Image backgroundImage;
     [SerializeField]
-    private TextMeshPro uiText;
+    private TextMeshProUGUI uiText;
     [SerializeField]
     private GameObject optionPrefab;
 
-    private readonly IList<Sprite> dialogBubbleSprites = new List<Sprite>();
+    [SerializeField]
+    private List<Sprite> dialogBubbleSprites = new List<Sprite>();
 
     public string Speaker { get; set; }
     public string Text { get; set; }
