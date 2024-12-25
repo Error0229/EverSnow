@@ -87,7 +87,7 @@ public class PlotDialog
 
     public bool IsEndDialog
     {
-        get => EndDialog != null;
+        get => EndDialog != null && EndDialog.NextState.Any();
     }
     public bool IsOption
     {

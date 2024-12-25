@@ -25,7 +25,9 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateStoryState(IList<PlotDialogEndState> states)
     {
-        player.StoryState = states.First(s => s.Name == player.RealName).State;
+        var nextPlayerState = states.FirstOrDefault(s => s.Name == player.RealName);
+        if (nextPlayerState != null)
+            player.StoryState = nextPlayerState.State;
         foreach (var npc in npcs)
         {
             var newState = states.FirstOrDefault(s => s.Name == npc.RealName);

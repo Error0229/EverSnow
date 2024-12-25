@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     {
         PlayerInputManager.Instance.evtInteract.AddListener(Interact);
         StoryManager.Instance.evtEnterDialog.AddListener(EnterDialog);
+        StoryManager.Instance.evtLeaveDialog.AddListener(LeaveDialog);
     }
 
     public void Update()
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
                 if (triggerEnter)
                 {
                     triggerEnter = false;
+                    playerEntity.EnterDialog();
                     playerEntity.enabled = false;
                 }
                 break;
@@ -63,6 +65,10 @@ public class Player : MonoBehaviour
     private void EnterDialog()
     {
         GoToState(State.InDialog);
+    }
+    private void LeaveDialog()
+    {
+        GoToState(State.InGame);
     }
 
     private void GoToState(State newState)

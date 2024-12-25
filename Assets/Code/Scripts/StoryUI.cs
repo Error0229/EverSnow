@@ -5,37 +5,48 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 public class StoryUI : Singleton<StoryUI>
 {
-
-    // define a const dict for position and index mapping
+    // Define a const dict for position and index mapping
     private static readonly Dictionary<string, int> PositionIndexMapping = new Dictionary<string, int>
     {
         ["Left"] = 0, ["Right"] = 1, ["Center"] = 2, ["Top"] = 3
     };
-    [SerializeField] private GameObject plotPanel;
-    [SerializeField] private GameObject dialogPanel;
+
+    [Header("UI Elements"), SerializeField]
+    private GameObject plotPanel;
+    [SerializeField] private GameObject dialogContent;
     [SerializeField] private GameObject dialogBubblePrefab;
+    [SerializeField] private List<Image> characterImages = new List<Image>();
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private ScrollRect scrollRect;
+
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
-    [SerializeField]
-    private List<Image> characterImages = new List<Image>();
+
+    private DialogBubble currentBubble;
     private IList<PlotDialog> dialogs = new List<PlotDialog>();
     private List<UIImageFader> faders = new List<UIImageFader>();
+
     private void Start()
     {
         faders = GetComponentsInChildren<UIImageFader>().ToList();
     }
+
     public void ShowCharacter(PlotDialogCharacter character)
     {
         var index = PositionIndexMapping[character.Position ?? "Left"];
         var characterImage = characterImages[index];
         var spritePath = character.Name + character.Image;
         var sprite = Resources.Load<Sprite>(spritePath);
+
+        if (!sprite)
+        {
+            sprite = defaultSprite;
+        }
+
         characterImage.enabled = true;
         characterImage.sprite = sprite;
         characterImage.preserveAspect = true;
         faders.ForEach(f => f.TriggerFade(true, true));
     }
-
-
 
     public void ShowDialog(PlotDialog dialogData, bool visibility = true)
     {
@@ -43,18 +54,24 @@ public class StoryUI : Singleton<StoryUI>
         {
             ShowCharacter(character);
         }
-        dialogPanel.SetActive(visibility);
-        var dialog = Instantiate(dialogBubblePrefab, dialogPanel.transform, true);
-        dialog.GetComponent<DialogBubble>().SetUp(dialogData);
+
+        dialogContent.SetActive(visibility);
+        var dialog = Instantiate(dialogBubblePrefab, dialogContent.transform);
+        currentBubble = dialog.GetComponent<DialogBubble>();
+        currentBubble.SetUp(dialogData);
+
     }
+
+
     public void StartPlot(Plot plotData)
     {
         plotPanel.SetActive(true);
     }
+
     public void EndPlot()
     {
         plotPanel.SetActive(false);
-        foreach (Transform dialogBubble in dialogPanel.transform)
+        foreach (Transform dialogBubble in dialogContent.transform)
         {
             foreach (Transform option in dialogBubble.transform)
             {
@@ -66,6 +83,7 @@ public class StoryUI : Singleton<StoryUI>
 
     public void OnOptionClick(string option)
     {
+        currentBubble.OptionApply(option);
         evtOptionClick.Invoke(option);
     }
 }

@@ -8,11 +8,21 @@ public class StoryManager : Singleton<StoryManager>
     private string selectedOption;
     private State state;
     private bool triggerEnter;
+
+    public bool IsTyping { get; set; }
+    public bool IsInPlot
+    {
+        get => state != State.Idle;
+    }
     private void Update()
     {
         switch (state)
         {
             case State.Idle:
+                if (triggerEnter)
+                {
+                    triggerEnter = false;
+                }
                 break;
             case State.Ongoing:
                 if (triggerEnter)
@@ -20,6 +30,7 @@ public class StoryManager : Singleton<StoryManager>
                     triggerEnter = false;
                     StoryUI.Instance.StartPlot(currentPlot);
                     currentPlot.StartDialog();
+                    StoryUI.Instance.ShowDialog(currentPlot.CurrentDialog);
                     evtEnterDialog?.Invoke();
                 }
                 break;
@@ -65,6 +76,8 @@ public class StoryManager : Singleton<StoryManager>
 
     private void OnDialogClicked()
     {
+        if (state != State.Ongoing) return;
+        if (IsTyping) return;
         if (currentPlot.CurrentDialog.IsEndDialog)
         {
             GameManager.Instance.UpdateStoryState(currentPlot.CurrentDialog.EndDialog.NextState);

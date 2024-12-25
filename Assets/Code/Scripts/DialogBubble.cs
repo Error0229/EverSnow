@@ -16,6 +16,8 @@ public class DialogBubble : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI uiText;
     [SerializeField]
+    private TextMeshProUGUI nameText;
+    [SerializeField]
     private GameObject optionPrefab;
 
     [SerializeField]
@@ -26,20 +28,26 @@ public class DialogBubble : MonoBehaviour
 
     public void SetUp(PlotDialog dialogData)
     {
-        Speaker = dialogData.Speaker;
         Text = dialogData.Text;
         uiText.text = dialogData.Text;
+        nameText.text = dialogData.Speaker;
         if (dialogData.Options.Any())
         {
+            optionPanel.SetActive(true);
+            Speaker = dialogData.Speaker ?? GameManager.Instance.PlayerInstance.RealName;
             backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping["Option"]];
             foreach (var opt in dialogData.Options)
             {
-                var option = Instantiate(optionPrefab, optionPanel.transform, true);
+                var option = Instantiate(optionPrefab, optionPanel.transform);
                 var oph = option.GetComponent<OptionHandler>();
                 oph.Init(opt);
             }
         }
-        backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping[dialogData.DialogImage ?? "Common"]];
+        else
+        {
+            Speaker = dialogData.Speaker;
+            backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping[dialogData.DialogImage ?? "Common"]];
+        }
         // where should I add this?
         var typewriter = GetComponentInChildren<TypewriterEffect>();
         if (typewriter)
@@ -47,5 +55,12 @@ public class DialogBubble : MonoBehaviour
             typewriter.enabled = true;
             typewriter.StartTyping(dialogData.Text);
         }
+    }
+
+    public void OptionApply(string reply)
+    {
+        optionPanel.SetActive(false);
+        backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping["Common"]];
+        uiText.text = reply;
     }
 }

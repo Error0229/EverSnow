@@ -8,10 +8,10 @@ public class ThirdPersonCamera : MonoBehaviour
 
     public Vector3 offset = new Vector3(0, 2, -5);
 
-    [Header("Camera Movement")] public float smoothTime = 0.3f;
+    [Header("Camera Movement")] public float smoothTime = 0.2f;
 
-    public float rotationSpeed = 5f;
-    public float lockOnRotationSpeed = 5f;
+    public float rotationSpeed = 0.4f;
+    public float lockOnRotationSpeed = 120f;
     public float autoLockDistance = 5f;
 
     [Header("Camera Collision")] public float minDistance = 1f;
@@ -42,6 +42,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (StoryManager.Instance.IsInPlot) return;
         if (_lockOnTarget && Vector3.Distance(_lockOnTarget.position, target.position) > lockOnDistance)
         {
             _lockOnTarget = null;
@@ -152,16 +153,15 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             var directionToNpc = (cldr.transform.position - transform.position).normalized;
             var angle = Vector3.Angle(transform.forward, directionToNpc);
+            // print($"angle: {angle}, lockOnFOV: {lockOnFOV}, directionToNpc: {directionToNpc}");
             if (angle <= lockOnFOV)
             {
                 // Optionally, perform a raycast to ensure there's no obstruction
-                if (Physics.Raycast(transform.position, directionToNpc, out var hit, lockOnDistance))
-                {
-                    if (hit.collider == cldr)
-                    {
-                        return cldr.gameObject.GetComponent<Npc>();
-                    }
-                }
+                // if (Physics.Raycast(transform.position, directionToNpc, out var hit, lockOnDistance))
+                // {
+                //     if (hit.collider.gameObject.layer != LayerMask.NameToLayer("NPC")) continue; // Skip if not an NPC()
+                return cldr.gameObject.GetComponent<Npc>();
+                // }
             }
         }
         return null;

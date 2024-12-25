@@ -52,6 +52,7 @@ public class BetterPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         var newVelocity = 0.0f;
         switch (state)
         {
@@ -213,6 +214,12 @@ public class BetterPlayerController : MonoBehaviour
     {
         state = newState;
         triggerEnter = true;
+    }
+
+    public void EnterDialog()
+    {
+        state = STATE.IDLE;
+        anim.CrossFadeInFixedTime("idle", 0.1f);
     }
 
     private void Move(Vector2 vac)

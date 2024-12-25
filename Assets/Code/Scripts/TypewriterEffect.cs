@@ -42,6 +42,11 @@ public class TypewriterEffect : MonoBehaviour
                 break;
 
             case STATE.TYPING:
+                if (triggerEnter)
+                {
+                    triggerEnter = false;
+                    StoryManager.Instance.IsTyping = true;
+                }
                 elapsedTime += Time.deltaTime;
                 if (elapsedTime >= currentStrategy.GetTypeSpeed())
                 {
@@ -65,6 +70,7 @@ public class TypewriterEffect : MonoBehaviour
                 {
                     textComponent.text = currentStrategy.ProcessText(fullText, fullText.Length - 1, 0);
                     triggerEnter = false;
+                    StoryManager.Instance.IsTyping = false;
                     onTypeComplete?.Invoke();
                 }
 
@@ -74,7 +80,11 @@ public class TypewriterEffect : MonoBehaviour
 
     private void OnDialogClicked(bool pressed)
     {
-        if (enabled && pressed && state == STATE.TYPING) CompleteTyping();
+        if (enabled && pressed && state == STATE.TYPING)
+        {
+            print("got terminated");
+            CompleteTyping();
+        }
     }
 
     public void SetStrategy(ITypewriterStrategy strategy)
@@ -89,7 +99,7 @@ public class TypewriterEffect : MonoBehaviour
         currentCharIndex = 0;
         elapsedTime = 0;
         onTypeComplete = onComplete;
-        GoToState(STATE.TYPING);
+        GoToState(text.Length == 0 ? STATE.PAUSED : STATE.TYPING);
     }
 
     public void CompleteTyping()
