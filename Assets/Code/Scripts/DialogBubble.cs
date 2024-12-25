@@ -5,14 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DialogBubble : MonoBehaviour
 {
+
     private static readonly Dictionary<string, int> DialogIndexMapping = new Dictionary<string, int>
     {
-        ["Common"] = 0, ["Thinking"] = 1, ["Surprised"] = 2, ["Option"] = 3
+        ["Common"] = 0,
+        ["Thinking"] = 1,
+        ["Surprised"] = 2,
+        ["Option"] = 3
     };
     [SerializeField]
     private GameObject optionPanel;
     [SerializeField]
     private Image backgroundImage;
+
+    public RectTransform BackgroundRect => backgroundImage.rectTransform;
+
     [SerializeField]
     private TextMeshProUGUI uiText;
     [SerializeField]
@@ -23,20 +30,65 @@ public class DialogBubble : MonoBehaviour
     [SerializeField]
     private List<Sprite> dialogBubbleSprites = new List<Sprite>();
 
+    [SerializeField]
+    private Animator animator;
+
     public string Speaker { get; set; }
     public string Text { get; set; }
 
-    public void SetUp(PlotDialog dialogData)
+    private PlotDialog pendingDialogData;
+    private bool isAnimating = false;
+    private bool setupComplete = false;
+    private int currentAnimationHash;
+
+    public bool IsAnimating => isAnimating;
+
+    public void SetUp(PlotDialog dialogData, string direction)
     {
-        Text = dialogData.Text;
-        uiText.text = dialogData.Text;
-        nameText.text = dialogData.Speaker;
+        setupComplete = false;
+        isAnimating = true;
+        pendingDialogData = dialogData;
+
+        // Set animation hash
+        currentAnimationHash = Animator.StringToHash(direction == "Left" ? "BubblePopLeft" : "BubblePopRight");
+        animator.Play(currentAnimationHash);
+
+        // Only set up the background image and position first
         if (dialogData.Options.Any())
         {
-            optionPanel.SetActive(true);
-            Speaker = dialogData.Speaker ?? GameManager.Instance.PlayerInstance.RealName;
             backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping["Option"]];
-            foreach (var opt in dialogData.Options)
+        }
+        else
+        {
+            backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping[dialogData.DialogImage ?? "Common"]];
+        }
+    }
+
+    private void Update()
+    {
+        if (isAnimating && !setupComplete)
+        {
+            var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.shortNameHash == currentAnimationHash && stateInfo.normalizedTime >= 1.0f)
+            {
+                isAnimating = false;
+                setupComplete = true;
+                CompleteSetup();
+            }
+        }
+    }
+
+    private void CompleteSetup()
+    {
+        Text = pendingDialogData.Text;
+        uiText.text = pendingDialogData.Text;
+        nameText.text = pendingDialogData.Speaker;
+
+        if (pendingDialogData.Options.Any())
+        {
+            optionPanel.SetActive(true);
+            Speaker = pendingDialogData.Speaker ?? GameManager.Instance.PlayerInstance.RealName;
+            foreach (var opt in pendingDialogData.Options)
             {
                 var option = Instantiate(optionPrefab, optionPanel.transform);
                 var oph = option.GetComponent<OptionHandler>();
@@ -45,15 +97,14 @@ public class DialogBubble : MonoBehaviour
         }
         else
         {
-            Speaker = dialogData.Speaker;
-            backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping[dialogData.DialogImage ?? "Common"]];
+            Speaker = pendingDialogData.Speaker;
         }
-        // where should I add this?
+
         var typewriter = GetComponentInChildren<TypewriterEffect>();
         if (typewriter)
         {
             typewriter.enabled = true;
-            typewriter.StartTyping(dialogData.Text);
+            typewriter.StartTyping(pendingDialogData.Text);
         }
     }
 

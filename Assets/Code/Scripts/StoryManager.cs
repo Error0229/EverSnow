@@ -78,6 +78,7 @@ public class StoryManager : Singleton<StoryManager>
     {
         if (state != State.Ongoing) return;
         if (IsTyping) return;
+        if (StoryUI.Instance.IsAnimating) return;  // Add this line
         if (currentPlot.CurrentDialog.IsEndDialog)
         {
             GameManager.Instance.UpdateStoryState(currentPlot.CurrentDialog.EndDialog.NextState);
