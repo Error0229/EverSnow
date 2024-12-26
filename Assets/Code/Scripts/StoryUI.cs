@@ -9,7 +9,10 @@ public class StoryUI : Singleton<StoryUI>
     // Define a const dict for position and index mapping
     private static readonly Dictionary<string, int> PositionIndexMapping = new Dictionary<string, int>
     {
-        ["Left"] = 0, ["Right"] = 1, ["Center"] = 2, ["Top"] = 3
+        ["Left"] = 0,
+        ["Right"] = 1,
+        ["Center"] = 2,
+        ["Top"] = 3
     };
 
     [Header("UI Elements"), SerializeField]
@@ -21,7 +24,7 @@ public class StoryUI : Singleton<StoryUI>
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private float bubbleMoveDuration = 0.5f;
     [SerializeField] private float bubbleStretchDuration = 0.3f;
-    [SerializeField] private float bubbleSpacing = 100f;
+    [SerializeField] private VerticalLayoutGroup layoutGroup;
 
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
     private readonly Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
@@ -94,7 +97,7 @@ public class StoryUI : Singleton<StoryUI>
     {
         float elapsed = 0;
         var startPos = rectTransform.anchoredPosition;
-        var targetPos = startPos + new Vector2(0, bubbleSpacing);
+        var targetPos = startPos + new Vector2(0, layoutGroup.spacing);
 
         while (elapsed < bubbleMoveDuration)
         {
