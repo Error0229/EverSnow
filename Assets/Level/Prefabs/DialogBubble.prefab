@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8902841924390510151}
-  - component: {fileID: 1049855518054189871}
+  - component: {fileID: 3587440390195196552}
   m_Layer: 5
   m_Name: OptionPanel
   m_TagString: Untagged
@@ -33,10 +33,10 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: -116}
-  m_SizeDelta: {x: 568.775, y: 97.594}
+  m_AnchoredPosition: {x: -5.945, y: -3.133}
+  m_SizeDelta: {x: 657.502, y: 122.47}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1049855518054189871
+--- !u!114 &3587440390195196552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 645024961954820799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 32.59
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6211\u4E0D\u662F\u96EA\u4EBA\u6211\u4E0D\u662F\u96EA\u4EBA\u6211\u4E0D\u662F\u96EA\u4EBA\u6211\u4E0D\u662F\u96EA\u4EBA\u6211\u4E0D\u662F\u96EA\u4EBA\u6211\u4E0D\u662F\u96EA\u4EBA"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
   m_sharedMaterial: {fileID: -272072232891919080, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
@@ -269,12 +269,12 @@ MonoBehaviour:
   backgroundImage: {fileID: 1060895209759378334}
   uiText: {fileID: 8260510841342728827}
   nameText: {fileID: 7255558315785779338}
-  optionPrefab: {fileID: 3719581829855242927, guid: 5b886b044af67f24f874767000e29664, type: 3}
+  optionPrefab: {fileID: 3719581829855242927, guid: a014100c49e8b564e958b86ba382b88f, type: 3}
   dialogBubbleSprites:
-  - {fileID: 21300000, guid: fe5f7047663a8a84399c11cb27ecdcd9, type: 3}
-  - {fileID: 21300000, guid: fe5f7047663a8a84399c11cb27ecdcd9, type: 3}
-  - {fileID: 21300000, guid: fe5f7047663a8a84399c11cb27ecdcd9, type: 3}
-  - {fileID: 21300000, guid: fe5f7047663a8a84399c11cb27ecdcd9, type: 3}
+  - {fileID: 21300000, guid: 1627a6867758c23419f6019d279ccaa0, type: 3}
+  - {fileID: 21300000, guid: 1627a6867758c23419f6019d279ccaa0, type: 3}
+  - {fileID: 21300000, guid: 1627a6867758c23419f6019d279ccaa0, type: 3}
+  - {fileID: 21300000, guid: 1627a6867758c23419f6019d279ccaa0, type: 3}
   animator: {fileID: 8455191906341607745}
 --- !u!222 &3430446412665287294
 CanvasRenderer:
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe5f7047663a8a84399c11cb27ecdcd9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1627a6867758c23419f6019d279ccaa0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u96EA\u4EBA"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
   m_sharedMaterial: {fileID: -272072232891919080, guid: c96721f4141d6254cbd4ae403402965c, type: 2}

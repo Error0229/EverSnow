@@ -8,17 +8,12 @@ public class DialogBubble : MonoBehaviour
 
     private static readonly Dictionary<string, int> DialogIndexMapping = new Dictionary<string, int>
     {
-        ["Common"] = 0,
-        ["Thinking"] = 1,
-        ["Surprised"] = 2,
-        ["Option"] = 3
+        ["Common"] = 0, ["Thinking"] = 1, ["Surprised"] = 2, ["Option"] = 3
     };
     [SerializeField]
     private GameObject optionPanel;
     [SerializeField]
     private Image backgroundImage;
-
-    public RectTransform BackgroundRect => backgroundImage.rectTransform;
 
     [SerializeField]
     private TextMeshProUGUI uiText;
@@ -32,21 +27,39 @@ public class DialogBubble : MonoBehaviour
 
     [SerializeField]
     private Animator animator;
+    private int currentAnimationHash;
+
+    private PlotDialog pendingDialogData;
+    private bool setupComplete;
+
+    public RectTransform BackgroundRect
+    {
+        get => backgroundImage.rectTransform;
+    }
 
     public string Speaker { get; set; }
     public string Text { get; set; }
 
-    private PlotDialog pendingDialogData;
-    private bool isAnimating = false;
-    private bool setupComplete = false;
-    private int currentAnimationHash;
+    public bool IsAnimating { get; private set; }
 
-    public bool IsAnimating => isAnimating;
+    private void Update()
+    {
+        if (IsAnimating && !setupComplete)
+        {
+            var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.shortNameHash == currentAnimationHash && stateInfo.normalizedTime >= 1.0f)
+            {
+                IsAnimating = false;
+                setupComplete = true;
+                CompleteSetup();
+            }
+        }
+    }
 
     public void SetUp(PlotDialog dialogData, string direction)
     {
         setupComplete = false;
-        isAnimating = true;
+        IsAnimating = true;
         pendingDialogData = dialogData;
 
         // Set animation hash
@@ -56,7 +69,8 @@ public class DialogBubble : MonoBehaviour
         // Only set up the background image and position first
         if (dialogData.Options.Any())
         {
-            backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping["Option"]];
+            // backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping["Option"]];
+            backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping[dialogData.DialogImage ?? "Option"]];
         }
         else
         {
@@ -64,25 +78,8 @@ public class DialogBubble : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (isAnimating && !setupComplete)
-        {
-            var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.shortNameHash == currentAnimationHash && stateInfo.normalizedTime >= 1.0f)
-            {
-                isAnimating = false;
-                setupComplete = true;
-                CompleteSetup();
-            }
-        }
-    }
-
     private void CompleteSetup()
     {
-        Text = pendingDialogData.Text;
-        uiText.text = pendingDialogData.Text;
-        nameText.text = pendingDialogData.Speaker;
 
         if (pendingDialogData.Options.Any())
         {
@@ -97,6 +94,9 @@ public class DialogBubble : MonoBehaviour
         }
         else
         {
+            Text = pendingDialogData.Text;
+            uiText.text = pendingDialogData.Text;
+            nameText.text = pendingDialogData.Speaker;
             Speaker = pendingDialogData.Speaker;
         }
 
@@ -113,5 +113,6 @@ public class DialogBubble : MonoBehaviour
         optionPanel.SetActive(false);
         backgroundImage.sprite = dialogBubbleSprites[DialogIndexMapping["Common"]];
         uiText.text = reply;
+        nameText.text = pendingDialogData.Speaker;
     }
 }
