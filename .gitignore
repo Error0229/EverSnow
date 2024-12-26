@@ -78,3 +78,8 @@ crashlytics-build.properties
 .idea/
 .vscode/
 .config/
+.env
+/[Aa]ssets/Dev-Assets/*
+!/[Aa]ssets/Dev-Assets/.gitkeep
+
+.env
