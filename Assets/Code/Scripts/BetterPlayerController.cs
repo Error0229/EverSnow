@@ -270,6 +270,11 @@ public class BetterPlayerController : MonoBehaviour
     {
         return camSoul.CheckLookAtNpc();
     }
+
+    public Item CheckLookAtItem()
+    {
+        return camSoul.CheckLookAtItem();
+    }
     private enum Attacks
     {
         Heavy,
