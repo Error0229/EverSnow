@@ -92,6 +92,12 @@ public class PlayerInputManager : InputManager
     protected override void PostProcessDpadAxis()
     { }
 
+    protected override void CalculateInventory()
+    {
+        if (previous.WasPressedThisFrame())
+            evtInventory?.Invoke();
+    }
+
     protected override void CalculateLook()
     {
         var lookValue = look.ReadValue<Vector2>();

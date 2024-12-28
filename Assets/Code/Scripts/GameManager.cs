@@ -37,4 +37,9 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+    protected override void Init()
+    {
+        base.Init();
+
+    }
 }

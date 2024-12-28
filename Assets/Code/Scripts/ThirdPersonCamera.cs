@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -162,6 +163,22 @@ public class ThirdPersonCamera : MonoBehaviour
                 //     if (hit.collider.gameObject.layer != LayerMask.NameToLayer("NPC")) continue; // Skip if not an NPC()
                 return cldr.gameObject.GetComponent<Npc>();
                 // }
+            }
+        }
+        return null;
+    }
+
+    public Item CheckLookAtItem()
+    {
+        var lookAtCollider = new Collider[5];
+        var count = Physics.OverlapSphereNonAlloc(transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("Item"));
+        foreach (var cldr in lookAtCollider.Take(count))
+        {
+            var directionToItem = (cldr.transform.position - transform.position).normalized;
+            var angle = Vector3.Angle(transform.forward, directionToItem);
+            if (angle <= lockOnFOV)
+            {
+                return cldr.gameObject.GetComponent<Item>();
             }
         }
         return null;
