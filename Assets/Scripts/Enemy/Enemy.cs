@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using Wrapper;
 
 namespace Enemy
 {
     public class Enemy : MonoBehaviour
     {
         private List<EnemyHate> enemyHateList = new();
+        NavMeshAgentWrapper navMeshAgentWrapper;
+        // private NavMeshAgent navMeshAgent;
 
         private void Start()
         {
+            var navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgentWrapper = new NavMeshAgentWrapper(navMeshAgent);
+            
             EnemyHate[] enemyHate = GameObject.FindObjectsByType<EnemyHate>(FindObjectsSortMode.None);
             enemyHateList = new List<EnemyHate>(enemyHate);
         }
@@ -18,24 +25,31 @@ namespace Enemy
         {
             if (enemyHateList.Count != 0)
             {
-                var closestEnemy = enemyHateList[0];
-                foreach (EnemyHate enemyHate in enemyHateList)
-                {
-                    if (Vector3.Distance(transform.position, enemyHate.transform.position) <
-                        Vector3.Distance(transform.position, closestEnemy.transform.position))
-                    {
-                        closestEnemy = enemyHate;
-                    }
-                }
-
+                var closestEnemy = GetClosestEnemy();
                 var range = 10f;
                 var speed = 10f;
                 if (Vector3.Distance(transform.position, closestEnemy.transform.position) < range)
                 {
-                    transform.LookAt(closestEnemy.transform);
-                    transform.position += transform.forward * (Time.deltaTime * speed);
+                    // transform.LookAt(closestEnemy.transform);
+                    // transform.position += transform.forward * (Time.deltaTime * speed);
+                    navMeshAgentWrapper.SetDestination(closestEnemy.transform.position);
                 }
             }
+        }
+
+        private EnemyHate GetClosestEnemy()
+        {
+            var closestEnemy = enemyHateList[0];
+            foreach (EnemyHate enemyHate in enemyHateList)
+            {
+                if (Vector3.Distance(transform.position, enemyHate.transform.position) <
+                    Vector3.Distance(transform.position, closestEnemy.transform.position))
+                {
+                    closestEnemy = enemyHate;
+                }
+            }
+
+            return closestEnemy;
         }
     }
 }
