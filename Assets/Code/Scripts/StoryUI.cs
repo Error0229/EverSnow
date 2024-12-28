@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 public class StoryUI : Singleton<StoryUI>
 {
     // Define a const dict for position and index mapping
@@ -26,6 +27,7 @@ public class StoryUI : Singleton<StoryUI>
     [SerializeField] private float bubbleMoveDuration = 0.5f;
     [SerializeField] private float bubbleStretchDuration = 0.3f;
     [SerializeField] private VerticalLayoutGroup layoutGroup;
+    [SerializeField] private TextMeshProUGUI debugText;
 
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
     private readonly Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
@@ -42,6 +44,15 @@ public class StoryUI : Singleton<StoryUI>
     private void Start()
     {
         faders = GetComponentsInChildren<UIImageFader>().ToList();
+    }
+    private void Update()
+    {
+        var text = $"PlayerState: {GameManager.Instance.PlayerInstance.StoryState}\n";
+        foreach (var npc in GameManager.Instance.GetNpcs())
+        {
+            text += $"{npc.RealName}: {npc.StoryState}\n";
+        }
+        debugText.text = text;
     }
 
     public void ShowCharacter(PlotDialogCharacter character)
