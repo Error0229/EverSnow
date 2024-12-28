@@ -59,8 +59,9 @@ public class Player : MonoBehaviour
 
     }
 
-    public void AddItem(Item item)
+    public void PickUpItem(Item item)
     {
+        item.Entity.SetActive(false);
         inventory.Add(item);
     }
 
@@ -81,7 +82,7 @@ public class Player : MonoBehaviour
         var item = playerEntity.CheckLookAtItem();
         if (item != null)
         {
-            AddItem(item);
+            PickUpItem(item);
         }
     }
 
@@ -110,6 +111,10 @@ public class Player : MonoBehaviour
         return count;
     }
 
+    public List<Item> GetInventory()
+    {
+        return inventory;
+    }
 
     public void Equip(Weapon weapon)
     {
