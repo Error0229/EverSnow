@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -47,8 +48,15 @@ public class StoryUI : Singleton<StoryUI>
     {
         var index = PositionIndexMapping[character.Position ?? "Left"];
         var characterImage = characterImages[index];
-        var spritePath = character.Name + character.Image;
-        var sprite = Resources.Load<Sprite>(spritePath);
+        var spritePath = new[] { "Assets", "Art", "Textures", "Character", character.Name, character.Image }.Aggregate((a, b) => $"{a}/{b}") + ".png";
+        Debug.Log($"Loading sprite from path: {spritePath}");
+        byte[] fileData = File.ReadAllBytes(spritePath);
+        Texture2D tex = new Texture2D(2, 2);
+        Sprite sprite = null;
+        if (tex.LoadImage(fileData))
+        {
+            sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        }
 
         if (!sprite)
         {
