@@ -63,6 +63,7 @@ public class BetterPlayerController : MonoBehaviour
             case STATE.IDLE:
                 if (triggerEnter)
                 {
+                    ResetHorizontalVelocity();
                     anim.CrossFadeInFixedTime("idle", 0.1f);
                     triggerEnter = false;
                 }
@@ -120,13 +121,16 @@ public class BetterPlayerController : MonoBehaviour
                 if (triggerEnter)
                 {
                     anim.CrossFadeInFixedTime(attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack", 0.1f);
+                    ResetHorizontalVelocity();
                     triggerEnter = false;
                 }
 
                 if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
                 {
                     if (movingVec.magnitude <= 0.1f)
+                    {
                         GoToState(STATE.IDLE);
+                    }
                     else GoToState(STATE.LOCOMOTION);
                 }
 
@@ -144,7 +148,10 @@ public class BetterPlayerController : MonoBehaviour
                 if (StateInfo.normalizedTime > 0.9f && StateInfo.IsName("roll_forward"))
                 {
                     if (movingVec.magnitude <= 0.1f)
+                    {
                         GoToState(STATE.IDLE);
+                        ResetHorizontalVelocity();
+                    }
                     else GoToState(STATE.LOCOMOTION);
                 }
 
@@ -155,6 +162,49 @@ public class BetterPlayerController : MonoBehaviour
         newVelocity = Mathf.Lerp(lastVelocity, newVelocity, Time.deltaTime);
         MoveOn(movingVec, newVelocity);
         lastVelocity = newVelocity;
+    }
+
+    private bool CanChangeDirection()
+    {
+        return state == STATE.LOCOMOTION;
+    }
+
+    private void ApplyVerticalMovement(Vector3 currentVelocity)
+    {
+        rigid.linearVelocity = new Vector3(currentVelocity.x, rigid.linearVelocity.y, currentVelocity.z);
+    }
+
+    private void MoveOn(Vector2 movingInputs, float currentVelocity)
+    {
+        if (currentVelocity <= 0.01f) return;
+
+        var cameraForward = cam.transform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
+
+        var cameraRight = cam.transform.right;
+        cameraRight.y = 0;
+        cameraRight.Normalize();
+
+        // Calculate movement direction based on camera
+        var direction = cameraForward * movingInputs.y + cameraRight * movingInputs.x;
+
+        // Only rotate if we can change direction
+        if (direction != Vector3.zero && CanChangeDirection())
+        {
+            var targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // For states other than LOCOMOTION, use the current forward direction
+        if (!CanChangeDirection())
+        {
+            direction = transform.forward;
+        }
+
+        // Calculate and apply movement
+        var newVelocity = direction * currentVelocity;
+        ApplyVerticalMovement(newVelocity);
     }
 
     public void Equip(Weapon weapon)
@@ -198,15 +248,24 @@ public class BetterPlayerController : MonoBehaviour
         if (state == STATE.JUMP)
         {
             if (movingVec.magnitude <= 0.1f)
+            {
                 GoToState(STATE.IDLE);
+                ResetHorizontalVelocity();
+            }
             else GoToState(STATE.LOCOMOTION);
         }
         else if (state == STATE.FALL)
         {
             GoToState(STATE.ROLL);
         }
-        //anim.SetBool("isGround", true);
     }
+
+    private void ResetHorizontalVelocity()
+    {
+        lastVelocity = 0f;
+        rigid.linearVelocity = new Vector3(0f, rigid.linearVelocity.y, 0f);
+    }
+
     private void HeavyAttack(bool invoked)
     {
         if (!invoked || state == STATE.ATTACK) return;
@@ -221,32 +280,6 @@ public class BetterPlayerController : MonoBehaviour
     }
 
 
-    private void MoveOn(Vector2 movingInputs, float currentVelocity)
-    {
-        if (currentVelocity <= 0.01f) return;
-        var cameraForward = cam.transform.forward;
-        cameraForward.y = 0; // 移除垂直分量，保持水平運動
-        cameraForward.Normalize();
-
-        var cameraRight = cam.transform.right;
-        cameraRight.y = 0;
-        cameraRight.Normalize();
-
-        // 將輸入向量轉換為世界座標的方向向量
-        var direction = cameraForward * movingInputs.y + cameraRight * movingInputs.x;
-
-        // 計算目標旋轉
-        if (direction != Vector3.zero)
-        {
-            var targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
-
-        // 計算並應用運動速度
-        var newVelocity = direction * currentVelocity;
-        newVelocity.y = rigid.linearVelocity.y; // 保持垂直速度
-        rigid.linearVelocity = newVelocity;
-    }
 
     private void GoToState(STATE newState)
     {
