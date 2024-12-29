@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 public class ThirdPersonCamera : MonoBehaviour
 {
     [Header("Target Settings")] public Transform target;
@@ -24,6 +25,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public float lockOnDistance = 20f;
     public UnityEvent evtUnlock;
     public UnityEvent<GameObject> evtLock;
+    public float interactDistance = 5f;
 
     private bool _isLockOn;
     private Transform _lockOnTarget;
@@ -149,8 +151,8 @@ public class ThirdPersonCamera : MonoBehaviour
     public Npc CheckLookAtNpc()
     {
         var lookAtCollider = new Collider[5];
-        var pie = GameManager.Instance.PlayerInstance.Entity;
-        var count = Physics.OverlapSphereNonAlloc(pie.transform.position, lockOnDistance / 2, lookAtCollider, LayerMask.GetMask("NPC"));
+        var pie = GameManager.Instance.PlayerInstance.Entity.Soul;
+        var count = Physics.OverlapSphereNonAlloc(pie.transform.position, lockOnDistance / 3, lookAtCollider, LayerMask.GetMask("NPC"));
         foreach (var cldr in lookAtCollider.Take(count))
         {
             var directionToNpc = (cldr.transform.position - pie.transform.position).normalized;
@@ -162,7 +164,7 @@ public class ThirdPersonCamera : MonoBehaviour
                 // if (Physics.Raycast(transform.position, directionToNpc, out var hit, lockOnDistance))
                 // {
                 //     if (hit.collider.gameObject.layer != LayerMask.NameToLayer("NPC")) continue; // Skip if not an NPC()
-                return cldr.gameObject.GetComponent<Npc>();
+                return cldr.transform.parent.GetComponent<Npc>();
                 // }
             }
         }
@@ -172,12 +174,17 @@ public class ThirdPersonCamera : MonoBehaviour
     public Item CheckLookAtItem()
     {
         var lookAtCollider = new Collider[5];
-        var pie = GameManager.Instance.PlayerInstance.Entity;
-        var count = Physics.OverlapSphereNonAlloc(pie.transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("Item"));
-        foreach (var cldr in lookAtCollider.Take(count))
+        var pie = GameManager.Instance.PlayerInstance.Entity.Soul;
+        // the look at sphere should be spawn at the line prolong from the camera to the player
+        var lookAtPosition = pie.transform.position + pie.transform.forward * interactDistance;
+        var count = Physics.OverlapSphereNonAlloc(lookAtPosition, interactDistance, lookAtCollider, LayerMask.GetMask("Item"));
+        foreach (var cldr in lookAtCollider.Take(count).OrderBy(c => Vector3.Distance(c.transform.position, pie.transform.position)))
         {
             var directionToItem = (cldr.transform.position - pie.transform.position).normalized;
             var angle = Vector3.Angle(pie.transform.forward, directionToItem);
+            // draw both the direction and the angle
+            Debug.DrawRay(pie.transform.position, directionToItem * lockOnDistance, Color.red);
+            Debug.DrawRay(pie.transform.position, pie.transform.forward * lockOnDistance, Color.green);
             if (angle <= lockOnFOV)
             {
                 // get the item from the collider's parent

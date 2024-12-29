@@ -47,7 +47,7 @@ public class StoryUI : Singleton<StoryUI>
     }
     private void Update()
     {
-        var text = $"PlayerState: {GameManager.Instance.PlayerInstance.StoryState}\n";
+        var text = $"Story States:\nKissimi: {GameManager.Instance.PlayerInstance.StoryState}\n";
         foreach (var npc in GameManager.Instance.GetNpcs())
         {
             text += $"{npc.RealName}: {npc.StoryState}\n";
@@ -61,18 +61,21 @@ public class StoryUI : Singleton<StoryUI>
         var characterImage = characterImages[index];
         var spritePath = new[] { "Assets", "Art", "Textures", "Character", character.Name, character.Image }.Aggregate((a, b) => $"{a}/{b}") + ".png";
         Debug.Log($"Loading sprite from path: {spritePath}");
-        byte[] fileData = File.ReadAllBytes(spritePath);
-        Texture2D tex = new Texture2D(2, 2);
-        Sprite sprite = null;
-        if (tex.LoadImage(fileData))
+        var sprite = defaultSprite;
+        if (!File.Exists(spritePath))
         {
-            sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            Debug.LogError($"Sprite not found at path: {spritePath}");
+        }
+        else
+        {
+            byte[] fileData = File.ReadAllBytes(spritePath);
+            Texture2D tex = new Texture2D(2, 2);
+            if (tex.LoadImage(fileData))
+            {
+                sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            }
         }
 
-        if (!sprite)
-        {
-            sprite = defaultSprite;
-        }
 
         characterImage.enabled = true;
         characterImage.sprite = sprite;

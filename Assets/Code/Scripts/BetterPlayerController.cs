@@ -10,6 +10,8 @@ public class BetterPlayerController : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject axeHandler;
     [SerializeField] private GameObject knifeHandler;
+    [SerializeField] private GameObject soul;
+    public Transform Soul => soul.transform;
     private readonly float rotationSpeed = 5f;
     private Animator anim;
     private Attacks attack = Attacks.Normal;
@@ -95,7 +97,7 @@ public class BetterPlayerController : MonoBehaviour
                 {
                     anim.CrossFadeInFixedTime("jump", 0.1f);
                     triggerEnter = false;
-                    rigid.AddForce(Vector3.up * 4, ForceMode.Impulse); // Apply vertical jump force
+                    rigid.AddForce(Vector3.up * 6, ForceMode.Impulse); // Apply vertical jump force
                 }
 
                 // Maintain horizontal movement direction
@@ -151,7 +153,6 @@ public class BetterPlayerController : MonoBehaviour
         }
 
         newVelocity = Mathf.Lerp(lastVelocity, newVelocity, Time.deltaTime);
-        // print($"lastVelocity: {lastVelocity}, newVelocity: {newVelocity}");
         MoveOn(movingVec, newVelocity);
         lastVelocity = newVelocity;
     }
