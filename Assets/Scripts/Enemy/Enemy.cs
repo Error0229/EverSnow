@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using Wrapper;
 
 namespace Enemy
@@ -15,7 +16,8 @@ namespace Enemy
             Attack
         }
 
-        private EnemyState _enemyState ;
+        private GameObject view;
+        private EnemyState _enemyState;
 
         private EnemyState enemyState
         {
@@ -76,6 +78,7 @@ namespace Enemy
 
         private void Start()
         {
+            view = transform.GetChild(0).gameObject;
             animator = GetComponentInChildren<Animator>();
             var navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgentWrapper = new NavMeshAgentWrapper(navMeshAgent);
@@ -89,6 +92,7 @@ namespace Enemy
             {
                 throw new Exception("Weapon collider not found");
             }
+
             enemyState = EnemyState.Idle;
         }
 
@@ -98,6 +102,10 @@ namespace Enemy
             switch (_enemyState)
             {
                 case EnemyState.Idle:
+                    var t = Time.time;
+                    var height = 1;
+                    view.transform.localPosition = new Vector3(0,
+                        Mathf.Lerp(view.transform.position.y, Mathf.Sin(t) * height, 0.5f), 0);
                     if (enemyHateList.Count != 0)
                     {
                         var closestEnemy = GetClosestEnemy();
@@ -112,8 +120,16 @@ namespace Enemy
                         {
                             enemyState = EnemyState.Chase;
                             targetEnemy = closestEnemy;
+                            return;
                         }
                     }
+
+                    var randomDirection = UnityEngine.Random.Range(0, 2);
+                    var randomRange = UnityEngine.Random.Range(1, 2);
+                    navMeshAgentWrapper.SetDestination(transform.position +
+                                                       new Vector3(randomRange * (randomDirection == 0 ? 1 : -1), 0,
+                                                           randomRange * (randomDirection == 0 ? 1 : -1)));
+
 
                     break;
                 case EnemyState.Chase:
@@ -121,6 +137,12 @@ namespace Enemy
                     if (Vector3.Distance(transform.position, targetEnemy.transform.position) < attackRange)
                     {
                         enemyState = EnemyState.Attack;
+                    }
+
+                    if (Vector3.Distance(transform.position, targetEnemy.transform.position) > 4f &&
+                        !navMeshAgentWrapper.Visible(targetEnemy.gameObject))
+                    {
+                        enemyState = EnemyState.Idle;
                     }
 
                     break;
@@ -150,5 +172,16 @@ namespace Enemy
 
             return closestEnemy;
         }
+
+        #region destroy
+
+        UnityAction onDestroy;
+
+        public void AddDestroyListener(UnityAction func)
+        {
+            onDestroy += func;
+        }
+
+        #endregion
     }
 }

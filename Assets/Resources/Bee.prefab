@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4321872490491689508}
   - component: {fileID: 5881741283567999320}
   m_Layer: 0
-  m_Name: EnemyContainer
+  m_Name: Bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
