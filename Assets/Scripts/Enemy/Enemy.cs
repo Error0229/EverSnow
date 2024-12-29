@@ -13,7 +13,8 @@ namespace Enemy
         {
             Idle,
             Chase,
-            Attack
+            Attack,
+            Away
         }
 
         private GameObject view;
@@ -40,6 +41,10 @@ namespace Enemy
                     break;
                 case EnemyState.Attack:
                     weaponCollider.enabled = false;
+                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
+                    break;
+                case EnemyState.Away:
+                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Walk);
                     break;
             }
         }
@@ -51,10 +56,12 @@ namespace Enemy
                 case EnemyState.Idle:
                     navMeshAgentWrapper.SetDestination(transform.position);
                     weaponCollider.enabled = false;
+                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Walk);
                     // animator.Play("Idle");
                     break;
                 case EnemyState.Chase:
                     // animator.Play("Chase");
+                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Sprint);
                     break;
                 case EnemyState.Attack:
                     navMeshAgentWrapper.SetDestination(transform.position);
@@ -62,6 +69,13 @@ namespace Enemy
                     weaponCollider.isTrigger = true;
                     weapon.Reset();
                     // animator.Play("Attack");
+                    break;
+                case EnemyState.Away:
+                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
+                    var leaveRange = 10f;
+                    var hatePosition = targetEnemy.transform.position;
+                    navMeshAgentWrapper.SetDestination(transform.position +
+                                                       (transform.position - hatePosition).normalized * leaveRange);
                     break;
             }
         }
@@ -96,6 +110,9 @@ namespace Enemy
             enemyState = EnemyState.Idle;
         }
 
+        private float runtime = 0;
+        private float maxRuntime = 2;
+
         private void Update()
         {
             var attackRange = 1f;
@@ -124,11 +141,16 @@ namespace Enemy
                         }
                     }
 
-                    var randomDirection = UnityEngine.Random.Range(0, 2);
-                    var randomRange = UnityEngine.Random.Range(1, 2);
-                    navMeshAgentWrapper.SetDestination(transform.position +
-                                                       new Vector3(randomRange * (randomDirection == 0 ? 1 : -1), 0,
-                                                           randomRange * (randomDirection == 0 ? 1 : -1)));
+                    runtime += Time.deltaTime;
+                    if (navMeshAgentWrapper.IsArrived() || runtime > maxRuntime)
+                    {
+                        var randomDirection = UnityEngine.Random.Range(0, 2);
+                        var randomRange = UnityEngine.Random.Range(1, 2);
+                        navMeshAgentWrapper.SetDestination(transform.position +
+                                                           new Vector3(randomRange * (randomDirection == 0 ? 1 : -1), 0,
+                                                               randomRange * (randomDirection == 0 ? 1 : -1)));
+                        runtime = 0;
+                    }
 
 
                     break;
@@ -150,7 +172,13 @@ namespace Enemy
                     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
                         animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
                     {
-                        targetEnemy.Damage(); // todo: weapon decide
+                        enemyState = EnemyState.Away;
+                    }
+
+                    break;
+                case EnemyState.Away:
+                    if (navMeshAgentWrapper.IsArrived())
+                    {
                         enemyState = EnemyState.Idle;
                     }
 

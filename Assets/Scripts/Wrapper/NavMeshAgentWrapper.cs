@@ -29,5 +29,30 @@ namespace Wrapper
             }
             return false;
         }
+        // public bool IsStopped()
+        // {
+        //     return navMeshAgent.isStopped;
+        // }
+        public bool IsArrived()
+        {
+            return !navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
+        }
+        public enum MoveSpeed { Walk, Run, Sprint }
+        public void SetSpeed( MoveSpeed speed)
+        {
+            switch (speed)
+            {
+                case MoveSpeed.Walk:
+                    navMeshAgent.speed = 2;
+                    break;
+                case MoveSpeed.Run:
+                    navMeshAgent.speed = 5;
+                    break;
+                case MoveSpeed.Sprint:
+                    navMeshAgent.speed = 7;
+                    break;
+            }
+        }
+        
     }
 }
