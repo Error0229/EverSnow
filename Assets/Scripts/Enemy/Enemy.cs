@@ -8,32 +8,116 @@ namespace Enemy
 {
     public class Enemy : MonoBehaviour
     {
+        enum EnemyState
+        {
+            Idle,
+            Chase,
+            Attack
+        }
+
+        private EnemyState _enemyState = EnemyState.Idle;
+
+        private EnemyState enemyState
+        {
+            get => _enemyState;
+            set
+            {
+                OnStateExit(_enemyState);
+                _enemyState = value;
+                OnStateEnter(_enemyState);
+            }
+        }
+
+        private void OnStateExit(EnemyState state)
+        {
+            switch (state)
+            {
+                case EnemyState.Idle:
+                    break;
+                case EnemyState.Chase:
+                    break;
+                case EnemyState.Attack:
+                    break;
+            }
+        }
+
+        private void OnStateEnter(EnemyState state)
+        {
+            switch (state)
+            {
+                case EnemyState.Idle:
+                    navMeshAgentWrapper.SetDestination(transform.position);
+                    // animator.Play("Idle");
+                    break;
+                case EnemyState.Chase:
+                    // animator.Play("Chase");
+                    break;
+                case EnemyState.Attack:
+                    navMeshAgentWrapper.SetDestination(transform.position);
+                    // animator.Play("Attack");
+                    break;
+            }
+        }
+
         private List<EnemyHate> enemyHateList = new();
         NavMeshAgentWrapper navMeshAgentWrapper;
+
+        private EnemyHate targetEnemy;
+
         // private NavMeshAgent navMeshAgent;
+        private Animator animator;
 
         private void Start()
         {
+            animator = GetComponentInChildren<Animator>();
             var navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgentWrapper = new NavMeshAgentWrapper(navMeshAgent);
-            
+
             EnemyHate[] enemyHate = GameObject.FindObjectsByType<EnemyHate>(FindObjectsSortMode.None);
             enemyHateList = new List<EnemyHate>(enemyHate);
         }
 
         private void Update()
         {
-            if (enemyHateList.Count != 0)
+            var attackRange = 1f;
+            switch (_enemyState)
             {
-                var closestEnemy = GetClosestEnemy();
-                var range = 10f;
-                var speed = 10f;
-                if (Vector3.Distance(transform.position, closestEnemy.transform.position) < range)
-                {
-                    // transform.LookAt(closestEnemy.transform);
-                    // transform.position += transform.forward * (Time.deltaTime * speed);
-                    navMeshAgentWrapper.SetDestination(closestEnemy.transform.position);
-                }
+                case EnemyState.Idle:
+                    if (enemyHateList.Count != 0)
+                    {
+                        var closestEnemy = GetClosestEnemy();
+                        var triggerRange = 4f;
+                        var speed = 10f;
+
+                        if (Vector3.Distance(transform.position, closestEnemy.transform.position) < attackRange)
+                        {
+                            enemyState = EnemyState.Attack;
+                        }
+                        else if (Vector3.Distance(transform.position, closestEnemy.transform.position) < triggerRange)
+                        {
+                            enemyState = EnemyState.Chase;
+                            targetEnemy = closestEnemy;
+                        }
+                    }
+
+                    break;
+                case EnemyState.Chase:
+                    navMeshAgentWrapper.SetDestination(targetEnemy.transform.position);
+                    if (Vector3.Distance(transform.position, targetEnemy.transform.position) < attackRange)
+                    {
+                        enemyState = EnemyState.Attack;
+                    }
+
+                    break;
+                case EnemyState.Attack:
+                    if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                    {
+                        // targetEnemy.gameObject.SetActive(false);
+                        // enemyHateList.Remove(targetEnemy);
+                        targetEnemy.Damage();
+                        enemyState = EnemyState.Idle;
+                    }
+                    break;
             }
         }
 
