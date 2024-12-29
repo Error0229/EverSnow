@@ -25,6 +25,7 @@ public class PlayerInputManager : InputManager
     private InputAction submit;
     private InputAction useItem;
     private InputAction walk;
+    private InputAction inventory;
 
 
     protected override void Init()
@@ -46,6 +47,7 @@ public class PlayerInputManager : InputManager
         art = InputSystem.actions.FindAction("Art");
         walk = InputSystem.actions.FindAction("Walk");
         submit = InputSystem.actions.FindAction("Submit");
+        inventory = InputSystem.actions.FindAction("Inventory");
     }
 
     protected override void CalculateAttack()
@@ -94,7 +96,7 @@ public class PlayerInputManager : InputManager
 
     protected override void CalculateInventory()
     {
-        if (previous.WasPressedThisFrame())
+        if (inventory.WasPressedThisFrame())
             evtInventory?.Invoke();
     }
 

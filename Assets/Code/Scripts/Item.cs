@@ -31,6 +31,14 @@ public abstract class Item : MonoBehaviour
     {
         get => isStackAble;
     }
+    public bool IsConsumable
+    {
+        get => isConsumable;
+    }
+    public bool IsEquipment
+    {
+        get => isEquipment;
+    }
     public GameObject Entity
     {
         get => entity;

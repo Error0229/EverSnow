@@ -43,7 +43,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (StoryManager.Instance.IsInPlot) return;
+        if (!GameManager.Instance.IsPlayerInGame) return;
         if (_lockOnTarget && Vector3.Distance(_lockOnTarget.position, target.position) > lockOnDistance)
         {
             _lockOnTarget = null;
@@ -100,7 +100,7 @@ public class ThirdPersonCamera : MonoBehaviour
         // 垂直旋轉（加入限制）
         currentRotationX -= lookDelta.y * rotationSpeed;
 
-        currentRotationX = Mathf.Clamp(currentRotationX, -40f, 40f);
+        currentRotationX = Mathf.Clamp(currentRotationX, -65f, 65f);
 
         // 應用旋轉
         var targetRotation = Quaternion.Euler(currentRotationX, currentRotationY, 0f);
@@ -149,13 +149,14 @@ public class ThirdPersonCamera : MonoBehaviour
     public Npc CheckLookAtNpc()
     {
         var lookAtCollider = new Collider[5];
-        var count = Physics.OverlapSphereNonAlloc(transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("NPC"));
+        var pie = GameManager.Instance.PlayerInstance.Entity;
+        var count = Physics.OverlapSphereNonAlloc(pie.transform.position, lockOnDistance / 2, lookAtCollider, LayerMask.GetMask("NPC"));
         foreach (var cldr in lookAtCollider.Take(count))
         {
-            var directionToNpc = (cldr.transform.position - transform.position).normalized;
-            var angle = Vector3.Angle(transform.forward, directionToNpc);
+            var directionToNpc = (cldr.transform.position - pie.transform.position).normalized;
+            var angle = Vector3.Angle(pie.transform.forward, directionToNpc);
             // print($"angle: {angle}, lockOnFOV: {lockOnFOV}, directionToNpc: {directionToNpc}");
-            if (angle <= lockOnFOV)
+            if (angle <= lockOnFOV / 2)
             {
                 // Optionally, perform a raycast to ensure there's no obstruction
                 // if (Physics.Raycast(transform.position, directionToNpc, out var hit, lockOnDistance))
@@ -171,14 +172,16 @@ public class ThirdPersonCamera : MonoBehaviour
     public Item CheckLookAtItem()
     {
         var lookAtCollider = new Collider[5];
-        var count = Physics.OverlapSphereNonAlloc(transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("Item"));
+        var pie = GameManager.Instance.PlayerInstance.Entity;
+        var count = Physics.OverlapSphereNonAlloc(pie.transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("Item"));
         foreach (var cldr in lookAtCollider.Take(count))
         {
-            var directionToItem = (cldr.transform.position - transform.position).normalized;
-            var angle = Vector3.Angle(transform.forward, directionToItem);
+            var directionToItem = (cldr.transform.position - pie.transform.position).normalized;
+            var angle = Vector3.Angle(pie.transform.forward, directionToItem);
             if (angle <= lockOnFOV)
             {
-                return cldr.gameObject.GetComponent<Item>();
+                // get the item from the collider's parent
+                return cldr.transform.parent.GetComponent<Item>();
             }
         }
         return null;

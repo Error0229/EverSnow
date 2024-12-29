@@ -1,4 +1,4 @@
-﻿public class Ice : Item
+﻿public class Ice : Thing
 {
     public override void Use()
     {

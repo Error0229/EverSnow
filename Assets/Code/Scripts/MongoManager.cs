@@ -27,6 +27,8 @@ public class MongoManager : Singleton<MongoManager>
     }
     public Plot GetPlotByStates(string playerState, string npcState)
     {
+        var result = Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState).FirstOrDefault();
+        print(result);
         return Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState).FirstOrDefault();
     }
 

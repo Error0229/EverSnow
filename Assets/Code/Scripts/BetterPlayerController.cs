@@ -8,6 +8,8 @@ public class BetterPlayerController : MonoBehaviour
     public float velocity = 10f;
     public float runningSpeed = 20f;
     [SerializeField] private Camera cam;
+    [SerializeField] private GameObject axeHandler;
+    [SerializeField] private GameObject knifeHandler;
     private readonly float rotationSpeed = 5f;
     private Animator anim;
     private Attacks attack = Attacks.Normal;
@@ -154,6 +156,41 @@ public class BetterPlayerController : MonoBehaviour
         lastVelocity = newVelocity;
     }
 
+    public void Equip(Weapon weapon)
+    {
+        if (weapon.Name == "斧頭")
+        {
+            axeHandler.SetActive(true);
+
+            weapon.Entity.transform.SetParent(axeHandler.transform);
+            weapon.Entity.transform.localPosition = Vector3.zero;
+            weapon.Entity.transform.localRotation = Quaternion.identity;
+            weapon.Entity.SetActive(true);
+            knifeHandler.SetActive(false);
+        }
+        else if (weapon.Name == "小刀")
+        {
+            weapon.Entity.transform.SetParent(knifeHandler.transform);
+            weapon.Entity.transform.localPosition = Vector3.zero;
+            weapon.Entity.transform.localRotation = Quaternion.identity;
+            weapon.Entity.SetActive(true);
+            axeHandler.SetActive(false);
+            knifeHandler.SetActive(true);
+        }
+    }
+    public void Remove(Weapon weapon)
+    {
+        if (weapon.Name == "斧頭")
+        {
+            axeHandler.SetActive(false);
+        }
+        else if (weapon.Name == "小刀")
+        {
+            knifeHandler.SetActive(false);
+        }
+        weapon.Entity.SetActive(false);
+    }
+
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -220,6 +257,18 @@ public class BetterPlayerController : MonoBehaviour
     {
         state = STATE.IDLE;
         anim.CrossFadeInFixedTime("idle", 0.1f);
+    }
+
+    public void Deactivate()
+    {
+        rigid.linearVelocity = Vector3.zero;
+        state = STATE.IDLE;
+        anim.CrossFadeInFixedTime("idle", 0.1f);
+        enabled = false;
+    }
+    public void Activate()
+    {
+        enabled = true;
     }
 
     private void Move(Vector2 vac)

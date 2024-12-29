@@ -8,6 +8,8 @@ public class InventoryItemHandler : MonoBehaviour
     [SerializeField]
     private Image image;
     [SerializeField]
+    private Image equipMask;
+    [SerializeField]
     private TextMeshProUGUI countText;
     [SerializeField]
     private Button button;
@@ -19,11 +21,13 @@ public class InventoryItemHandler : MonoBehaviour
         button.enabled = false;
     }
 
-    public void SetUp(Item item, int count)
+    public void SetUp(Item item, int count, bool isEquipped)
     {
+        equipMask.enabled = isEquipped;
+        image.enabled = true;
         this.item = item;
         image.sprite = item.Icon;
-        countText.text = count == 0 ? "" : (item.IsStackable ? "x" : "") + count.ToString();
+        countText.text = (count == 0 || item.IsEquipment) ? "" : (item.IsStackable ? "x" : "") + count.ToString();
         button.enabled = count > 0;
         button.onClick.AddListener(() =>
         {
@@ -32,7 +36,9 @@ public class InventoryItemHandler : MonoBehaviour
     }
     public void Clear()
     {
+        equipMask.enabled = false;
         image.sprite = null;
+        image.enabled = false;
         countText.text = "";
         button.enabled = false;
     }

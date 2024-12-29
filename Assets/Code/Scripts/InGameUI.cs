@@ -22,6 +22,7 @@ public class InGameUI : Singleton<InGameUI>
         if (iceCount == 0)
         {
             iceImage.SetActive(false);
+            iceCountText.text = "";
         }
         else
         {
@@ -31,7 +32,11 @@ public class InGameUI : Singleton<InGameUI>
 
         var weapon = GameManager.Instance.PlayerInstance.GetEquippedWeapon();
         if (weapon != null)
+        {
+            currentWeapon.enabled = true;
             currentWeapon.sprite = weapon.Icon;
+        }
+        else currentWeapon.enabled = false;
         switch (GameManager.Instance.PlayerInstance.Health)
         {
             case 3:

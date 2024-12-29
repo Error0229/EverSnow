@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private Story story;
 
     private readonly List<Item> inventory = new List<Item>();
+    public BetterPlayerController Entity => playerEntity;
 
     private Weapon equippedWeapon;
 
@@ -27,9 +28,26 @@ public class Player : MonoBehaviour
         PlayerInputManager.Instance.evtInteract.AddListener(Interact);
         StoryManager.Instance.evtEnterDialog.AddListener(EnterDialog);
         StoryManager.Instance.evtLeaveDialog.AddListener(LeaveDialog);
+        PlayerInputManager.Instance.evtInventory.AddListener(InvokeInventory);
         MaxHealth = 3;
         Health = MaxHealth;
         state = State.InGame;
+    }
+    public bool IsInGame()
+    {
+        return state == State.InGame;
+    }
+    private void InvokeInventory()
+    {
+        if (state == State.Inventory)
+        {
+            InventoryUI.Instance.CloseInventory();
+            GoToState(State.InGame);
+        }
+        else
+        {
+            GoToState(State.Inventory);
+        }
     }
 
     public void Update()
@@ -40,7 +58,7 @@ public class Player : MonoBehaviour
                 if (triggerEnter)
                 {
                     triggerEnter = false;
-                    playerEntity.EnterDialog();
+                    playerEntity.Deactivate();
                     playerEntity.enabled = false;
                 }
                 break;
@@ -49,11 +67,18 @@ public class Player : MonoBehaviour
                 {
                     triggerEnter = false;
                     playerEntity.enabled = true;
+                    playerEntity.Activate();
                 }
                 break;
             case State.Dead:
                 break;
             case State.Inventory:
+                if (triggerEnter)
+                {
+                    triggerEnter = false;
+                    playerEntity.Deactivate();
+                    InventoryUI.Instance.OpenInventory();
+                }
                 break;
         }
 
@@ -76,6 +101,7 @@ public class Player : MonoBehaviour
         if (npc)
         {
             StoryManager.Instance.InvokePlot(npc);
+            return;
         }
 
         // check pick up item
@@ -93,8 +119,8 @@ public class Player : MonoBehaviour
 
     public void Consume(Ice ice)
     {
-        if (Health == MaxHealth) return;
-        Health++;
+        // if (Health == MaxHealth) return;
+        Health = Mathf.Min(MaxHealth, Health + 1);
         inventory.Remove(ice);
     }
 
@@ -119,6 +145,12 @@ public class Player : MonoBehaviour
     public void Equip(Weapon weapon)
     {
         equippedWeapon = weapon;
+        Entity.Equip(weapon);
+    }
+    public void Remove(Weapon weapon)
+    {
+        Entity.Remove(weapon);
+        equippedWeapon = null;
     }
 
     private void EnterDialog()

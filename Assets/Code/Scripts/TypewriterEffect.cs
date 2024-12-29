@@ -68,7 +68,7 @@ public class TypewriterEffect : MonoBehaviour
             case STATE.FINISHED:
                 if (triggerEnter)
                 {
-                    textComponent.text = currentStrategy.ProcessText(fullText, fullText.Length - 1, 0);
+                    textComponent.text = currentStrategy.ProcessText(fullText, fullText.Length, 0);
                     triggerEnter = false;
                     StoryManager.Instance.IsTyping = false;
                     onTypeComplete?.Invoke();
@@ -104,7 +104,7 @@ public class TypewriterEffect : MonoBehaviour
 
     public void CompleteTyping()
     {
-        currentCharIndex = fullText.Length + 1;
+        currentCharIndex = fullText.Length - 1;
         GoToState(STATE.FINISHED);
         onTypeComplete?.Invoke();
     }

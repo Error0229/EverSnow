@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     {
         get => player;
     }
+    public bool IsPlayerInGame => player.IsInGame();
 
     public Npc GetNpcByName(string npcName)
     {
