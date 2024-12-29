@@ -13,6 +13,7 @@ public abstract class InputManager : Singleton<InputManager>
     public UnityEvent<bool> evtStrongAttack;
     public UnityEvent evtInteract;
     public UnityEvent evtNextDialog;
+    public UnityEvent evtInventory;
 
     private void Update()
     {
@@ -27,6 +28,7 @@ public abstract class InputManager : Singleton<InputManager>
         CalculateAttack();
         CalculateInteract();
         CalculateDialogClick();
+        CalculateInventory();
     }
     private void FixedUpdate()
     { }
@@ -41,4 +43,5 @@ public abstract class InputManager : Singleton<InputManager>
     protected abstract void CalculateDodge();
     protected abstract void CalculateLockOn();
     protected abstract void CalculateAttack();
+    protected abstract void CalculateInventory();
 }

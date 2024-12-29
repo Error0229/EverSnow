@@ -1,7 +1,9 @@
 using System.Linq;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 public class ThirdPersonCamera : MonoBehaviour
 {
     [Header("Target Settings")] public Transform target;
@@ -23,6 +25,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public float lockOnDistance = 20f;
     public UnityEvent evtUnlock;
     public UnityEvent<GameObject> evtLock;
+    public float interactDistance = 5f;
 
     private bool _isLockOn;
     private Transform _lockOnTarget;
@@ -42,7 +45,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (StoryManager.Instance.IsInPlot) return;
+        if (!GameManager.Instance.IsPlayerInGame) return;
         if (_lockOnTarget && Vector3.Distance(_lockOnTarget.position, target.position) > lockOnDistance)
         {
             _lockOnTarget = null;
@@ -99,7 +102,7 @@ public class ThirdPersonCamera : MonoBehaviour
         // 垂直旋轉（加入限制）
         currentRotationX -= lookDelta.y * rotationSpeed;
 
-        currentRotationX = Mathf.Clamp(currentRotationX, -40f, 40f);
+        currentRotationX = Mathf.Clamp(currentRotationX, -65f, 65f);
 
         // 應用旋轉
         var targetRotation = Quaternion.Euler(currentRotationX, currentRotationY, 0f);
@@ -148,20 +151,44 @@ public class ThirdPersonCamera : MonoBehaviour
     public Npc CheckLookAtNpc()
     {
         var lookAtCollider = new Collider[5];
-        var count = Physics.OverlapSphereNonAlloc(transform.position, lockOnDistance, lookAtCollider, LayerMask.GetMask("NPC"));
+        var pie = GameManager.Instance.PlayerInstance.Entity.Soul;
+        var count = Physics.OverlapSphereNonAlloc(pie.transform.position, lockOnDistance / 3, lookAtCollider, LayerMask.GetMask("NPC"));
         foreach (var cldr in lookAtCollider.Take(count))
         {
-            var directionToNpc = (cldr.transform.position - transform.position).normalized;
-            var angle = Vector3.Angle(transform.forward, directionToNpc);
+            var directionToNpc = (cldr.transform.position - pie.transform.position).normalized;
+            var angle = Vector3.Angle(pie.transform.forward, directionToNpc);
             // print($"angle: {angle}, lockOnFOV: {lockOnFOV}, directionToNpc: {directionToNpc}");
-            if (angle <= lockOnFOV)
+            if (angle <= lockOnFOV / 2)
             {
                 // Optionally, perform a raycast to ensure there's no obstruction
                 // if (Physics.Raycast(transform.position, directionToNpc, out var hit, lockOnDistance))
                 // {
                 //     if (hit.collider.gameObject.layer != LayerMask.NameToLayer("NPC")) continue; // Skip if not an NPC()
-                return cldr.gameObject.GetComponent<Npc>();
+                return cldr.transform.parent.GetComponent<Npc>();
                 // }
+            }
+        }
+        return null;
+    }
+
+    public Item CheckLookAtItem()
+    {
+        var lookAtCollider = new Collider[5];
+        var pie = GameManager.Instance.PlayerInstance.Entity.Soul;
+        // the look at sphere should be spawn at the line prolong from the camera to the player
+        var lookAtPosition = pie.transform.position + pie.transform.forward * interactDistance;
+        var count = Physics.OverlapSphereNonAlloc(lookAtPosition, interactDistance, lookAtCollider, LayerMask.GetMask("Item"));
+        foreach (var cldr in lookAtCollider.Take(count).OrderBy(c => Vector3.Distance(c.transform.position, pie.transform.position)))
+        {
+            var directionToItem = (cldr.transform.position - pie.transform.position).normalized;
+            var angle = Vector3.Angle(pie.transform.forward, directionToItem);
+            // draw both the direction and the angle
+            Debug.DrawRay(pie.transform.position, directionToItem * lockOnDistance, Color.red);
+            Debug.DrawRay(pie.transform.position, pie.transform.forward * lockOnDistance, Color.green);
+            if (angle <= lockOnFOV)
+            {
+                // get the item from the collider's parent
+                return cldr.transform.parent.GetComponent<Item>();
             }
         }
         return null;

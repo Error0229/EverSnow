@@ -8,7 +8,10 @@ public class DialogBubble : MonoBehaviour
 
     private static readonly Dictionary<string, int> DialogIndexMapping = new Dictionary<string, int>
     {
-        ["Common"] = 0, ["Thinking"] = 1, ["Surprised"] = 2, ["Option"] = 3
+        ["Common"] = 0,
+        ["Thinking"] = 1,
+        ["Surprised"] = 2,
+        ["Option"] = 3
     };
     [SerializeField]
     private GameObject optionPanel;
