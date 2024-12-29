@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Enemy.enemyState;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -9,7 +10,7 @@ namespace Enemy
 {
     public class Enemy : MonoBehaviour
     {
-        enum EnemyState
+        public enum EnemyState
         {
             Idle,
             Chase,
@@ -18,79 +19,32 @@ namespace Enemy
         }
 
         private GameObject view;
-        private EnemyState _enemyState;
 
-        private EnemyState enemyState
+        private IEnemyState _iEnemyState;
+
+        private IEnemyState iEnemyState
         {
-            get => _enemyState;
+            get => _iEnemyState;
             set
             {
-                OnStateExit(_enemyState);
-                _enemyState = value;
-                OnStateEnter(_enemyState);
+                _iEnemyState?.OnExit(this);
+                _iEnemyState = value;
+                _iEnemyState?.OnEnter(this);
             }
         }
 
-        private void OnStateExit(EnemyState state)
-        {
-            switch (state)
-            {
-                case EnemyState.Idle:
-                    break;
-                case EnemyState.Chase:
-                    break;
-                case EnemyState.Attack:
-                    weaponCollider.enabled = false;
-                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
-                    break;
-                case EnemyState.Away:
-                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Walk);
-                    break;
-            }
-        }
-
-        private void OnStateEnter(EnemyState state)
-        {
-            switch (state)
-            {
-                case EnemyState.Idle:
-                    navMeshAgentWrapper.SetDestination(transform.position);
-                    weaponCollider.enabled = false;
-                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Walk);
-                    // animator.Play("Idle");
-                    break;
-                case EnemyState.Chase:
-                    // animator.Play("Chase");
-                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Sprint);
-                    break;
-                case EnemyState.Attack:
-                    navMeshAgentWrapper.SetDestination(transform.position);
-                    weaponCollider.enabled = true;
-                    weaponCollider.isTrigger = true;
-                    weapon.Reset();
-                    // animator.Play("Attack");
-                    break;
-                case EnemyState.Away:
-                    navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
-                    var leaveRange = 10f;
-                    var hatePosition = targetEnemy.transform.position;
-                    navMeshAgentWrapper.SetDestination(transform.position +
-                                                       (transform.position - hatePosition).normalized * leaveRange);
-                    break;
-            }
-        }
 
         private List<EnemyHate> enemyHateList = new();
-        NavMeshAgentWrapper navMeshAgentWrapper;
+        public NavMeshAgentWrapper navMeshAgentWrapper;
 
-        private EnemyHate targetEnemy;
+        public EnemyHate targetEnemy;
 
         // private NavMeshAgent navMeshAgent;
-        private Animator animator;
-        private Collider weaponCollider;
-        private Weapon weapon;
+        public Animator animator;
+        public Collider weaponCollider;
+        public Weapon weapon;
 
-        private void Start()
+        protected void Start()
         {
             view = transform.GetChild(0).gameObject;
             animator = GetComponentInChildren<Animator>();
@@ -107,98 +61,22 @@ namespace Enemy
                 throw new Exception("Weapon collider not found");
             }
 
-            enemyState = EnemyState.Idle;
+            iEnemyState = new IdleState();
         }
 
         private float runtime = 0;
-        private float maxRuntime = 2;
+        private float maxRuntime = 3;
 
-        private void Update()
+
+        protected void Update()
         {
-            var attackRange = 1f;
-            switch (_enemyState)
-            {
-                case EnemyState.Idle:
-                    var t = Time.time;
-                    var height = 1;
-                    view.transform.localPosition = new Vector3(0,
-                        Mathf.Lerp(view.transform.position.y, Mathf.Sin(t) * height, 0.5f), 0);
-                    if (enemyHateList.Count != 0)
-                    {
-                        var closestEnemy = GetClosestEnemy();
-                        var triggerRange = 4f;
-                        var speed = 10f;
-
-                        if (Vector3.Distance(transform.position, closestEnemy.transform.position) < attackRange)
-                        {
-                            enemyState = EnemyState.Attack;
-                        }
-                        else if (Vector3.Distance(transform.position, closestEnemy.transform.position) < triggerRange)
-                        {
-                            enemyState = EnemyState.Chase;
-                            targetEnemy = closestEnemy;
-                            return;
-                        }
-                    }
-
-                    runtime += Time.deltaTime;
-                    if (navMeshAgentWrapper.IsArrived() || runtime > maxRuntime)
-                    {
-                        var randomDirection = UnityEngine.Random.Range(0, 2);
-                        var randomRange = UnityEngine.Random.Range(1, 2);
-                        navMeshAgentWrapper.SetDestination(transform.position +
-                                                           new Vector3(randomRange * (randomDirection == 0 ? 1 : -1), 0,
-                                                               randomRange * (randomDirection == 0 ? 1 : -1)));
-                        runtime = 0;
-                    }
-
-
-                    break;
-                case EnemyState.Chase:
-                    navMeshAgentWrapper.SetDestination(targetEnemy.transform.position);
-                    if (Vector3.Distance(transform.position, targetEnemy.transform.position) < attackRange)
-                    {
-                        enemyState = EnemyState.Attack;
-                    }
-
-                    if (Vector3.Distance(transform.position, targetEnemy.transform.position) > 4f &&
-                        !navMeshAgentWrapper.Visible(targetEnemy.gameObject))
-                    {
-                        enemyState = EnemyState.Idle;
-                    }
-
-                    break;
-                case EnemyState.Attack:
-                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
-                        animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                    {
-                        enemyState = EnemyState.Away;
-                    }
-
-                    break;
-                case EnemyState.Away:
-                    if (navMeshAgentWrapper.IsArrived())
-                    {
-                        enemyState = EnemyState.Idle;
-                    }
-
-                    break;
-            }
+            iEnemyState.OnUpdate(this);
         }
 
-        private EnemyHate GetClosestEnemy()
+        public float GetAttackRange()
         {
-            var closestEnemy = enemyHateList[0];
-            foreach (EnemyHate enemyHate in enemyHateList)
-            {
-                if (Vector3.Distance(transform.position, enemyHate.transform.position) <
-                    Vector3.Distance(transform.position, closestEnemy.transform.position))
-                {
-                    closestEnemy = enemyHate;
-                }
-            }
-
-            return closestEnemy;
+            var attackRange = 1f;
+            return attackRange;
         }
 
         #region destroy
@@ -211,5 +89,147 @@ namespace Enemy
         }
 
         #endregion
+
+        public void SetWeaponColliderEnable(bool b)
+        {
+            weaponCollider.enabled = b;
+        }
+
+        public GameObject GetView()
+        {
+            return view;
+        }
+
+        public List<EnemyHate> GetHateList()
+        {
+            return enemyHateList;
+        }
+
+        public bool IsArrived()
+        {
+            return navMeshAgentWrapper.IsArrived();
+        }
+
+        public void SetDestination(Vector3 transformPosition)
+        {
+            navMeshAgentWrapper.SetDestination(transformPosition);
+        }
+
+        public void SetTargetEnemy(EnemyHate closestEnemy)
+        {
+            targetEnemy = closestEnemy;
+        }
+
+        public void SetState(EnemyState state)
+        {
+            switch (state)
+            {
+                case EnemyState.Idle:
+                    iEnemyState = new IdleState();
+                    break;
+                case EnemyState.Chase:
+                    iEnemyState = new ChaseState();
+                    break;
+                case EnemyState.Attack:
+                    iEnemyState = new AttackState();
+                    break;
+                case EnemyState.Away:
+                    iEnemyState = new AwayState();
+                    break;
+            }
+        }
+    }
+
+    public class AwayState : IEnemyState
+    {
+        public void OnEnter(Enemy enemy)
+        {
+            enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
+            var leaveRange = 10f;
+            var hatePosition = enemy.targetEnemy.transform.position;
+            var transform = enemy.transform;
+            var position = transform.position;
+            enemy.navMeshAgentWrapper.SetDestination(position +
+                                                     (position - hatePosition).normalized * leaveRange);
+        }
+
+        public void OnExit(Enemy enemy)
+        {
+            enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Walk);
+        }
+
+        public void OnUpdate(Enemy enemy)
+        {
+            var enemyState = Enemy.EnemyState.Away;
+            if (enemy.navMeshAgentWrapper.IsArrived())
+            {
+                enemyState = Enemy.EnemyState.Idle;
+            }
+
+            enemy.SetState(enemyState);
+        }
+    }
+
+    public class AttackState : IEnemyState
+    {
+        public void OnEnter(Enemy enemy)
+        {
+            enemy.navMeshAgentWrapper.SetDestination(enemy.transform.position);
+            enemy.weaponCollider.enabled = true;
+            enemy.weaponCollider.isTrigger = true;
+            enemy.weapon.Reset();
+        }
+
+        public void OnExit(Enemy enemy)
+        {
+            enemy.weaponCollider.enabled = false;
+            enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
+        }
+
+        public void OnUpdate(Enemy enemy)
+        {
+            var enemyState = Enemy.EnemyState.Attack;
+            if (enemy.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
+                enemy.animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+            {
+                enemyState = Enemy.EnemyState.Away;
+            }
+
+            enemy.SetState(enemyState);
+        }
+    }
+
+    public class ChaseState : IEnemyState
+    {
+        public void OnEnter(Enemy enemy)
+        {
+            // animator.Play("Chase");
+            enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Sprint);
+        }
+
+        public void OnExit(Enemy enemy)
+        {
+            enemy.weaponCollider.enabled = false;
+            enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
+        }
+
+        public void OnUpdate(Enemy enemy)
+        {
+            enemy.SetDestination(enemy.targetEnemy.transform.position);
+            var enemyState = Enemy.EnemyState.Chase;
+            if (Vector3.Distance(enemy.transform.position, enemy.targetEnemy.transform.position) <
+                enemy.GetAttackRange())
+            {
+                enemyState = Enemy.EnemyState.Attack;
+            }
+
+            if (Vector3.Distance(enemy.transform.position, enemy.targetEnemy.transform.position) > 4f &&
+                !enemy.navMeshAgentWrapper.Visible(enemy.targetEnemy.gameObject))
+            {
+                enemyState = Enemy.EnemyState.Idle;
+            }
+
+            enemy.SetState(enemyState);
+        }
     }
 }
