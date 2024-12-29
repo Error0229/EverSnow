@@ -15,7 +15,7 @@ namespace Enemy
             Attack
         }
 
-        private EnemyState _enemyState = EnemyState.Idle;
+        private EnemyState _enemyState ;
 
         private EnemyState enemyState
         {
@@ -37,6 +37,7 @@ namespace Enemy
                 case EnemyState.Chase:
                     break;
                 case EnemyState.Attack:
+                    weaponCollider.enabled = false;
                     break;
             }
         }
@@ -47,6 +48,7 @@ namespace Enemy
             {
                 case EnemyState.Idle:
                     navMeshAgentWrapper.SetDestination(transform.position);
+                    weaponCollider.enabled = false;
                     // animator.Play("Idle");
                     break;
                 case EnemyState.Chase:
@@ -54,6 +56,9 @@ namespace Enemy
                     break;
                 case EnemyState.Attack:
                     navMeshAgentWrapper.SetDestination(transform.position);
+                    weaponCollider.enabled = true;
+                    weaponCollider.isTrigger = true;
+                    weapon.Reset();
                     // animator.Play("Attack");
                     break;
             }
@@ -66,6 +71,8 @@ namespace Enemy
 
         // private NavMeshAgent navMeshAgent;
         private Animator animator;
+        private Collider weaponCollider;
+        private Weapon weapon;
 
         private void Start()
         {
@@ -75,6 +82,14 @@ namespace Enemy
 
             EnemyHate[] enemyHate = GameObject.FindObjectsByType<EnemyHate>(FindObjectsSortMode.None);
             enemyHateList = new List<EnemyHate>(enemyHate);
+
+            weapon = GetComponentInChildren<Weapon>();
+            weaponCollider = weapon.gameObject.GetComponent<CapsuleCollider>();
+            if (weaponCollider == null)
+            {
+                throw new Exception("Weapon collider not found");
+            }
+            enemyState = EnemyState.Idle;
         }
 
         private void Update()
@@ -110,13 +125,13 @@ namespace Enemy
 
                     break;
                 case EnemyState.Attack:
-                    if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
+                        animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
                     {
-                        // targetEnemy.gameObject.SetActive(false);
-                        // enemyHateList.Remove(targetEnemy);
-                        targetEnemy.Damage();
+                        targetEnemy.Damage(); // todo: weapon decide
                         enemyState = EnemyState.Idle;
                     }
+
                     break;
             }
         }
