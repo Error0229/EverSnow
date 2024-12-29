@@ -20,6 +20,8 @@ namespace Enemy.enemyState
         {
         }
 
+        float triggerRange = 10f;
+
         public void OnUpdate(Enemy enemy)
         {
             var t = Time.time;
@@ -29,25 +31,6 @@ namespace Enemy.enemyState
             view.transform.localPosition = new Vector3(0,
                 Mathf.Lerp(view.transform.position.y, Mathf.Sin(t) * height, 0.5f), 0);
             var nextEnemyState = Enemy.EnemyState.Idle;
-            if (enemyHateList.Count != 0)
-            {
-                var closestEnemy = GetClosestEnemy(enemy, enemyHateList);
-                var triggerRange = 4f;
-                var speed = 10f;
-
-                if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) <
-                    enemy.GetAttackRange())
-                {
-                    nextEnemyState = Enemy.EnemyState.Attack;
-                }
-                else if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) < triggerRange)
-                {
-                    nextEnemyState = Enemy.EnemyState.Chase;
-                    enemy.SetTargetEnemy(closestEnemy);
-                    return;
-                }
-            }
-
             runtime += Time.deltaTime;
             if (enemy.IsArrived() || runtime > maxRuntime)
             {
@@ -58,6 +41,21 @@ namespace Enemy.enemyState
                 enemy.SetDestination(randomPosition);
                 runtime = 0;
             }
+            if (enemyHateList.Count != 0)
+            {
+                var closestEnemy = GetClosestEnemy(enemy, enemyHateList);
+                if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) <
+                    enemy.GetAttackRange())
+                {
+                    nextEnemyState = Enemy.EnemyState.Attack;
+                }
+                else if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) < triggerRange)
+                {
+                    nextEnemyState = Enemy.EnemyState.Chase;
+                    enemy.SetTargetEnemy(closestEnemy);
+                }
+            }
+
 
             if (nextEnemyState != Enemy.EnemyState.Idle) enemy.SetState(nextEnemyState);
         }

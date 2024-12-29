@@ -9,6 +9,8 @@ namespace Enemy.enemyState
         {
             // animator.Play("Chase");
             enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Sprint);
+            enemy.navMeshAgentWrapper.SetDestination(enemy.transform.position);
+            enemy.SetDestination( enemy.targetEnemy.transform.position);
         }
 
         public void OnExit(Enemy enemy)
