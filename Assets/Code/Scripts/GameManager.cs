@@ -19,6 +19,11 @@ public class GameManager : Singleton<GameManager>
         return npcs.FirstOrDefault(npc => npc.RealName == npcName);
     }
 
+    public List<Npc> GetNpcs()
+    {
+        return npcs.ToList();
+    }
+
     public void RegisterNpc(Npc npc)
     {
         npcs.Add(npc);
@@ -37,5 +42,10 @@ public class GameManager : Singleton<GameManager>
                 npc.StoryState = newState.State;
             }
         }
+    }
+    protected override void Init()
+    {
+        base.Init();
+
     }
 }

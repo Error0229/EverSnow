@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 public class StoryUI : Singleton<StoryUI>
 {
     // Define a const dict for position and index mapping
@@ -25,6 +27,7 @@ public class StoryUI : Singleton<StoryUI>
     [SerializeField] private float bubbleMoveDuration = 0.5f;
     [SerializeField] private float bubbleStretchDuration = 0.3f;
     [SerializeField] private VerticalLayoutGroup layoutGroup;
+    [SerializeField] private TextMeshProUGUI debugText;
 
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
     private readonly Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
@@ -42,13 +45,29 @@ public class StoryUI : Singleton<StoryUI>
     {
         faders = GetComponentsInChildren<UIImageFader>().ToList();
     }
+    private void Update()
+    {
+        var text = $"PlayerState: {GameManager.Instance.PlayerInstance.StoryState}\n";
+        foreach (var npc in GameManager.Instance.GetNpcs())
+        {
+            text += $"{npc.RealName}: {npc.StoryState}\n";
+        }
+        debugText.text = text;
+    }
 
     public void ShowCharacter(PlotDialogCharacter character)
     {
         var index = PositionIndexMapping[character.Position ?? "Left"];
         var characterImage = characterImages[index];
-        var spritePath = character.Name + character.Image;
-        var sprite = Resources.Load<Sprite>(spritePath);
+        var spritePath = new[] { "Assets", "Art", "Textures", "Character", character.Name, character.Image }.Aggregate((a, b) => $"{a}/{b}") + ".png";
+        Debug.Log($"Loading sprite from path: {spritePath}");
+        byte[] fileData = File.ReadAllBytes(spritePath);
+        Texture2D tex = new Texture2D(2, 2);
+        Sprite sprite = null;
+        if (tex.LoadImage(fileData))
+        {
+            sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        }
 
         if (!sprite)
         {
