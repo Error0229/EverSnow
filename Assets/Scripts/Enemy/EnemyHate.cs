@@ -15,8 +15,6 @@ namespace Enemy
             {
                 throw new Exception("EnemyHate must have a rigidbody");
             }
-            
-
         }
 
         private int hp = 3;

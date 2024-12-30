@@ -56,7 +56,7 @@ namespace Enemy
             enemyHateList = new List<EnemyHate>(enemyHate);
 
             weapon = GetComponentInChildren<Weapon>();
-            weaponCollider = weapon.gameObject.GetComponent<CapsuleCollider>();
+            weaponCollider = weapon.gameObject.GetComponent<Collider>();
             if (weaponCollider == null)
             {
                 throw new Exception("Weapon collider not found");
@@ -71,7 +71,7 @@ namespace Enemy
 
         protected void Update()
         {
-            iEnemyState.OnUpdate(this);
+            iEnemyState?.OnUpdate(this);
         }
 
         public float GetAttackRange()
