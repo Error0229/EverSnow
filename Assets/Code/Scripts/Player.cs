@@ -14,7 +14,22 @@ public class Player : MonoBehaviour
 
     private State state;
     private bool triggerEnter;
-    public int Health { get; set; }
+    public int _health;
+    public int Health { get=>_health;
+        set
+        {
+            if (_health <= value)
+            {
+                // todo: damage effect
+            }
+            else
+            {
+                // todo: recover effect
+            }
+            _health = value;
+            //todo : check dead
+        }
+    }
     public int MaxHealth { get; set; }
     public string RealName { get; } = "Kissimi";
     public string StoryState
