@@ -1,4 +1,5 @@
-﻿using Wrapper;
+﻿using UnityEngine;
+using Wrapper;
 
 namespace Enemy.enemyState
 {
@@ -28,7 +29,7 @@ namespace Enemy.enemyState
                 enemyState = Enemy.EnemyState.Idle;
             }
 
-            enemy.SetState(enemyState);
+            if(enemyState != Enemy.EnemyState.Away) enemy.SetState(enemyState);
         }
     }
 }

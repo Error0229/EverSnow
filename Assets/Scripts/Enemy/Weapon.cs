@@ -7,6 +7,7 @@ namespace Enemy
     public class Weapon : MonoBehaviour
     {
         List<EnemyHate> hitedEnemies = new List<EnemyHate>();
+        public bool IsHited => hitedEnemies.Count > 0;
 
         private void Start()
         {
@@ -24,11 +25,9 @@ namespace Enemy
             print(other.name);
             if (target)
             {
-                print(target);
                 if (hitedEnemies.Contains(target))
                     return;
                 target.Damage();
-                print("Damage");
                 hitedEnemies.Add(target);
             }
         }

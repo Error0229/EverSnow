@@ -24,10 +24,12 @@ namespace Enemy
 
         private void Update()
         {
-            if (enemies.Count < 3)
+            var limit = 3;
+            if (enemies.Count < limit)
             {
                 var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)];
-                var randomTwoOrThree = UnityEngine.Random.Range(2, 4);
+                // var randomTwoOrThree = UnityEngine.Random.Range(2, 4);
+                var randomTwoOrThree = 1;
                 var spawnRange = UnityEngine.Random.Range(1, 2);
                 var randomDirection = UnityEngine.Random.Range(0, 2);
                 for (int i = 0; i < randomTwoOrThree; i++)

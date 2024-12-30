@@ -36,7 +36,9 @@ namespace Enemy.enemyState
             {
                 var randomDirection = UnityEngine.Random.Range(0, 360);
                 var randomRange = UnityEngine.Random.Range(1, 2);
-                var randomPosition = enemy.transform.position + new Vector3(Mathf.Cos(randomDirection) * randomRange, 0,
+                var randomPosition = 
+                    enemy.transform.position + 
+                    new Vector3(Mathf.Cos(randomDirection) * randomRange, 0,
                     Mathf.Sin(randomDirection) * randomRange);
                 enemy.SetDestination(randomPosition);
                 runtime = 0;
@@ -44,12 +46,7 @@ namespace Enemy.enemyState
             if (enemyHateList.Count != 0)
             {
                 var closestEnemy = GetClosestEnemy(enemy, enemyHateList);
-                if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) <
-                    enemy.GetAttackRange())
-                {
-                    nextEnemyState = Enemy.EnemyState.Attack;
-                }
-                else if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) < triggerRange)
+                if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) < triggerRange)
                 {
                     nextEnemyState = Enemy.EnemyState.Chase;
                     enemy.SetTargetEnemy(closestEnemy);

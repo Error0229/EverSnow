@@ -38,6 +38,7 @@ namespace Enemy
         public NavMeshAgentWrapper navMeshAgentWrapper;
 
         public EnemyHate targetEnemy;
+        public Vector3 targetPosition;
 
         // private NavMeshAgent navMeshAgent;
         public Animator animator;
