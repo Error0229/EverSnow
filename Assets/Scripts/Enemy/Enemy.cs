@@ -22,7 +22,7 @@ namespace Enemy
 
         private IEnemyState _iEnemyState;
 
-        private IEnemyState iEnemyState
+        protected IEnemyState iEnemyState
         {
             get => _iEnemyState;
             set
@@ -76,7 +76,7 @@ namespace Enemy
 
         public float GetAttackRange()
         {
-            var attackRange = 1f;
+            var attackRange = 4f;
             return attackRange;
         }
 
@@ -132,12 +132,17 @@ namespace Enemy
                     iEnemyState = new ChaseState();
                     break;
                 case EnemyState.Attack:
-                    iEnemyState = new AttackState();
+                    GoToAttack();
                     break;
                 case EnemyState.Away:
                     iEnemyState = new AwayState();
                     break;
             }
+        }
+
+        protected virtual void GoToAttack()
+        {
+            iEnemyState = new AttackState();
         }
     }
 

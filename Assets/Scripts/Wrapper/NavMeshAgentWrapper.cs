@@ -38,6 +38,10 @@ namespace Wrapper
             return !navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
         }
         public enum MoveSpeed { Walk, Run, Sprint }
+        public void SetSpeed( float speed)
+        {
+            navMeshAgent.speed = speed;
+        }
         public void SetSpeed( MoveSpeed speed)
         {
             switch (speed)
