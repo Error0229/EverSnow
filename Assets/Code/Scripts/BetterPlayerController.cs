@@ -32,9 +32,10 @@ public class BetterPlayerController : MonoBehaviour
         get => anim.GetCurrentAnimatorStateInfo(0);
     }
 
+    public float floatLimit = 1.5f;
     private bool IsGround
     {
-        get => Physics.Raycast(transform.position, Vector3.down, 0.5f);
+        get => Physics.Raycast(transform.position, Vector3.down, floatLimit);
     }
 
     private void Awake()
