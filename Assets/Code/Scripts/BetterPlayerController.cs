@@ -24,12 +24,20 @@ public class BetterPlayerController : MonoBehaviour
     private GameObject lockOnTarget;
     private Vector2 lookVec;
     private Vector2 movingVec;
-    private Rigidbody rigid;
+    private CharacterController controller;
+    private Vector3 playerVelocity;
+    private float gravityValue = -9.81f;
+    private float verticalVelocity;
     private STATE state = STATE.IDLE;
     private bool triggerEnter;
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private float footstepInterval = 0.5f; // Adjust this value to control frequency
     private float lastFootstepTime;
+    private float fallTimer = 0f;
+    [SerializeField]
+    private float fallThreshold = 0.3f; // Adjust this value to change how long before entering fall state
+    [SerializeField] private float fallAnimationDelay = 0.5f; // Time before fall animation plays
+    private float fallAnimationTimer = 0f;
     private AnimatorStateInfo StateInfo
     {
         get => anim.GetCurrentAnimatorStateInfo(0);
@@ -38,12 +46,12 @@ public class BetterPlayerController : MonoBehaviour
     public float floatLimit = 1.5f;
     private bool IsGround
     {
-        get => Physics.Raycast(transform.position, Vector3.down, floatLimit);
+        get => controller.isGrounded;
     }
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
         anim = gameObject.transform.GetComponentInChildren<Animator>();
         GoToState(STATE.IDLE);
         PlayerInputManager.Instance.evtMoveAxis.AddListener(Move);
@@ -60,6 +68,19 @@ public class BetterPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (controller.isGrounded && playerVelocity.y < 0)
+        {
+            playerVelocity.y = -2f; // Small negative value to keep grounded
+            fallTimer = 0f; // Reset fall timer when grounded
+            fallAnimationTimer = 0f; // Reset animation timer when grounded
+        }
+        playerVelocity.y += gravityValue * Time.fixedDeltaTime;
+
+        // Update fall timer when not grounded and not in JUMP state
+        if (!controller.isGrounded && state != STATE.JUMP)
+        {
+            fallTimer += Time.fixedDeltaTime;
+        }
 
         var newVelocity = 0.0f;
         switch (state)
@@ -83,7 +104,11 @@ public class BetterPlayerController : MonoBehaviour
                 }
 
                 if (movingVec.magnitude <= 0.1f) GoToState(STATE.IDLE);
-                if (!IsGround) GoToState(STATE.FALL);
+                // Modify the fall check to use the timer
+                if (!IsGround && fallTimer >= fallThreshold)
+                {
+                    GoToState(STATE.FALL);
+                }
 
                 // Play footstep sounds while moving
                 if (IsGround && movingVec.magnitude > 0.1f)
@@ -107,7 +132,7 @@ public class BetterPlayerController : MonoBehaviour
                 {
                     anim.CrossFadeInFixedTime("jump", 0.1f);
                     triggerEnter = false;
-                    rigid.AddForce(Vector3.up * 6, ForceMode.Impulse); // Apply vertical jump force
+                    playerVelocity.y = Mathf.Sqrt(6f * -2f * gravityValue); // Jump height of 6 units
                 }
 
                 // Maintain horizontal movement direction
@@ -119,8 +144,17 @@ public class BetterPlayerController : MonoBehaviour
                 newVelocity = lastVelocity;
                 if (triggerEnter)
                 {
-                    anim.CrossFadeInFixedTime("fall", 0.1f);
+                    // Don't play animation immediately
                     triggerEnter = false;
+                }
+
+                // Update fall animation timer
+                fallAnimationTimer += Time.fixedDeltaTime;
+
+                // Play fall animation only after delay
+                if (fallAnimationTimer >= fallAnimationDelay && !StateInfo.IsName("fall"))
+                {
+                    anim.CrossFadeInFixedTime("fall", 0.1f);
                 }
 
                 // Keep the falling movement consistent with horizontal velocity
@@ -172,6 +206,8 @@ public class BetterPlayerController : MonoBehaviour
         newVelocity = Mathf.Lerp(lastVelocity, newVelocity, Time.deltaTime);
         MoveOn(movingVec, newVelocity);
         lastVelocity = newVelocity;
+
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
     }
 
     private bool CanChangeDirection()
@@ -181,7 +217,7 @@ public class BetterPlayerController : MonoBehaviour
 
     private void ApplyVerticalMovement(Vector3 currentVelocity)
     {
-        rigid.linearVelocity = new Vector3(currentVelocity.x, rigid.linearVelocity.y, currentVelocity.z);
+        controller.Move(currentVelocity * Time.fixedDeltaTime);
     }
 
     private void MoveOn(Vector2 movingInputs, float currentVelocity)
@@ -252,8 +288,7 @@ public class BetterPlayerController : MonoBehaviour
         weapon.Entity.SetActive(false);
     }
 
-
-    public void OnCollisionEnter(Collision collision)
+    public void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (state == STATE.JUMP)
         {
@@ -266,14 +301,22 @@ public class BetterPlayerController : MonoBehaviour
         }
         else if (state == STATE.FALL)
         {
-            GoToState(STATE.ROLL);
+            if (fallAnimationTimer >= fallAnimationDelay)
+            {
+                GoToState(STATE.ROLL);
+            }
+            else
+            {
+                GoToState(STATE.LOCOMOTION);
+            }
         }
     }
 
     private void ResetHorizontalVelocity()
     {
         lastVelocity = 0f;
-        rigid.linearVelocity = new Vector3(0f, rigid.linearVelocity.y, 0f);
+        playerVelocity.x = 0f;
+        playerVelocity.z = 0f;
     }
 
     private void HeavyAttack(bool invoked)
@@ -289,7 +332,6 @@ public class BetterPlayerController : MonoBehaviour
         GoToState(STATE.ATTACK);
     }
 
-
     private void GoToState(STATE newState)
     {
         state = newState;
@@ -304,7 +346,7 @@ public class BetterPlayerController : MonoBehaviour
 
     public void Deactivate()
     {
-        rigid.linearVelocity = Vector3.zero;
+        playerVelocity = Vector3.zero;
         state = STATE.IDLE;
         anim.CrossFadeInFixedTime("idle", 0.1f);
         enabled = false;
@@ -332,9 +374,14 @@ public class BetterPlayerController : MonoBehaviour
     public void Jump(bool _isThrust)
     {
         if (lastVelocity < Mathf.Lerp(walkingSpeed, runningSpeed, 0.5f)) return;
-        if (_isThrust && IsGround)
+        if (_isThrust && controller.isGrounded)
+        {
             if (state == STATE.IDLE || state == STATE.LOCOMOTION)
+            {
+                playerVelocity.y = Mathf.Sqrt(1.5f * -2f * gravityValue); // Jump height of 1.5 units
                 GoToState(STATE.JUMP);
+            }
+        }
     }
 
     private void Dodge(bool isDodge)
