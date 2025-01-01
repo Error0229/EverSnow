@@ -61,7 +61,7 @@ public class GameManager : Singleton<GameManager>
             switch (state)
             {
                 case State.MainMenu:
-                    MainMenuUI.Instance.ShowMenu();
+                    MainMenuUI.Instance.ShowMainMenu();
                     AudioManager.Instance.PlayMusic("Opening");
                     break;
                 case State.InGame:

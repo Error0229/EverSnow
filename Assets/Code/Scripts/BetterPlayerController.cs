@@ -5,7 +5,7 @@ public class BetterPlayerController : MonoBehaviour
     private static readonly int DirX = Animator.StringToHash("DirX");
     private static readonly int DirY = Animator.StringToHash("DirY");
 
-    public float velocity = 10f;
+    public float walkingSpeed = 10f;
     public float runningSpeed = 20f;
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject axeHandler;
@@ -91,7 +91,7 @@ public class BetterPlayerController : MonoBehaviour
                     TryPlayFootstep();
                 }
 
-                newVelocity = movingVec.magnitude * (isSprinting ? runningSpeed : velocity);
+                newVelocity = movingVec.magnitude * (isSprinting ? runningSpeed : walkingSpeed);
                 if (isLockOn)
                 {
                     anim.SetFloat(DirX, movingVec.x);
@@ -331,7 +331,7 @@ public class BetterPlayerController : MonoBehaviour
 
     public void Jump(bool _isThrust)
     {
-        if (lastVelocity < Mathf.Lerp(velocity, runningSpeed, 0.5f)) return;
+        if (lastVelocity < Mathf.Lerp(walkingSpeed, runningSpeed, 0.5f)) return;
         if (_isThrust && IsGround)
             if (state == STATE.IDLE || state == STATE.LOCOMOTION)
                 GoToState(STATE.JUMP);
