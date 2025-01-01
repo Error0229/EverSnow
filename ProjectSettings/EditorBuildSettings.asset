@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/InGame.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Level/Scenes/MainMenu.unity
+    guid: a2754d3ae7f7b0b44b86aa65935ecf56
+  - enabled: 0
+    path: Assets/Level/Scenes/sfx-dialog.unity
+    guid: c9de84ee869603544bda925fd5e8e575
+  - enabled: 1
+    path: Assets/Level/Scenes/Latest.unity
+    guid: 427220ac714fc754a829f465f9ebd26a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

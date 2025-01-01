@@ -27,6 +27,9 @@ public class BetterPlayerController : MonoBehaviour
     private Rigidbody rigid;
     private STATE state = STATE.IDLE;
     private bool triggerEnter;
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private float footstepInterval = 0.5f; // Adjust this value to control frequency
+    private float lastFootstepTime;
     private AnimatorStateInfo StateInfo
     {
         get => anim.GetCurrentAnimatorStateInfo(0);
@@ -82,6 +85,11 @@ public class BetterPlayerController : MonoBehaviour
                 if (movingVec.magnitude <= 0.1f) GoToState(STATE.IDLE);
                 if (!IsGround) GoToState(STATE.FALL);
 
+                // Play footstep sounds while moving
+                if (IsGround && movingVec.magnitude > 0.1f)
+                {
+                    TryPlayFootstep();
+                }
 
                 newVelocity = movingVec.magnitude * (isSprinting ? runningSpeed : velocity);
                 if (isLockOn)
@@ -122,6 +130,7 @@ public class BetterPlayerController : MonoBehaviour
                 if (triggerEnter)
                 {
                     anim.CrossFadeInFixedTime(attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack", 0.1f);
+                    AudioManager.Instance.PlaySFX("PlayerAttack");
                     ResetHorizontalVelocity();
                     triggerEnter = false;
                 }
@@ -281,7 +290,6 @@ public class BetterPlayerController : MonoBehaviour
     }
 
 
-
     private void GoToState(STATE newState)
     {
         state = newState;
@@ -358,6 +366,14 @@ public class BetterPlayerController : MonoBehaviour
     public Item CheckLookAtItem()
     {
         return camSoul.CheckLookAtItem();
+    }
+    private void TryPlayFootstep()
+    {
+        if (Time.time - lastFootstepTime >= (isSprinting ? footstepInterval * 0.6f : footstepInterval))
+        {
+            AudioManager.Instance.PlaySFX(footstepSound, transform.position, 0.5f);
+            lastFootstepTime = Time.time;
+        }
     }
     private enum Attacks
     {
