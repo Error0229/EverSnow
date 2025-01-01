@@ -68,7 +68,7 @@ public class DialogBubble : MonoBehaviour
         // Play sound effect if specified
         if (!string.IsNullOrEmpty(dialogData.SoundEffect))
         {
-            SFXManager.Instance.PlaySoundEffect(dialogData.SoundEffect);
+            AudioManager.Instance.PlaySFX(dialogData.SoundEffect);
         }
 
         // Set animation hash

@@ -129,6 +129,7 @@ public class BetterPlayerController : MonoBehaviour
                 if (triggerEnter)
                 {
                     anim.CrossFadeInFixedTime(attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack", 0.1f);
+                    AudioManager.Instance.PlaySFX("PlayerAttack");
                     ResetHorizontalVelocity();
                     triggerEnter = false;
                 }
@@ -288,7 +289,6 @@ public class BetterPlayerController : MonoBehaviour
     }
 
 
-
     private void GoToState(STATE newState)
     {
         state = newState;
@@ -370,7 +370,7 @@ public class BetterPlayerController : MonoBehaviour
     {
         if (Time.time - lastFootstepTime >= (isSprinting ? footstepInterval * 0.6f : footstepInterval))
         {
-            SFXManager.Instance.PlaySFX(footstepSound, transform.position, 0.5f);
+            AudioManager.Instance.PlaySFX(footstepSound, transform.position, 0.5f);
             lastFootstepTime = Time.time;
         }
     }

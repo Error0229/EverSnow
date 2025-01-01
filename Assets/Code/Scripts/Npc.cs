@@ -20,6 +20,9 @@ public class Npc : MonoBehaviour
     {
         get => realName;
     }
+    public void StartGame()
+    {
+    }
 
     private void Awake()
     {

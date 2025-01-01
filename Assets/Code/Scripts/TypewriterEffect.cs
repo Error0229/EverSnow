@@ -57,7 +57,7 @@ public class TypewriterEffect : MonoBehaviour
                     // Play typing sound when adding a new character
                     if (typingSound != null && currentCharIndex < fullText.Length && !char.IsWhiteSpace(fullText[currentCharIndex]))
                     {
-                        SFXManager.Instance.PlaySFX(typingSound, 0.5f);
+                        AudioManager.Instance.PlaySFX(typingSound, 0.5f);
                     }
 
                     if (currentCharIndex >= fullText.Length)
