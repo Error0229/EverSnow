@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  typingSound: {fileID: 8300000, guid: d93af211710d51e4b892c376ce958fbf, type: 3}
 --- !u!1 &4538700571525246304
 GameObject:
   m_ObjectHideFlags: 0

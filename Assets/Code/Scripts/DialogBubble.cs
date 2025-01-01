@@ -65,6 +65,12 @@ public class DialogBubble : MonoBehaviour
         IsAnimating = true;
         pendingDialogData = dialogData;
 
+        // Play sound effect if specified
+        if (!string.IsNullOrEmpty(dialogData.SoundEffect))
+        {
+            AudioManager.Instance.PlaySFX(dialogData.SoundEffect);
+        }
+
         // Set animation hash
         currentAnimationHash = Animator.StringToHash(direction == "Left" ? "BubblePopLeft" : "BubblePopRight");
         animator.Play(currentAnimationHash);

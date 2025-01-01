@@ -82,6 +82,7 @@ public class PlotDialog
     public string? Speaker { get; set; }
 
     public string? Text { get; set; }
+    public string? SoundEffect { get; set; }
 
     [CanBeNull] public string DialogImage { get; set; }
 
