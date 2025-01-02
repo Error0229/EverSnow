@@ -28,7 +28,7 @@ public class InventoryUI : Singleton<InventoryUI>
 
     public void OnItemClick(Item item)
     {
-        itemName.text = item.Name;
+        itemName.text = item.RealName;
         itemDescription.text = item.Description;
         useButton.onClick.RemoveAllListeners();
         cancelButton.onClick.RemoveAllListeners();

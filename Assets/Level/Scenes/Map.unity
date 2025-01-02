@@ -12993,7 +12993,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 894270288}
-  - {fileID: 1174060049}
   - {fileID: 269523985}
   - {fileID: 466637567}
   - {fileID: 796714690}
@@ -37648,7 +37647,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 400163553}
+    m_TransformParent: {fileID: 1517093358}
     m_Modifications:
     - target: {fileID: 2166486468323840219, guid: ef623862df10c9d4e9a6813e277641e0, type: 3}
       propertyPath: m_Name
@@ -37656,15 +37655,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5023750158227252688, guid: ef623862df10c9d4e9a6813e277641e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 151.59
+      value: 145.11662
       objectReference: {fileID: 0}
     - target: {fileID: 5023750158227252688, guid: ef623862df10c9d4e9a6813e277641e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.06
+      value: 3.2927523
       objectReference: {fileID: 0}
     - target: {fileID: 5023750158227252688, guid: ef623862df10c9d4e9a6813e277641e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.51
+      value: 6.1550226
       objectReference: {fileID: 0}
     - target: {fileID: 5023750158227252688, guid: ef623862df10c9d4e9a6813e277641e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48563,6 +48562,7 @@ Transform:
   - {fileID: 554877127}
   - {fileID: 291001145}
   - {fileID: 2000639613}
+  - {fileID: 1174060049}
   m_Father: {fileID: 481564434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1519628148
@@ -68972,6 +68972,7 @@ MonoBehaviour:
   footstepInterval: 0.5
   fallThreshold: 0.3
   fallAnimationDelay: 0.3
+  fallSpeed: 1
   floatLimit: 1.5
 --- !u!4 &2069996901
 Transform:

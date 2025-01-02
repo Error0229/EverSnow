@@ -20,7 +20,33 @@ public class Player : MonoBehaviour
     public string StoryState
     {
         get => story.State;
-        set => story.State = value;
+        set
+        {
+            switch (value)
+            {
+                case "FinishMistletoeQuest":
+                    QuestManager.Instance.FinishQuest("MistletoeQuest");
+                    break;
+                case "DoingMistletoeQuest":
+                    QuestManager.Instance.StartQuest("MistletoeQuest");
+                    break;
+
+                case "DoingAxeQuest":
+                    QuestManager.Instance.StartQuest("AxeQuest");
+                    break;
+                case "FinishAxeQuest":
+                    QuestManager.Instance.FinishQuest("AxeQuest");
+                    break;
+
+                case "DoingBranchQuest":
+                    QuestManager.Instance.StartQuest("BranchQuest");
+                    break;
+                case "FinishBranchQuest":
+                    QuestManager.Instance.FinishQuest("BranchQuest");
+                    break;
+            }
+            story.State = value;
+        }
     }
 
     public void Awake()
@@ -89,7 +115,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void PickUpItem(Item item)
+    public void Obtain(Item item)
     {
         item.Entity.SetActive(false);
         inventory.Add(item);
@@ -113,7 +139,7 @@ public class Player : MonoBehaviour
         var item = playerEntity.CheckLookAtItem();
         if (item != null)
         {
-            PickUpItem(item);
+            Obtain(item);
         }
     }
 
