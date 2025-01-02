@@ -7,7 +7,6 @@ public class QuestManager : Singleton<QuestManager>
     protected override void Init()
     {
         quests = new List<Quest>{
-            new MistletoeQuest(),
             new BranchQuest(),
             new AxeQuest()
         };

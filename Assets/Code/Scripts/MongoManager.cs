@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MongoDB.Driver;
 using UnityEngine;
 public class MongoManager : Singleton<MongoManager>
@@ -27,9 +28,26 @@ public class MongoManager : Singleton<MongoManager>
     }
     public Plot GetPlotByStates(string playerState, string npcState, string npcName)
     {
-        var result = Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState && plot.NPCName == npcName).FirstOrDefault();
-        print(result);
-        return result;
+        var filter = Builders<Plot>.Filter.Or(
+            // Original condition - exact match
+            Builders<Plot>.Filter.And(
+                Builders<Plot>.Filter.Eq(p => p.PlayerState, playerState),
+                Builders<Plot>.Filter.Eq(p => p.NPCState, npcState),
+                Builders<Plot>.Filter.Eq(p => p.NPCName, npcName)
+            ),
+            // Alternative condition - empty PlayerState
+            Builders<Plot>.Filter.And(
+                Builders<Plot>.Filter.Eq(p => p.PlayerState, ""),
+                Builders<Plot>.Filter.Eq(p => p.NPCState, npcState),
+                Builders<Plot>.Filter.Eq(p => p.NPCName, npcName)
+            )
+        );
+        var result = Plots.Find(filter).ToList();
+        if (result.Any(p => p.PlayerState == playerState))
+        {
+            return result.First(p => p.PlayerState == playerState);
+        }
+        return result.FirstOrDefault();
     }
 
     public Plot GetPlotByLabel(string label)

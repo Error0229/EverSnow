@@ -4,14 +4,14 @@ public class AxeQuest : Quest
     public AxeQuest()
     {
         questName = "AxeQuest";
-        description = "Find the axe and bring it to the NPC";
-        AddGoal("Axe", 1);
+        description = "來自獵人的委託，在附近的樹林找到五株槲寄生";
+        AddGoal("Mistletoe", 5);
     }
 
     public override void SyncProgressions()
     {
-        progressions["Axe"] = GameManager.Instance.PlayerInstance.GetInventory().Count(i => i.Name == "Axe");
-        if (progressions["Axe"] >= goals["Axe"])
+        progressions["Mistletoe"] = GameManager.Instance.PlayerInstance.GetInventory().Count(i => i.Name == "Mistletoe");
+        if (progressions["Mistletoe"] >= goals["Mistletoe"])
         {
             Complete();
         }
@@ -19,13 +19,16 @@ public class AxeQuest : Quest
     public override void Complete()
     {
         base.Complete();
-        GameManager.Instance.PlayerInstance.GetInventory().RemoveAll(i => i.Name == "Axe");
         GameManager.Instance.PlayerInstance.StoryState = "CompletedAxeQuest";
     }
 
     public override void Finish()
     {
         base.Finish();
-        GameManager.Instance.PlayerInstance.Obtain(ItemFactory.Instance.CreateItem("Axe"));
+        var mistletoe = GameManager.Instance.PlayerInstance.GetInventory().Where(i => i.Name == "Mistletoe").Take(5).ToList();
+        foreach (var item in mistletoe)
+        {
+            GameManager.Instance.PlayerInstance.GetInventory().Remove(item);
+        }
     }
 }
