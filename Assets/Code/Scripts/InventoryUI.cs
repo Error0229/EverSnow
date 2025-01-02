@@ -43,7 +43,9 @@ public class InventoryUI : Singleton<InventoryUI>
                 cancelButton.onClick.AddListener(() =>
                 {
                     GameManager.Instance.PlayerInstance.Remove(item as Weapon);
+                    RefreshInventory();
                     OnItemClick(item);
+                    AudioManager.Instance.PlaySFX("CancelEquip");
                 });
             }
             else
@@ -53,6 +55,7 @@ public class InventoryUI : Singleton<InventoryUI>
                     GameManager.Instance.PlayerInstance.Equip(item as Weapon);
                     RefreshInventory();
                     OnItemClick(item);
+                    AudioManager.Instance.PlaySFX("UseItem");
                 });
                 useButton.interactable = true;
                 cancelButton.interactable = false;
@@ -69,6 +72,7 @@ public class InventoryUI : Singleton<InventoryUI>
                 {
                     item.Use();
                     RefreshInventory();
+                    AudioManager.Instance.PlaySFX("UseItem");
                 });
             }
             else
@@ -76,6 +80,7 @@ public class InventoryUI : Singleton<InventoryUI>
                 useButton.interactable = false;
             }
         }
+        AudioManager.Instance.PlaySFX("SelectItem");
     }
     protected override void Init()
     {
@@ -96,6 +101,7 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         RefreshInventory();
         inventoryPanel.SetActive(true);
+        AudioManager.Instance.PlaySFX("OpenInventory");
     }
     public void CloseInventory()
     {

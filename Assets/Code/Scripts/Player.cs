@@ -65,6 +65,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        GoToState(State.InGame);
+    }
+
     public void Update()
     {
         switch (state)

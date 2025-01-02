@@ -4,6 +4,7 @@ using UnityEngine;
 public class TypewriterEffect : MonoBehaviour
 {
     [SerializeField] private STATE state;
+    [SerializeField] private AudioClip typingSound;  // Add this field
 
     private int currentCharIndex;
 
@@ -52,6 +53,12 @@ public class TypewriterEffect : MonoBehaviour
                 {
                     elapsedTime = 0;
                     currentCharIndex += 1;
+
+                    // Play typing sound when adding a new character
+                    if (typingSound != null && currentCharIndex < fullText.Length && !char.IsWhiteSpace(fullText[currentCharIndex]))
+                    {
+                        AudioManager.Instance.PlaySFX(typingSound, 0.5f);
+                    }
 
                     if (currentCharIndex >= fullText.Length)
                         GoToState(STATE.FINISHED);

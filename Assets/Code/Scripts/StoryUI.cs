@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using System;
 public class StoryUI : Singleton<StoryUI>
 {
     // Define a const dict for position and index mapping
@@ -13,7 +14,7 @@ public class StoryUI : Singleton<StoryUI>
     {
         ["Left"] = 0,
         ["Right"] = 1,
-        ["Center"] = 2,
+        ["ButtonRight"] = 2,
         ["Top"] = 3
     };
 
@@ -28,6 +29,8 @@ public class StoryUI : Singleton<StoryUI>
     [SerializeField] private float bubbleStretchDuration = 0.3f;
     [SerializeField] private VerticalLayoutGroup layoutGroup;
     [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] private AnimationCurve CharacterImageShakingCurve;
+    [SerializeField] private AnimationCurve CharacterImageJumpCurve;  // Add this field
 
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
     private readonly Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
@@ -35,6 +38,9 @@ public class StoryUI : Singleton<StoryUI>
     private DialogBubble currentBubble;
     private IList<PlotDialog> dialogs = new List<PlotDialog>();
     private List<UIImageFader> faders = new List<UIImageFader>();
+
+    private Dictionary<string, Coroutine> animationCoroutines = new Dictionary<string, Coroutine>();
+    private Dictionary<string, Vector2> characterOriginalPosition = new Dictionary<string, Vector2>();
 
     public bool IsAnimating
     {
@@ -53,6 +59,10 @@ public class StoryUI : Singleton<StoryUI>
             text += $"{npc.RealName}: {npc.StoryState}\n";
         }
         debugText.text = text;
+    }
+    private bool IsTalkingToPet()
+    {
+        return CharacterPositionMapping.ContainsKey("Ila") && CharacterPositionMapping["Ila"] == "Right";
     }
 
     public void ShowCharacter(PlotDialogCharacter character)
@@ -76,12 +86,99 @@ public class StoryUI : Singleton<StoryUI>
             }
         }
 
-
         characterImage.enabled = true;
         characterImage.sprite = sprite;
         characterImage.preserveAspect = true;
         CharacterPositionMapping[character.Name] = character.Position;
         faders.ForEach(f => f.TriggerFade(true, true));
+
+        // Stop any existing shake animation for this character
+        if (animationCoroutines.ContainsKey(character.Name))
+        {
+            StopCoroutine(animationCoroutines[character.Name]);
+            // Reset position
+            characterImage.rectTransform.anchoredPosition = characterOriginalPosition[character.Name];
+        }
+
+        // Start shaking if animation is "shaking"
+        if (character.Animation != String.Empty)
+        {
+            characterOriginalPosition[character.Name] = characterImage.rectTransform.anchoredPosition;
+            switch (character.Animation)
+            {
+                case "Shaking":
+                    animationCoroutines[character.Name] = StartCoroutine(ShakeCharacter(characterImage.rectTransform));
+                    break;
+                case "Jumping":
+                    animationCoroutines[character.Name] = StartCoroutine(JumpCharacter(characterImage.rectTransform));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator ShakeCharacter(RectTransform imageTransform)
+    {
+        float elapsed = 0;
+        Vector2 originalPosition = imageTransform.anchoredPosition;
+        float shakeDuration = 0.125f; // Adjust this to control how long one shake cycle takes
+        float shakeAmount = 22f;  // Adjust this to control shake intensity
+        var cycleCount = 0;
+        var cycleLimit = 5; // Adjust this to control how many shake cycles to perform
+
+        while (cycleCount < cycleLimit) // Continuous shaking
+        {
+            elapsed += Time.deltaTime;
+
+            if (elapsed > shakeDuration)
+            {
+                cycleCount++;
+                elapsed = 0; // Reset for next cycle
+            }
+
+            float curveTime = elapsed / shakeDuration;
+            float xOffset = CharacterImageShakingCurve.Evaluate(curveTime) * shakeAmount;
+
+            imageTransform.anchoredPosition = originalPosition + new Vector2(xOffset, 0);
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator JumpCharacter(RectTransform imageTransform)
+    {
+        float jumpDuration = 0.33f;
+        float jumpHeight = 40f;
+        Vector2 originalPosition = imageTransform.anchoredPosition;
+        var cycleCount = 0;
+        var cycleLimit = 3; // Adjust this to control how many shake cycles to perform
+
+        while (cycleCount < cycleLimit) // Continuous jumping
+        {
+            float elapsed = 0;
+
+            while (elapsed < jumpDuration)
+            {
+                elapsed += Time.deltaTime;
+                float normalizedTime = elapsed / jumpDuration;
+
+                // Use animation curve to control the jump height
+                float yOffset = CharacterImageJumpCurve.Evaluate(normalizedTime) * jumpHeight;
+                imageTransform.anchoredPosition = originalPosition + new Vector2(0, yOffset);
+                print($"{imageTransform.anchoredPosition}");
+
+                yield return null;
+            }
+
+            // Reset position at the end of each jump
+            imageTransform.anchoredPosition = originalPosition;
+
+
+            // Optional: Add a small pause between jumps
+            cycleCount++;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public void ShowDialog(PlotDialog dialogData, bool visibility = true)
@@ -90,6 +187,7 @@ public class StoryUI : Singleton<StoryUI>
         {
             ShowCharacter(character);
         }
+        characterImages[PositionIndexMapping["ButtonRight"]].enabled = IsTalkingToPet();
 
         dialogContent.SetActive(visibility);
 
