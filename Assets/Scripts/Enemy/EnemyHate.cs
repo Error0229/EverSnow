@@ -9,14 +9,14 @@ namespace Enemy
         Player player;
         private void Awake()
         {
-            if (!GetComponentInChildren<Collider>())
-            {
-                throw new Exception("EnemyHate must have a collider");
-            }
-            if (!GetComponentInChildren<Rigidbody>())
-            {
-                throw new Exception("EnemyHate must have a rigidbody");
-            }
+            // if (!GetComponentInChildren<Collider>())
+            // {
+            //     throw new Exception("EnemyHate must have a collider");
+            // }
+            // if (!GetComponentInChildren<Rigidbody>())
+            // {
+            //     throw new Exception("EnemyHate must have a rigidbody");
+            // }
             player = GetComponent<Player>();
             if (player == null)
             {
@@ -41,6 +41,11 @@ namespace Enemy
             {
                 player.Health--;
             }
+        }
+
+        public void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace Enemy.enemyState
+﻿using System;
+using System.Diagnostics;
+using UnityEditor;
+
+namespace Enemy.enemyState
 {
     public interface IEnemyState
     {

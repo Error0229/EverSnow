@@ -28,11 +28,11 @@ namespace Enemy.enemyState
         {
             var view = enemy.GetView();
           view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.position.y, 0, 0.5f), 0);
+                Mathf.Lerp(view.transform.localPosition.y, 0, 0.9f), 0);
             var enemyState = Enemy.EnemyState.Attack;
+            attackTime += Time.deltaTime;
             if (attackTime >= attackMaxTime || enemy.navMeshAgentWrapper.IsArrived() || enemy.weapon.IsHited)
             {
-                attackTime += Time.deltaTime;
                 enemyState = Enemy.EnemyState.Away;
             }
 

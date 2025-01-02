@@ -20,9 +20,10 @@ namespace Enemy
 
         private GameObject view;
 
+        [SerializeField, SerializeReference]
         private IEnemyState _iEnemyState;
 
-        protected IEnemyState iEnemyState
+        public IEnemyState iEnemyState
         {
             get => _iEnemyState;
             set
@@ -76,7 +77,7 @@ namespace Enemy
 
         public float GetAttackRange()
         {
-            var attackRange = 4f;
+            var attackRange = 8f;
             return attackRange;
         }
 

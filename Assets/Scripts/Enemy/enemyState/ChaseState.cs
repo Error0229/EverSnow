@@ -22,6 +22,9 @@ namespace Enemy.enemyState
 
         public void OnUpdate(Enemy enemy)
         {
+            var view = enemy.GetView();
+            view.transform.localPosition = new Vector3(0,
+                Mathf.Lerp(view.transform.localPosition.y, 0, 0.9f), 0);
             enemy.SetDestination(enemy.targetEnemy.transform.position);
             var enemyState = Enemy.EnemyState.Chase;
             if (Vector3.Distance(enemy.transform.position, enemy.targetEnemy.transform.position) <

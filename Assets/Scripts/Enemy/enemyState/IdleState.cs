@@ -20,16 +20,16 @@ namespace Enemy.enemyState
         {
         }
 
-        float triggerRange = 10f;
+        float triggerRange = 20f;
 
         public void OnUpdate(Enemy enemy)
         {
             var t = Time.time;
-            var height = 1;
+            var height = 0.5f;
             var view = enemy.GetView();
             var enemyHateList = enemy.GetHateList();
             view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.position.y, Mathf.Sin(t) * height, 0.5f), 0);
+                Mathf.Lerp(view.transform.localPosition.y, Mathf.Sin(t) * height, 0.5f), 0);
             var nextEnemyState = Enemy.EnemyState.Idle;
             runtime += Time.deltaTime;
             if (enemy.IsArrived() || runtime > maxRuntime)
