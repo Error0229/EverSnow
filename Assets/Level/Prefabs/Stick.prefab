@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2a889fe6675064d8ca2807da202c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: "\u6A39\u679D"
+  itemName: Branch
   description: "\u6CBE\u4E0A\u96EA\u6709\u4E9B\u6EBC\u6F64\u7684\u6A39\u679D\uFF0C\u9700\u8981\u7D93\u904E\u4E00\u4E9B\u8655\u7406\u624D\u80FD\u7576\u67F4\u706B\u4F7F\u7528\u3002 "
   isStackAble: 1
   isConsumable: 0
@@ -195,3 +195,4 @@ MonoBehaviour:
   isEquipment: 0
   icon: {fileID: 21300000, guid: e6ac2eb29b1dfda408697ee8cdf16987, type: 3}
   entity: {fileID: 5929921577238317952}
+  realName: "\u6A39\u679D"

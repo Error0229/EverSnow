@@ -62,7 +62,7 @@ public class StoryManager : Singleton<StoryManager>
     public void InvokePlot(Npc talker)
     {
         var player = GameManager.Instance.PlayerInstance;
-        var plot = MongoManager.Instance.GetPlotByStates(player.StoryState, talker.StoryState);
+        var plot = MongoManager.Instance.GetPlotByStates(player.StoryState, talker.StoryState, talker.RealName);
         if (plot == null) return;
         currentPlot = plot;
         GotoState(State.Ongoing);
@@ -79,9 +79,10 @@ public class StoryManager : Singleton<StoryManager>
         if (state != State.Ongoing) return;
         if (IsTyping) return;
         if (StoryUI.Instance.IsAnimating) return;  // Add this line
-        if (currentPlot.CurrentDialog.IsEndDialog)
-        {
+        if (currentPlot.CurrentDialog.EndDialog?.NextState != null)
             GameManager.Instance.UpdateStoryState(currentPlot.CurrentDialog.EndDialog.NextState);
+        if (currentPlot.CurrentDialog.IsLastDialog)
+        {
             GotoState(State.Finished);
             return;
         }

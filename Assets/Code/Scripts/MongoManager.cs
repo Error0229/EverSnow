@@ -25,11 +25,11 @@ public class MongoManager : Singleton<MongoManager>
             Debug.Log(ex);
         }
     }
-    public Plot GetPlotByStates(string playerState, string npcState)
+    public Plot GetPlotByStates(string playerState, string npcState, string npcName)
     {
-        var result = Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState).FirstOrDefault();
+        var result = Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState && plot.NPCName == npcName).FirstOrDefault();
         print(result);
-        return Plots.Find(plot => plot.PlayerState == playerState && plot.NPCState == npcState).FirstOrDefault();
+        return result;
     }
 
     public Plot GetPlotByLabel(string label)

@@ -37,6 +37,7 @@ public class BetterPlayerController : MonoBehaviour
     [SerializeField]
     private float fallThreshold = 0.3f; // Adjust this value to change how long before entering fall state
     [SerializeField] private float fallAnimationDelay = 0.5f; // Time before fall animation plays
+    [SerializeField] private float fallSpeed = 1.0f;
     private float fallAnimationTimer = 0f;
     private AnimatorStateInfo StateInfo
     {
@@ -66,7 +67,7 @@ public class BetterPlayerController : MonoBehaviour
         camSoul.evtUnlock.AddListener(UnlockOn);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (controller.isGrounded && playerVelocity.y < 0)
         {
@@ -74,7 +75,7 @@ public class BetterPlayerController : MonoBehaviour
             fallTimer = 0f; // Reset fall timer when grounded
             fallAnimationTimer = 0f; // Reset animation timer when grounded
         }
-        playerVelocity.y += gravityValue * Time.fixedDeltaTime;
+        playerVelocity.y += (gravityValue - (controller.isGrounded ? 0f : fallSpeed)) * Time.deltaTime;
 
         // Update fall timer when not grounded and not in JUMP state
         if (!controller.isGrounded && state != STATE.JUMP)
@@ -135,16 +136,14 @@ public class BetterPlayerController : MonoBehaviour
                     playerVelocity.y = Mathf.Sqrt(6f * -2f * gravityValue); // Jump height of 6 units
                 }
 
-                // Maintain horizontal movement direction
-
-                if (StateInfo.normalizedTime > 0.8f && StateInfo.IsName("jump")) GoToState(STATE.FALL);
+                if (StateInfo.normalizedTime > 0.9f && StateInfo.IsName("jump")) GoToState(STATE.FALL);
                 break;
 
             case STATE.FALL:
                 newVelocity = lastVelocity;
                 if (triggerEnter)
                 {
-                    // Don't play animation immediately
+                    ResetHorizontalVelocity();
                     triggerEnter = false;
                 }
 
@@ -207,7 +206,6 @@ public class BetterPlayerController : MonoBehaviour
         MoveOn(movingVec, newVelocity);
         lastVelocity = newVelocity;
 
-        controller.Move(playerVelocity * Time.fixedDeltaTime);
     }
 
     private bool CanChangeDirection()
@@ -217,12 +215,12 @@ public class BetterPlayerController : MonoBehaviour
 
     private void ApplyVerticalMovement(Vector3 currentVelocity)
     {
-        controller.Move(currentVelocity * Time.fixedDeltaTime);
+        var newVelocity = new Vector3(currentVelocity.x, playerVelocity.y, currentVelocity.z);
+        controller.Move(newVelocity * Time.deltaTime);
     }
 
     private void MoveOn(Vector2 movingInputs, float currentVelocity)
     {
-        if (currentVelocity <= 0.01f) return;
 
         var cameraForward = cam.transform.forward;
         cameraForward.y = 0;
@@ -255,7 +253,7 @@ public class BetterPlayerController : MonoBehaviour
 
     public void Equip(Weapon weapon)
     {
-        if (weapon.Name == "斧頭")
+        if (weapon.Name == "Axe")
         {
             axeHandler.SetActive(true);
 
@@ -265,7 +263,7 @@ public class BetterPlayerController : MonoBehaviour
             weapon.Entity.SetActive(true);
             knifeHandler.SetActive(false);
         }
-        else if (weapon.Name == "小刀")
+        else if (weapon.Name == "Knife")
         {
             weapon.Entity.transform.SetParent(knifeHandler.transform);
             weapon.Entity.transform.localPosition = Vector3.zero;
@@ -277,11 +275,11 @@ public class BetterPlayerController : MonoBehaviour
     }
     public void Remove(Weapon weapon)
     {
-        if (weapon.Name == "斧頭")
+        if (weapon.Name == "Axe")
         {
             axeHandler.SetActive(false);
         }
-        else if (weapon.Name == "小刀")
+        else if (weapon.Name == "Knife")
         {
             knifeHandler.SetActive(false);
         }
@@ -314,9 +312,7 @@ public class BetterPlayerController : MonoBehaviour
 
     private void ResetHorizontalVelocity()
     {
-        lastVelocity = 0f;
-        playerVelocity.x = 0f;
-        playerVelocity.z = 0f;
+        lastVelocity = lastVelocity * 0.5f;
     }
 
     private void HeavyAttack(bool invoked)
@@ -376,7 +372,7 @@ public class BetterPlayerController : MonoBehaviour
         if (lastVelocity < Mathf.Lerp(walkingSpeed, runningSpeed, 0.5f)) return;
         if (_isThrust && controller.isGrounded)
         {
-            if (state == STATE.IDLE || state == STATE.LOCOMOTION)
+            if (state == STATE.LOCOMOTION || state == STATE.IDLE)
             {
                 playerVelocity.y = Mathf.Sqrt(1.5f * -2f * gravityValue); // Jump height of 1.5 units
                 GoToState(STATE.JUMP);

@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2a889fe6675064d8ca2807da202c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: "\u69F2\u5BC4\u751F"
+  itemName: Mistletoe
   description: "\u751F\u9577\u5728\u9644\u8FD1\uFF0C\u6709\u8457\u7D05\u8272\u679C\u5BE6\u7684\u690D\u7269\uFF0C\u5341\u5206\u5E38\u898B\u3002"
   isStackAble: 1
   isConsumable: 0
@@ -311,6 +311,7 @@ MonoBehaviour:
   isEquipment: 0
   icon: {fileID: 21300000, guid: 0bbf8d2dfcd68dd449159f2a67c9538b, type: 3}
   entity: {fileID: 8489099765842391054}
+  realName: "\u69F2\u5BC4\u751F"
 --- !u!1 &2306050877427975955
 GameObject:
   m_ObjectHideFlags: 0

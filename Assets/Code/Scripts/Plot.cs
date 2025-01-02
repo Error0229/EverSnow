@@ -86,10 +86,8 @@ public class PlotDialog
 
     [CanBeNull] public string DialogImage { get; set; }
 
-    public bool IsEndDialog
-    {
-        get => EndDialog != null && EndDialog.NextState.Any();
-    }
+    public bool IsLastDialog { get; set; }
+
     public bool IsOption
     {
         get => Options.Count > 0;
