@@ -3627,11 +3627,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4365604151468594987, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.570075
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4365604151468594987, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.3178034
+      value: -8.14
       objectReference: {fileID: 0}
     - target: {fileID: 4365604151468594987, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3659,6 +3659,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4365604151468594987, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506140446326734077, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506140446326734077, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
+      propertyPath: TrailModule.textureMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7371118958675257084, guid: a5969fc07166cd84d9aa3b3868dfbc4f, type: 3}
