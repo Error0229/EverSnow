@@ -5,15 +5,15 @@ public abstract class InputManager : Singleton<InputManager>
     public UnityEvent<Vector2> evtMoveAxis;
     public UnityEvent<bool> evtJump;
     public UnityEvent<bool> evtRun;
-    public UnityEvent<bool> evtDialogClick; // Highlighted section 0
+    public UnityEvent evtDialogClick;
     public UnityEvent<Vector2> evtLook;
     public UnityEvent<bool> evtDodge;
     public UnityEvent<bool> evtLockOn;
     public UnityEvent<bool> evtNormalAttack;
     public UnityEvent<bool> evtStrongAttack;
     public UnityEvent evtInteract;
-    public UnityEvent evtNextDialog;
     public UnityEvent evtInventory;
+    public UnityEvent evtUseItem;
 
     private void Update()
     {
@@ -29,6 +29,7 @@ public abstract class InputManager : Singleton<InputManager>
         CalculateInteract();
         CalculateDialogClick();
         CalculateInventory();
+        CalculateUseItem();
     }
     private void FixedUpdate()
     { }
@@ -44,4 +45,5 @@ public abstract class InputManager : Singleton<InputManager>
     protected abstract void CalculateLockOn();
     protected abstract void CalculateAttack();
     protected abstract void CalculateInventory();
+    protected abstract void CalculateUseItem();
 }

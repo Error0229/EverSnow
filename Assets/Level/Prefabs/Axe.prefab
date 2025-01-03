@@ -66,7 +66,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3193279481719383387}
-  - component: {fileID: 1262219455046223901}
+  - component: {fileID: 2157338022269455368}
   m_Layer: 12
   m_Name: Axe
   m_TagString: Untagged
@@ -83,14 +83,14 @@ Transform:
   m_GameObject: {fileID: 5979482288582824623}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.52, z: 7.96}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5512087672236468730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1262219455046223901
+--- !u!114 &2157338022269455368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5979482288582824623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc64fe6c0ab67d549a56ce43c51919b9, type: 3}
+  m_Script: {fileID: 11500000, guid: fee327cc78c7e824a98b69b1e4853452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Axe
@@ -109,7 +109,7 @@ MonoBehaviour:
   isQuestItem: 0
   isEquipment: 1
   icon: {fileID: 21300000, guid: d5e6f8ff960bf634eb3f22e5707d3a83, type: 3}
-  entity: {fileID: 5979482288582824623}
+  entity: {fileID: 906011795475806105}
   realName: "\u65A7\u982D"
   damage: 10
 --- !u!1 &7608308784740685775

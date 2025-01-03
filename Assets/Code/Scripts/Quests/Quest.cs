@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public abstract class Quest
 {
@@ -68,6 +69,7 @@ public abstract class Quest
 
     public virtual void Complete()
     {
+        AudioManager.Instance.PlaySFX("UseItem");
         isCompleted = true;
     }
 

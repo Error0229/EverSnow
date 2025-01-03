@@ -49,6 +49,7 @@ public class QuestInfoHandler : MonoBehaviour
 
     private IEnumerator SlideAnimation(float targetX, bool destroy = false)
     {
+        AudioManager.Instance.PlaySFX("CancelEquip");
         float startX = rectTransform.anchoredPosition.x;
         float elapsed = 0f;
 

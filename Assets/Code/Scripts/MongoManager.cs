@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using MongoDB.Driver;
 using UnityEngine;
+
 public class MongoManager : Singleton<MongoManager>
 {
     private IMongoCollection<Plot> Plots { get; set; }
@@ -26,32 +28,35 @@ public class MongoManager : Singleton<MongoManager>
             Debug.Log(ex);
         }
     }
-    public Plot GetPlotByStates(string playerState, string npcState, string npcName)
+
+    public async Task<Plot> GetPlotByStatesAsync(string playerState, string npcState, string npcName)
     {
         var filter = Builders<Plot>.Filter.Or(
-            // Original condition - exact match
             Builders<Plot>.Filter.And(
                 Builders<Plot>.Filter.Eq(p => p.PlayerState, playerState),
                 Builders<Plot>.Filter.Eq(p => p.NPCState, npcState),
                 Builders<Plot>.Filter.Eq(p => p.NPCName, npcName)
             ),
-            // Alternative condition - empty PlayerState
             Builders<Plot>.Filter.And(
                 Builders<Plot>.Filter.Eq(p => p.PlayerState, ""),
                 Builders<Plot>.Filter.Eq(p => p.NPCState, npcState),
                 Builders<Plot>.Filter.Eq(p => p.NPCName, npcName)
             )
         );
-        var result = Plots.Find(filter).ToList();
-        if (result.Any(p => p.PlayerState == playerState))
-        {
-            return result.First(p => p.PlayerState == playerState);
-        }
-        return result.FirstOrDefault();
+
+        var result = await (await Plots.FindAsync(filter)).ToListAsync();
+        return result.Any(p => p.PlayerState == playerState)
+            ? result.First(p => p.PlayerState == playerState)
+            : result.FirstOrDefault();
     }
 
-    public Plot GetPlotByLabel(string label)
+    public async Task<Plot> GetPlotByLabelAsync(string label)
     {
-        return Plots.Find(plot => plot.Label == label).FirstOrDefault();
+        return await (await Plots.FindAsync(plot => plot.Label == label)).FirstOrDefaultAsync();
+    }
+
+    public async Task<Plot> GetPlotByPlayerStateAsync(string playerState)
+    {
+        return await (await Plots.FindAsync(plot => plot.PlayerState == playerState)).FirstOrDefaultAsync();
     }
 }

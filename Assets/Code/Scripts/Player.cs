@@ -55,9 +55,20 @@ public class Player : MonoBehaviour
         StoryManager.Instance.evtEnterDialog.AddListener(EnterDialog);
         StoryManager.Instance.evtLeaveDialog.AddListener(LeaveDialog);
         PlayerInputManager.Instance.evtInventory.AddListener(InvokeInventory);
+        PlayerInputManager.Instance.evtUseItem.AddListener(UseItem);
         MaxHealth = 3;
         Health = MaxHealth;
         state = State.InGame;
+    }
+
+    private void UseItem()
+    {
+        if (state != State.InGame) return;
+        var ice = inventory.Find(item => item is Ice);
+        if (ice != null)
+        {
+            Consume(ice as Ice);
+        }
     }
     public bool IsInGame()
     {
@@ -70,7 +81,7 @@ public class Player : MonoBehaviour
             InventoryUI.Instance.CloseInventory();
             GoToState(State.InGame);
         }
-        else
+        else if (state == State.InGame)
         {
             GoToState(State.Inventory);
         }
@@ -123,7 +134,7 @@ public class Player : MonoBehaviour
 
     public void Interact()
     {
-        if (state == State.InDialog)
+        if (state != State.InGame)
         {
             return;
         }
@@ -131,7 +142,7 @@ public class Player : MonoBehaviour
         var npc = playerEntity.CheckLookAtNpc();
         if (npc)
         {
-            StoryManager.Instance.InvokePlot(npc);
+            StoryManager.Instance.TryInvokePlot(npc);
             return;
         }
 

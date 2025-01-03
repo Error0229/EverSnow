@@ -85,10 +85,9 @@ public class PlayerInputManager : InputManager
 
     protected override void CalculateDialogClick()
     {
-        var isDialogClick = submit.WasPressedThisFrame();
-        evtDialogClick?.Invoke(isDialogClick);
+        var isDialogClick = submit.WasReleasedThisFrame();
         if (isDialogClick)
-            evtNextDialog?.Invoke();
+            evtDialogClick?.Invoke();
     }
 
     protected override void PostProcessDpadAxis()
@@ -120,5 +119,10 @@ public class PlayerInputManager : InputManager
     {
         if (interact.WasPressedThisFrame())
             evtInteract?.Invoke();
+    }
+    protected override void CalculateUseItem()
+    {
+        if (useItem.WasPressedThisFrame())
+            evtUseItem?.Invoke();
     }
 }

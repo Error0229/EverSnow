@@ -85,9 +85,9 @@ public class TypewriterEffect : MonoBehaviour
         }
     }
 
-    private void OnDialogClicked(bool pressed)
+    private void OnDialogClicked()
     {
-        if (enabled && pressed && state == STATE.TYPING)
+        if (enabled && state == STATE.TYPING)
         {
             print("got terminated");
             CompleteTyping();

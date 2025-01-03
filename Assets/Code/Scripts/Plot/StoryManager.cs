@@ -1,4 +1,8 @@
-﻿using UnityEngine.Events;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine.Events;
+using UnityEngine;
+
 public class StoryManager : Singleton<StoryManager>
 {
     public UnityEvent evtEnterDialog;
@@ -8,12 +12,14 @@ public class StoryManager : Singleton<StoryManager>
     private string selectedOption;
     private State state;
     private bool triggerEnter;
+    [SerializeField] private List<Transform> autoTriggerPlotPoints;
 
     public bool IsTyping { get; set; }
     public bool IsInPlot
     {
         get => state != State.Idle;
     }
+
     private void Update()
     {
         switch (state)
@@ -55,14 +61,22 @@ public class StoryManager : Singleton<StoryManager>
     protected override void Init()
     {
         StoryUI.Instance.evtOptionClick.AddListener(OnOptionClick);
-        PlayerInputManager.Instance.evtNextDialog.AddListener(OnDialogClicked);
+        PlayerInputManager.Instance.evtDialogClick.AddListener(OnDialogClicked);
         GotoState(State.Idle);
     }
 
-    public void InvokePlot(Npc talker)
+    public async void TryInvokePlot(Npc talker = null)
     {
         var player = GameManager.Instance.PlayerInstance;
-        var plot = MongoManager.Instance.GetPlotByStates(player.StoryState, talker.StoryState, talker.RealName);
+        Plot plot;
+        if (talker == null)
+        {
+            plot = await MongoManager.Instance.GetPlotByPlayerStateAsync(player.StoryState);
+        }
+        else
+        {
+            plot = await MongoManager.Instance.GetPlotByStatesAsync(player.StoryState, talker.StoryState, talker.RealName);
+        }
         if (plot == null) return;
         currentPlot = plot;
         GotoState(State.Ongoing);
