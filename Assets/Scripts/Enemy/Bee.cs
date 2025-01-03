@@ -23,6 +23,11 @@ namespace Enemy
             particleSystem.Stop();
         }
 
+        protected override string GetSFXName()
+        {
+            return "playerAttack";
+        }
+
         private void Update()
         {
             base.Update();

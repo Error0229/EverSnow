@@ -20,8 +20,15 @@ namespace Enemy
 
         private GameObject view;
 
-        [SerializeField, SerializeReference]
-        private IEnemyState _iEnemyState;
+        [SerializeField, SerializeReference] private IEnemyState _iEnemyState;
+        float sfxTime = 0;
+        float sfxMaxTime = 5f;
+
+        public void SetSfxMaxTime(float v)
+        {
+        sfxMaxTime = v;
+        } 
+        public float GetSfxMaxTime() => sfxMaxTime;
 
         public IEnemyState iEnemyState
         {
@@ -34,6 +41,15 @@ namespace Enemy
             }
         }
 
+        virtual protected string GetSFXName()
+        {
+            return "FootStep";
+        }
+        public void PlaySFX()
+        {
+            var soundManager = AudioManager.Instance;
+            soundManager.PlaySFX(GetSFXName(), transform.position, 0.5f);
+        }
 
         private List<EnemyHate> enemyHateList = new();
         public NavMeshAgentWrapper navMeshAgentWrapper;
@@ -73,6 +89,10 @@ namespace Enemy
         protected void Update()
         {
             iEnemyState?.OnUpdate(this);
+            if (sfxTime < GetSfxMaxTime())
+                sfxTime += Time.deltaTime;
+            else
+                PlaySFX();
         }
 
         public float GetAttackRange()
@@ -82,6 +102,11 @@ namespace Enemy
         }
 
         #region destroy
+
+        private void OnDestroy()
+        {
+            onDestroy?.Invoke();
+        }
 
         UnityAction onDestroy;
 
@@ -150,8 +175,10 @@ namespace Enemy
         {
             return null;
         }
+
+        public void ResetSfxMaxTime()
+        {
+            sfxMaxTime = 5f;
+        }
     }
-
-
-
 }

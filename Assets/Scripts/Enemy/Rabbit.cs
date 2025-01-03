@@ -13,6 +13,11 @@ namespace Enemy
             particleSystem.Stop();
         }
 
+        protected override string GetSFXName()
+        {
+            return "openBag";
+        }
+
         private void Update()
         {
             base.Update();

@@ -16,12 +16,14 @@ namespace Enemy.enemyState
             enemy.weaponCollider.enabled = true;
             enemy.weaponCollider.isTrigger = true;
             enemy.weapon.Reset();
+            enemy.SetSfxMaxTime(1f);
         }
 
         public virtual void OnExit(Enemy enemy)
         {
             enemy.weaponCollider.enabled = false;
             enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
+            enemy.ResetSfxMaxTime();
         }
 
         public virtual void OnUpdate(Enemy enemy)
