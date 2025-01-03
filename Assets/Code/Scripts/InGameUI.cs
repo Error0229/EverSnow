@@ -51,5 +51,9 @@ public class InGameUI : Singleton<InGameUI>
                 break;
         }
     }
+    public Sprite GetHealthSprite()
+    {
+        return healthSprites[3 - GameManager.Instance.PlayerInstance.Health];
+    }
 
 }

@@ -14,7 +14,7 @@ public class StoryUI : Singleton<StoryUI>
     {
         ["Left"] = 0,
         ["Right"] = 1,
-        ["ButtonRight"] = 2,
+        ["BottomRight"] = 2,
         ["Top"] = 3
     };
 
@@ -33,7 +33,7 @@ public class StoryUI : Singleton<StoryUI>
     [SerializeField] private AnimationCurve CharacterImageJumpCurve;  // Add this field
 
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
-    private readonly Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
+    private Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
 
     private DialogBubble currentBubble;
     private IList<PlotDialog> dialogs = new List<PlotDialog>();
@@ -62,7 +62,7 @@ public class StoryUI : Singleton<StoryUI>
     }
     private bool IsTalkingToPet()
     {
-        return CharacterPositionMapping.ContainsKey("Ila") && CharacterPositionMapping["Ila"] == "Right";
+        return CharacterPositionMapping.ContainsKey("Ila") && CharacterPositionMapping["Ila"] != "BottomRight";
     }
 
     public void ShowCharacter(PlotDialogCharacter character)
@@ -166,8 +166,6 @@ public class StoryUI : Singleton<StoryUI>
                 // Use animation curve to control the jump height
                 float yOffset = CharacterImageJumpCurve.Evaluate(normalizedTime) * jumpHeight;
                 imageTransform.anchoredPosition = originalPosition + new Vector2(0, yOffset);
-                print($"{imageTransform.anchoredPosition}");
-
                 yield return null;
             }
 
@@ -187,7 +185,9 @@ public class StoryUI : Singleton<StoryUI>
         {
             ShowCharacter(character);
         }
-        characterImages[PositionIndexMapping["ButtonRight"]].enabled = IsTalkingToPet();
+
+        characterImages[PositionIndexMapping["BottomRight"]].sprite = InGameUI.Instance.GetHealthSprite();
+        characterImages[PositionIndexMapping["BottomRight"]].enabled = !IsTalkingToPet();
 
         dialogContent.SetActive(visibility);
 
@@ -203,7 +203,7 @@ public class StoryUI : Singleton<StoryUI>
         currentBubble = dialog.GetComponent<DialogBubble>();
 
         // Get speaker position
-        var isLeftSide = true; // Default to left
+        var isLeftSide = false; // Default to right side
         if (CharacterPositionMapping.ContainsKey(dialogData.Speaker))
         {
             isLeftSide = CharacterPositionMapping[dialogData.Speaker] == "Left";
@@ -239,6 +239,12 @@ public class StoryUI : Singleton<StoryUI>
     public void EndPlot()
     {
         plotPanel.SetActive(false);
+        foreach (var characterImage in characterImages)
+        {
+            characterImage.enabled = false;
+        }
+        CharacterPositionMapping.Clear();
+
         foreach (Transform dialogBubble in dialogContent.transform)
         {
             foreach (Transform option in dialogBubble.transform)

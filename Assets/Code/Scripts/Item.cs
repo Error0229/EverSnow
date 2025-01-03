@@ -18,10 +18,17 @@ public abstract class Item : MonoBehaviour
     protected Sprite icon;
     [SerializeField]
     private GameObject entity;
+    [SerializeField]
+    private string realName;
 
     public string Name
     {
         get => itemName;
+    }
+
+    public string RealName
+    {
+        get => realName;
     }
     public string Description
     {

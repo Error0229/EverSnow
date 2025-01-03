@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc64fe6c0ab67d549a56ce43c51919b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: "\u5C0F\u5200"
+  itemName: Knife
   description: "\u7236\u89AA\u5E38\u7528\u7684\u77ED\u5200\uFF0C\u96D6\u7136\u6709\u4E9B\u8001\u820A\uFF0C\u9084\u662F\u53EF\u4EE5\u4F7F\u7528\u3002\u53EA\u8981\u62FF\u8D77\u5C0F\u5200\uFF0C\u7E3D\u662F\u6703\u61F7\u5FF5\u8D77\u7576\u5E74\u7684\u751F\u6D3B\u3002"
   isStackAble: 0
   isConsumable: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   isEquipment: 1
   icon: {fileID: 21300000, guid: 6207d495630a1854e9719b1eeffff567, type: 3}
   entity: {fileID: 5991824613677319615}
+  realName: "\u5C0F\u5200"
   damage: 5
 --- !u!1 &2139225440874564666
 GameObject:

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;  // Add this
 
 public class GameManager : Singleton<GameManager>
 {
@@ -36,6 +35,10 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateStoryState(IList<PlotDialogEndState> states)
     {
+        foreach (var s in states)
+        {
+            Debug.Log(s.Name + " " + s.State);
+        }
         var nextPlayerState = states.FirstOrDefault(s => s.Name == player.RealName);
         if (nextPlayerState != null)
             player.StoryState = nextPlayerState.State;
