@@ -35,6 +35,7 @@ namespace Enemy.enemyState
                 parti.Stop();
                 parti.Play();
             }
+            enemy.SetSfxMaxTime(1f);
         }
 
         public void OnExit(Enemy enemy)
@@ -48,6 +49,7 @@ namespace Enemy.enemyState
             {
                 parti.Stop();
             }
+            enemy.ResetSfxMaxTime();
         }
 
         public void OnUpdate(Enemy enemy)

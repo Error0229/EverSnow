@@ -31,7 +31,6 @@ namespace Enemy.enemyState
             view.transform.localPosition = new Vector3(0,
                 Mathf.Lerp(view.transform.localPosition.y, Mathf.Sin(t) * height, 0.5f), 0);
             var nextEnemyState = Enemy.EnemyState.Idle;
-            runtime += Time.deltaTime;
             if (enemy.IsArrived() || runtime > maxRuntime)
             {
                 var randomDirection = UnityEngine.Random.Range(0, 360);
@@ -42,6 +41,10 @@ namespace Enemy.enemyState
                     Mathf.Sin(randomDirection) * randomRange);
                 enemy.SetDestination(randomPosition);
                 runtime = 0;
+            }
+            else
+            {
+                runtime += Time.deltaTime;
             }
             if (enemyHateList.Count != 0)
             {

@@ -37,8 +37,7 @@ namespace Enemy.enemyState
             {
                 enemyState = Enemy.EnemyState.Away;
             }
-
-            enemy.SetState(enemyState);
+            if(enemyState != Enemy.EnemyState.Attack) enemy.SetState(enemyState);
         }
     }
 }
