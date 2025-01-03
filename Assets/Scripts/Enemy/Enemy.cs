@@ -145,6 +145,11 @@ namespace Enemy
         {
             iEnemyState = new AttackState();
         }
+
+        public virtual ParticleSystem GetParticle()
+        {
+            return null;
+        }
     }
 
 

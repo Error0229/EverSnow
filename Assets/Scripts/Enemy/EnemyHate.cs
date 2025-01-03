@@ -17,7 +17,7 @@ namespace Enemy
             // {
             //     throw new Exception("EnemyHate must have a rigidbody");
             // }
-            player = GetComponent<Player>();
+            player = GetComponentInParent<Player>();
             if (player == null)
             {
                 isPlayer = false;

@@ -8,17 +8,18 @@ namespace Enemy.enemyState
     {
         private float attackTime = 0;
         private float attackMaxTime = 0.2f;
-        private GameObject debugFlag;
+        // private GameObject debugFlag;
 
         public void OnEnter(Enemy enemy)
         {
             // enemy.animator.Play("Jump");
             var targetPosition = enemy.transform.position +
-                                 (enemy.targetEnemy.transform.position - enemy.transform.position) * 2;
+                                 (enemy.targetEnemy.transform.position - enemy.transform.position).normalized *
+                                 enemy.GetAttackRange();
             enemy.navMeshAgentWrapper.SetDestination(targetPosition);
-            GameObject prefab = Resources.Load<GameObject>("char");
-            debugFlag = GameObject.Instantiate(prefab);
-            debugFlag.transform.position = targetPosition;
+            // GameObject prefab = Resources.Load<GameObject>("char");
+            // debugFlag = GameObject.Instantiate(prefab);
+            // debugFlag.transform.position = targetPosition;
 
             var animationFullTime = enemy.animator.GetCurrentAnimatorStateInfo(0).length;
             var speed = animationFullTime * (1 / attackMaxTime);
@@ -38,7 +39,7 @@ namespace Enemy.enemyState
 
         public void OnExit(Enemy enemy)
         {
-            GameObject.Destroy(debugFlag);
+            // GameObject.Destroy(debugFlag);
             enemy.weaponCollider.enabled = false;
             enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
             enemy.animator.Play("Idle");

@@ -106,7 +106,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -3991,7 +3991,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 3
+    textureMode: 0
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
@@ -4844,7 +4844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4365604151468594987}
   - component: {fileID: 4321872490491689508}
-  - component: {fileID: 5881741283567999320}
+  - component: {fileID: 1325900001143742183}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
@@ -4890,7 +4890,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5881741283567999320
+--- !u!114 &1325900001143742183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4899,7 +4899,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7371118958675257084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d22e1c38dc4c6d9158dbf5ff29595b, type: 3}
+  m_Script: {fileID: 11500000, guid: f3bdcd42bf9c42258bddb830716b02c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _iEnemyState:

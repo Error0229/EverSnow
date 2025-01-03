@@ -9,7 +9,7 @@ namespace Enemy.enemyState
         private float attackTime = 0;
         private float attackMaxTime = 2;
 
-        public void OnEnter(Enemy enemy)
+        public virtual void OnEnter(Enemy enemy)
         {
             enemy.navMeshAgentWrapper.SetDestination(enemy.targetPosition);
             attackTime = 0;
@@ -18,13 +18,13 @@ namespace Enemy.enemyState
             enemy.weapon.Reset();
         }
 
-        public void OnExit(Enemy enemy)
+        public virtual void OnExit(Enemy enemy)
         {
             enemy.weaponCollider.enabled = false;
             enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
         }
 
-        public void OnUpdate(Enemy enemy)
+        public virtual void OnUpdate(Enemy enemy)
         {
             var view = enemy.GetView();
           view.transform.localPosition = new Vector3(0,
