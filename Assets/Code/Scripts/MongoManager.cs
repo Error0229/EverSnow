@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class MongoManager : Singleton<MongoManager>
 {
+    private readonly System.Random _random = new System.Random();
     private IMongoCollection<Plot> Plots { get; set; }
     protected override void Init()
     {
@@ -45,9 +46,14 @@ public class MongoManager : Singleton<MongoManager>
         );
 
         var result = await (await Plots.FindAsync(filter)).ToListAsync();
-        return result.Any(p => p.PlayerState == playerState)
-            ? result.First(p => p.PlayerState == playerState)
-            : result.FirstOrDefault();
+        var exactMatches = result.Where(p => p.PlayerState == playerState).ToList();
+
+        if (exactMatches.Any())
+        {
+            return exactMatches[_random.Next(exactMatches.Count)];
+        }
+
+        return result.Any() ? result[_random.Next(result.Count)] : null;
     }
 
     public async Task<Plot> GetPlotByLabelAsync(string label)
