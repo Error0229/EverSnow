@@ -69,6 +69,15 @@ public class BetterPlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (isKnockBack)
+        {
+            knockBackTime += Time.deltaTime;
+            if (knockBackTime >= knockBackMaxTime)
+            {
+                isKnockBack = false;
+                knockBackTime = 0;
+            }
+        }
         if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f; // Small negative value to keep grounded
@@ -205,7 +214,6 @@ public class BetterPlayerController : MonoBehaviour
         newVelocity = Mathf.Lerp(lastVelocity, newVelocity, Time.deltaTime);
         MoveOn(movingVec, newVelocity);
         lastVelocity = newVelocity;
-
     }
 
     private bool CanChangeDirection()
@@ -433,4 +441,24 @@ public class BetterPlayerController : MonoBehaviour
         ROLL,
         ATTACK
     }
+
+    #region kickback
+    bool isKnockBack = false;
+    float knockBackTime = 0;
+    float knockBackMaxTime = 3f;
+
+    public void Knockback(Vector3 transformPosition)
+    {
+        if(isKnockBack)
+            return;
+        var direction = transform.position - transformPosition;
+        direction.y = 0;
+        direction.Normalize();
+        
+        playerVelocity = direction * 100;
+        playerVelocity.y = 10;
+        isKnockBack = true;
+        ApplyVerticalMovement(playerVelocity);
+    }
+    #endregion
 }
