@@ -7,6 +7,7 @@ namespace Enemy.enemyState
     {
         private float goToIdleDistance = 20f;
         private float goToAttackDistance = 20f;
+
         public void OnEnter(Enemy enemy)
         {
             // animator.Play("Chase");
@@ -24,7 +25,7 @@ namespace Enemy.enemyState
         {
             var view = enemy.GetView();
             view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.localPosition.y, 0, 0.9f), 0);
+                enemy.GetDefaultHeight() + Mathf.Lerp(view.transform.localPosition.y, 0, 0.9f), 0);
             enemy.SetDestination(enemy.targetEnemy.transform.position);
             var enemyState = Enemy.EnemyState.Chase;
             if (Vector3.Distance(enemy.transform.position, enemy.targetEnemy.transform.position) <
@@ -35,8 +36,10 @@ namespace Enemy.enemyState
                     (enemy.targetEnemy.transform.position - enemy.transform.position) * 2;
                 enemy.targetPosition = targetPosition;
                 enemyState = Enemy.EnemyState.Attack;
-            } else if (Vector3.Distance(enemy.transform.position, enemy.targetEnemy.transform.position) > goToIdleDistance &&
-                !enemy.navMeshAgentWrapper.Visible(enemy.targetEnemy.gameObject))
+            }
+            else if (Vector3.Distance(enemy.transform.position, enemy.targetEnemy.transform.position) >
+                     goToIdleDistance &&
+                     !enemy.navMeshAgentWrapper.Visible(enemy.targetEnemy.gameObject))
             {
                 enemyState = Enemy.EnemyState.Idle;
             }

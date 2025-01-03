@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036988217466984854}
   - component: {fileID: 4725535182086477114}
-  - component: {fileID: 2605880412516578638}
+  - component: {fileID: 3610774591011053546}
   m_Layer: 11
   m_Name: DragonFly
   m_TagString: Untagged
@@ -56,7 +56,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2605880412516578638
+--- !u!114 &3610774591011053546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3730288898509401556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d22e1c38dc4c6d9158dbf5ff29595b, type: 3}
+  m_Script: {fileID: 11500000, guid: e150cd2dbc5649e5ba54ee85cf61dfd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _iEnemyState:
@@ -75,6 +75,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   weaponCollider: {fileID: 0}
   weapon: {fileID: 0}
+  particleSystem: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -306,7 +307,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

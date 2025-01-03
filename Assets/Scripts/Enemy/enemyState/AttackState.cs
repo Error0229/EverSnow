@@ -29,15 +29,16 @@ namespace Enemy.enemyState
         public virtual void OnUpdate(Enemy enemy)
         {
             var view = enemy.GetView();
-          view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.localPosition.y, 0, 0.9f), 0);
+            view.transform.localPosition = new Vector3(0,
+                enemy.GetDefaultHeight() + Mathf.Lerp(view.transform.localPosition.y, 0, 0.9f), 0);
             var enemyState = Enemy.EnemyState.Attack;
             attackTime += Time.deltaTime;
             if (attackTime >= attackMaxTime || enemy.navMeshAgentWrapper.IsArrived() || enemy.weapon.IsHited)
             {
                 enemyState = Enemy.EnemyState.Away;
             }
-            if(enemyState != Enemy.EnemyState.Attack) enemy.SetState(enemyState);
+
+            if (enemyState != Enemy.EnemyState.Attack) enemy.SetState(enemyState);
         }
     }
 }

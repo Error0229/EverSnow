@@ -85,6 +85,11 @@ namespace Enemy
         private float runtime = 0;
         private float maxRuntime = 3;
 
+        public virtual float GetDefaultHeight()
+        {
+            return 0f;
+        }
+
 
         protected void Update()
         {
@@ -92,7 +97,10 @@ namespace Enemy
             if (sfxTime < GetSfxMaxTime())
                 sfxTime += Time.deltaTime;
             else
+            {
+                sfxTime = 0;
                 PlaySFX();
+            }
         }
 
         public float GetAttackRange()
@@ -152,7 +160,7 @@ namespace Enemy
             switch (state)
             {
                 case EnemyState.Idle:
-                    iEnemyState = new IdleState();
+                    GoToIdle();
                     break;
                 case EnemyState.Chase:
                     iEnemyState = new ChaseState();
@@ -169,6 +177,10 @@ namespace Enemy
         protected virtual void GoToAttack()
         {
             iEnemyState = new AttackState();
+        }
+        protected virtual void GoToIdle()
+        {
+            iEnemyState = new IdleState();
         }
 
         public virtual ParticleSystem GetParticle()

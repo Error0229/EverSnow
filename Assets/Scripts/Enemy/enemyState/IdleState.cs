@@ -29,7 +29,7 @@ namespace Enemy.enemyState
             var view = enemy.GetView();
             var enemyHateList = enemy.GetHateList();
             view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.localPosition.y, Mathf.Sin(t) * height, 0.5f), 0);
+                enemy.GetDefaultHeight()+ Mathf.Lerp(view.transform.localPosition.y, Mathf.Sin(t) * height, 0.5f), 0);
             var nextEnemyState = Enemy.EnemyState.Idle;
             if (enemy.IsArrived() || runtime > maxRuntime)
             {
