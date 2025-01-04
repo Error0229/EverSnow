@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 13016064}
   - component: {fileID: 13016063}
   - component: {fileID: 13016062}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_009 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 21417363}
   - component: {fileID: 21417362}
   - component: {fileID: 21417361}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1731,7 +1731,7 @@ GameObject:
   - component: {fileID: 41429721}
   - component: {fileID: 41429720}
   - component: {fileID: 41429719}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_002 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3039,7 +3039,7 @@ GameObject:
   - component: {fileID: 78627083}
   - component: {fileID: 78627082}
   - component: {fileID: 78627081}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3288,7 +3288,7 @@ GameObject:
   - component: {fileID: 81411942}
   - component: {fileID: 81411941}
   - component: {fileID: 81411940}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3488,7 +3488,7 @@ GameObject:
   - component: {fileID: 89096847}
   - component: {fileID: 89096846}
   - component: {fileID: 89096845}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4233,6 +4233,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -4312,6 +4316,10 @@ PrefabInstance:
     - target: {fileID: 8175657350152643598, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4444,7 +4452,7 @@ GameObject:
   - component: {fileID: 122906697}
   - component: {fileID: 122906696}
   - component: {fileID: 122906695}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7560,7 +7568,7 @@ GameObject:
   - component: {fileID: 216548238}
   - component: {fileID: 216548237}
   - component: {fileID: 216548236}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7887,7 +7895,7 @@ GameObject:
   - component: {fileID: 230006917}
   - component: {fileID: 230006916}
   - component: {fileID: 230006915}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8391,7 +8399,7 @@ GameObject:
   - component: {fileID: 246796718}
   - component: {fileID: 246796717}
   - component: {fileID: 246796716}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10047,7 +10055,7 @@ GameObject:
   - component: {fileID: 294265732}
   - component: {fileID: 294265731}
   - component: {fileID: 294265730}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12268,7 +12276,7 @@ GameObject:
   - component: {fileID: 343061657}
   - component: {fileID: 343061656}
   - component: {fileID: 343061655}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12895,7 +12903,7 @@ GameObject:
   - component: {fileID: 352521197}
   - component: {fileID: 352521196}
   - component: {fileID: 352521195}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13515,6 +13523,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -13594,6 +13606,14 @@ PrefabInstance:
     - target: {fileID: 8175657350152643598, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1241563555}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14395,6 +14415,115 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392199098}
   m_Mesh: {fileID: 4300008, guid: e6ec39770b6dbe04f9cbd7ea19e0c7ef, type: 3}
+--- !u!1 &394199774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 394199775}
+  - component: {fileID: 394199778}
+  - component: {fileID: 394199777}
+  - component: {fileID: 394199776}
+  m_Layer: 15
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &394199775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394199774}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 268, y: -12, z: 381}
+  m_LocalScale: {x: 90.22673, y: 5.5833926, z: 102.181564}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 938239124}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &394199776
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394199774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &394199777
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394199774}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d919dd89f2f557443a89d021ea0df294, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &394199778
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394199774}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &399285630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16114,7 +16243,7 @@ GameObject:
   - component: {fileID: 466472377}
   - component: {fileID: 466472376}
   - component: {fileID: 466472375}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16764,7 +16893,7 @@ GameObject:
   - component: {fileID: 470447088}
   - component: {fileID: 470447087}
   - component: {fileID: 470447086}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18300,7 +18429,7 @@ GameObject:
   - component: {fileID: 518101998}
   - component: {fileID: 518101997}
   - component: {fileID: 518101996}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19622,7 +19751,7 @@ GameObject:
   - component: {fileID: 580073643}
   - component: {fileID: 580073642}
   - component: {fileID: 580073641}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19731,7 +19860,7 @@ GameObject:
   - component: {fileID: 582744848}
   - component: {fileID: 582744847}
   - component: {fileID: 582744846}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20098,7 +20227,7 @@ GameObject:
   - component: {fileID: 594294252}
   - component: {fileID: 594294251}
   - component: {fileID: 594294250}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21125,6 +21254,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -21193,6 +21326,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1265568539}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21215,7 +21356,7 @@ GameObject:
   - component: {fileID: 615429474}
   - component: {fileID: 615429473}
   - component: {fileID: 615429472}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22262,6 +22403,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -22341,6 +22486,14 @@ PrefabInstance:
     - target: {fileID: 8175657350152643598, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 802652073}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23561,7 +23714,7 @@ GameObject:
   - component: {fileID: 691398385}
   - component: {fileID: 691398384}
   - component: {fileID: 691398383}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24848,7 +25001,7 @@ GameObject:
   - component: {fileID: 725013880}
   - component: {fileID: 725013879}
   - component: {fileID: 725013878}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25132,7 +25285,7 @@ GameObject:
   - component: {fileID: 729446785}
   - component: {fileID: 729446784}
   - component: {fileID: 729446783}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25957,7 +26110,7 @@ GameObject:
   - component: {fileID: 745973254}
   - component: {fileID: 745973253}
   - component: {fileID: 745973252}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26082,6 +26235,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -26162,6 +26319,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 747416490}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26172,6 +26337,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8123069863441328127, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
   m_PrefabInstance: {fileID: 747416488}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &747416490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 747416488}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &749399351
 GameObject:
   m_ObjectHideFlags: 0
@@ -27598,7 +27774,7 @@ GameObject:
   - component: {fileID: 786941313}
   - component: {fileID: 786941312}
   - component: {fileID: 786941311}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28405,6 +28581,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801434508}
   m_Mesh: {fileID: 4300006, guid: e6ec39770b6dbe04f9cbd7ea19e0c7ef, type: 3}
+--- !u!114 &802652073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 661761571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &805900172
 GameObject:
   m_ObjectHideFlags: 0
@@ -29287,7 +29474,7 @@ GameObject:
   - component: {fileID: 847139642}
   - component: {fileID: 847139641}
   - component: {fileID: 847139640}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29677,7 +29864,7 @@ GameObject:
   - component: {fileID: 849347204}
   - component: {fileID: 849347203}
   - component: {fileID: 849347202}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32122,7 +32309,7 @@ GameObject:
   - component: {fileID: 913998871}
   - component: {fileID: 913998870}
   - component: {fileID: 913998869}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32231,7 +32418,7 @@ GameObject:
   - component: {fileID: 915410851}
   - component: {fileID: 915410850}
   - component: {fileID: 915410849}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32740,7 +32927,7 @@ GameObject:
   - component: {fileID: 923352280}
   - component: {fileID: 923352279}
   - component: {fileID: 923352278}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32977,7 +33164,7 @@ GameObject:
   - component: {fileID: 924635144}
   - component: {fileID: 924635143}
   - component: {fileID: 924635142}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33195,7 +33382,7 @@ GameObject:
   - component: {fileID: 933092867}
   - component: {fileID: 933092866}
   - component: {fileID: 933092865}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33523,7 +33710,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 938239124}
-  m_Layer: 0
+  - component: {fileID: 938239125}
+  m_Layer: 15
   m_Name: Entity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33632,9 +33820,42 @@ Transform:
   - {fileID: 1379195718}
   - {fileID: 1226882565}
   - {fileID: 1779873092}
+  - {fileID: 394199775}
   - {fileID: 1259854644}
   m_Father: {fileID: 1948215695}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &938239125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938239123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: a5db546c34b743b41953cf23cc2c603b, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &940071110
 GameObject:
   m_ObjectHideFlags: 0
@@ -33841,7 +34062,7 @@ GameObject:
   - component: {fileID: 952156487}
   - component: {fileID: 952156486}
   - component: {fileID: 952156485}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34657,7 +34878,7 @@ GameObject:
   - component: {fileID: 969942449}
   - component: {fileID: 969942448}
   - component: {fileID: 969942447}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34766,7 +34987,7 @@ GameObject:
   - component: {fileID: 975714562}
   - component: {fileID: 975714561}
   - component: {fileID: 975714560}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_007 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34987,7 +35208,7 @@ GameObject:
   - component: {fileID: 978371797}
   - component: {fileID: 978371796}
   - component: {fileID: 978371795}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_002 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36160,7 +36381,7 @@ GameObject:
   - component: {fileID: 1000771421}
   - component: {fileID: 1000771420}
   - component: {fileID: 1000771419}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36622,6 +36843,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -36702,6 +36927,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1009399079}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36712,6 +36945,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8123069863441328127, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
   m_PrefabInstance: {fileID: 1009399077}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1009399079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 1009399077}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1011414754
 GameObject:
   m_ObjectHideFlags: 0
@@ -38192,7 +38436,7 @@ GameObject:
   - component: {fileID: 1058785060}
   - component: {fileID: 1058785059}
   - component: {fileID: 1058785058}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38801,7 +39045,7 @@ GameObject:
   - component: {fileID: 1085274342}
   - component: {fileID: 1085274341}
   - component: {fileID: 1085274340}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39730,7 +39974,7 @@ GameObject:
   - component: {fileID: 1127406871}
   - component: {fileID: 1127406870}
   - component: {fileID: 1127406869}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41361,7 +41605,7 @@ GameObject:
   - component: {fileID: 1175898120}
   - component: {fileID: 1175898119}
   - component: {fileID: 1175898118}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42277,7 +42521,7 @@ GameObject:
   - component: {fileID: 1200280080}
   - component: {fileID: 1200280079}
   - component: {fileID: 1200280078}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42475,12 +42719,16 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1201266655}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: realName
-      value: Ila
+      value: Snowman
       objectReference: {fileID: 0}
     - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: characterName
-      value: Ila
+      value: "\u26C4"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -42492,6 +42740,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8123069863441328127, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
   m_PrefabInstance: {fileID: 1200936213}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1201266655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 1200936213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1201725922
 GameObject:
   m_ObjectHideFlags: 0
@@ -42830,7 +43089,7 @@ GameObject:
   - component: {fileID: 1204692163}
   - component: {fileID: 1204692162}
   - component: {fileID: 1204692161}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_002 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43072,7 +43331,7 @@ GameObject:
   - component: {fileID: 1206816228}
   - component: {fileID: 1206816227}
   - component: {fileID: 1206816226}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44279,7 +44538,7 @@ GameObject:
   - component: {fileID: 1226882568}
   - component: {fileID: 1226882567}
   - component: {fileID: 1226882566}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44928,6 +45187,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237061949}
   m_Mesh: {fileID: 4300008, guid: e6ec39770b6dbe04f9cbd7ea19e0c7ef, type: 3}
+--- !u!114 &1241563555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 367964356}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1242432665
 GameObject:
   m_ObjectHideFlags: 0
@@ -45779,6 +46049,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -45847,6 +46121,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1375756017}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -45869,7 +46151,7 @@ GameObject:
   - component: {fileID: 1254066977}
   - component: {fileID: 1254066976}
   - component: {fileID: 1254066975}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46140,6 +46422,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 08591a2ae89c38b4fbf70dd7d1bf8c8b, type: 3}
       propertyPath: m_Name
       value: Mountain_winter_009
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 08591a2ae89c38b4fbf70dd7d1bf8c8b, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -46504,6 +46790,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265373531}
   m_Mesh: {fileID: 4300006, guid: e6ec39770b6dbe04f9cbd7ea19e0c7ef, type: 3}
+--- !u!114 &1265568539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 614879472}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1267578308
 GameObject:
   m_ObjectHideFlags: 0
@@ -46516,7 +46813,7 @@ GameObject:
   - component: {fileID: 1267578312}
   - component: {fileID: 1267578311}
   - component: {fileID: 1267578310}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46905,6 +47202,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -46985,6 +47286,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1283742318}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -46995,6 +47304,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8123069863441328127, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
   m_PrefabInstance: {fileID: 1283742316}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1283742318 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 1283742316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1286472399
 GameObject:
   m_ObjectHideFlags: 0
@@ -47118,7 +47438,7 @@ GameObject:
   - component: {fileID: 1288685285}
   - component: {fileID: 1288685284}
   - component: {fileID: 1288685283}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47901,7 +48221,7 @@ GameObject:
   - component: {fileID: 1300726743}
   - component: {fileID: 1300726742}
   - component: {fileID: 1300726741}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_002 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48399,7 +48719,7 @@ GameObject:
   - component: {fileID: 1309353284}
   - component: {fileID: 1309353283}
   - component: {fileID: 1309353282}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48898,7 +49218,7 @@ GameObject:
   - component: {fileID: 1327774082}
   - component: {fileID: 1327774081}
   - component: {fileID: 1327774080}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49239,7 +49559,7 @@ GameObject:
   - component: {fileID: 1331339106}
   - component: {fileID: 1331339105}
   - component: {fileID: 1331339104}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49608,7 +49928,7 @@ GameObject:
   - component: {fileID: 1354927745}
   - component: {fileID: 1354927744}
   - component: {fileID: 1354927743}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49937,7 +50257,7 @@ GameObject:
   - component: {fileID: 1361101991}
   - component: {fileID: 1361101990}
   - component: {fileID: 1361101989}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50239,7 +50559,7 @@ GameObject:
   - component: {fileID: 1375525954}
   - component: {fileID: 1375525953}
   - component: {fileID: 1375525952}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50336,6 +50656,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375525950}
   m_Mesh: {fileID: 469155992964744932, guid: 8ee1a6dd77015984e8199b6514a115d9, type: 3}
+--- !u!114 &1375756017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 1251947765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1377649079
 GameObject:
   m_ObjectHideFlags: 0
@@ -50348,7 +50679,7 @@ GameObject:
   - component: {fileID: 1377649083}
   - component: {fileID: 1377649082}
   - component: {fileID: 1377649081}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50630,7 +50961,7 @@ GameObject:
   - component: {fileID: 1379195721}
   - component: {fileID: 1379195720}
   - component: {fileID: 1379195719}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51358,7 +51689,7 @@ GameObject:
   - component: {fileID: 1412617198}
   - component: {fileID: 1412617197}
   - component: {fileID: 1412617196}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52326,7 +52657,7 @@ GameObject:
   - component: {fileID: 1428446235}
   - component: {fileID: 1428446234}
   - component: {fileID: 1428446233}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52763,7 +53094,7 @@ GameObject:
   - component: {fileID: 1437049694}
   - component: {fileID: 1437049693}
   - component: {fileID: 1437049692}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52872,7 +53203,7 @@ GameObject:
   - component: {fileID: 1437655243}
   - component: {fileID: 1437655242}
   - component: {fileID: 1437655241}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53590,7 +53921,7 @@ GameObject:
   - component: {fileID: 1459671216}
   - component: {fileID: 1459671215}
   - component: {fileID: 1459671214}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54250,7 +54581,7 @@ GameObject:
   - component: {fileID: 1481354334}
   - component: {fileID: 1481354333}
   - component: {fileID: 1481354332}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56433,7 +56764,7 @@ GameObject:
   - component: {fileID: 1582246708}
   - component: {fileID: 1582246707}
   - component: {fileID: 1582246706}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56929,7 +57260,7 @@ GameObject:
   - component: {fileID: 1588546809}
   - component: {fileID: 1588546808}
   - component: {fileID: 1588546807}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58466,7 +58797,7 @@ GameObject:
   - component: {fileID: 1624689821}
   - component: {fileID: 1624689820}
   - component: {fileID: 1624689819}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60543,7 +60874,7 @@ GameObject:
   - component: {fileID: 1672329423}
   - component: {fileID: 1672329422}
   - component: {fileID: 1672329421}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61062,7 +61393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691188646}
   m_Layer: 9
-  m_Name: SnowMan
+  m_Name: Snowman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62506,7 +62837,7 @@ GameObject:
   - component: {fileID: 1725718808}
   - component: {fileID: 1725718807}
   - component: {fileID: 1725718806}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63114,7 +63445,7 @@ GameObject:
   - component: {fileID: 1738792029}
   - component: {fileID: 1738792028}
   - component: {fileID: 1738792027}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64393,7 +64724,7 @@ GameObject:
   - component: {fileID: 1779873095}
   - component: {fileID: 1779873094}
   - component: {fileID: 1779873093}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65662,7 +65993,7 @@ GameObject:
   - component: {fileID: 1801800042}
   - component: {fileID: 1801800041}
   - component: {fileID: 1801800040}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66449,7 +66780,7 @@ GameObject:
   - component: {fileID: 1823029637}
   - component: {fileID: 1823029636}
   - component: {fileID: 1823029635}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66811,6 +67142,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: state
+      value: Begining
+      objectReference: {fileID: 0}
     - target: {fileID: 4962196838735442765, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -66879,6 +67214,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: story
+      value: 
+      objectReference: {fileID: 1832807977}
+    - target: {fileID: 8751416034152296545, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+      propertyPath: realName
+      value: Snowman
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -66889,6 +67232,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8123069863441328127, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
   m_PrefabInstance: {fileID: 1832807975}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1832807977 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4205218805581008530, guid: c8670b253fbe3b048a23b3d437752168, type: 3}
+  m_PrefabInstance: {fileID: 1832807975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7153cdf089422b8ea0a689a4582374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1843589797
 GameObject:
   m_ObjectHideFlags: 0
@@ -66901,7 +67255,7 @@ GameObject:
   - component: {fileID: 1843589801}
   - component: {fileID: 1843589800}
   - component: {fileID: 1843589799}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_003 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67341,7 +67695,7 @@ GameObject:
   - component: {fileID: 1853711325}
   - component: {fileID: 1853711324}
   - component: {fileID: 1853711323}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67450,7 +67804,7 @@ GameObject:
   - component: {fileID: 1855165870}
   - component: {fileID: 1855165869}
   - component: {fileID: 1855165868}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67997,7 +68351,7 @@ GameObject:
   - component: {fileID: 1868665000}
   - component: {fileID: 1868664999}
   - component: {fileID: 1868664998}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69570,7 +69924,7 @@ GameObject:
   - component: {fileID: 1898004129}
   - component: {fileID: 1898004128}
   - component: {fileID: 1898004127}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_004 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69680,7 +70034,7 @@ GameObject:
   - component: {fileID: 1900916994}
   - component: {fileID: 1900916993}
   - component: {fileID: 1900916992}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69843,7 +70197,7 @@ GameObject:
   - component: {fileID: 1907652011}
   - component: {fileID: 1907652010}
   - component: {fileID: 1907652009}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70595,7 +70949,7 @@ GameObject:
   - component: {fileID: 1929000358}
   - component: {fileID: 1929000357}
   - component: {fileID: 1929000356}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71296,7 +71650,7 @@ GameObject:
   - component: {fileID: 1952225477}
   - component: {fileID: 1952225476}
   - component: {fileID: 1952225475}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_009 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71736,7 +72090,7 @@ GameObject:
   - component: {fileID: 1965160270}
   - component: {fileID: 1965160269}
   - component: {fileID: 1965160268}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72860,7 +73214,7 @@ GameObject:
   - component: {fileID: 1994784620}
   - component: {fileID: 1994784619}
   - component: {fileID: 1994784618}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73001,7 +73355,7 @@ GameObject:
   - component: {fileID: 1998757542}
   - component: {fileID: 1998757541}
   - component: {fileID: 1998757540}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_001 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73220,7 +73574,7 @@ GameObject:
   - component: {fileID: 2001432243}
   - component: {fileID: 2001432242}
   - component: {fileID: 2001432241}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: Mountain_winter_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73900,7 +74254,7 @@ GameObject:
   - component: {fileID: 2018154156}
   - component: {fileID: 2018154155}
   - component: {fileID: 2018154154}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Hill_winter_001 (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74648,7 +75002,7 @@ GameObject:
   - component: {fileID: 2046746285}
   - component: {fileID: 2046746284}
   - component: {fileID: 2046746283}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75717,7 +76071,7 @@ GameObject:
   - component: {fileID: 2077928399}
   - component: {fileID: 2077928398}
   - component: {fileID: 2077928397}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plateau_winter_002 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77329,7 +77683,7 @@ GameObject:
   - component: {fileID: 2107804846}
   - component: {fileID: 2107804845}
   - component: {fileID: 2107804844}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Mountain_winter_001 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
