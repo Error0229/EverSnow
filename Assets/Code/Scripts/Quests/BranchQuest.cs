@@ -32,5 +32,7 @@ public class BranchQuest : Quest
         {
             GameManager.Instance.PlayerInstance.GetInventory().Remove(item);
         }
+        for (var i = 0; i < 3; i++)
+            GameManager.Instance.PlayerInstance.Obtain(ItemFactory.Instance.CreateItem("Ice"));
     }
 }
