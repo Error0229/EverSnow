@@ -466,6 +466,7 @@ public class BetterPlayerController : MonoBehaviour
         }
         var direction = transform.position - transformPosition;
         playerVelocity = direction * 10;
+        AudioManager.Instance.PlaySFX("MonsterAttack", transform.position, 1f);
         GoToState(STATE.KNOCKBACK);
     }
     #endregion
