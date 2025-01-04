@@ -9356,6 +9356,7 @@ MonoBehaviour:
   useButtonText: {fileID: 206099966}
   cancelButton: {fileID: 302092905}
   cancelButtonText: {fileID: 1298040491}
+  snowman: {fileID: 1614629474}
 --- !u!1001 &274944461
 PrefabInstance:
   m_ObjectHideFlags: 0
