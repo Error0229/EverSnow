@@ -177,6 +177,7 @@ public class Player : MonoBehaviour
 
     public void Obtain(Item item)
     {
+        AudioManager.Instance.PlaySFX("UseItem");
         item.Entity.SetActive(false);
         inventory.Add(item);
     }

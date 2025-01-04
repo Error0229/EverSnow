@@ -6,7 +6,6 @@ public abstract class Quest
 {
     protected string questName;
     protected string description;
-    protected bool isCompleted;
     protected State state;
     protected Dictionary<string, int> goals = new Dictionary<string, int>();
     protected Dictionary<string, int> progressions = new Dictionary<string, int>();
@@ -18,7 +17,6 @@ public abstract class Quest
     public virtual void Reset()
     {
         state = State.None;
-        isCompleted = false;
     }
 
     public virtual void Accept()
@@ -64,16 +62,13 @@ public abstract class Quest
         get => description;
     }
 
-    public bool IsCompleted
-    {
-        get => isCompleted;
-    }
+
 
 
     public virtual void Complete()
     {
         AudioManager.Instance.PlaySFX("UseItem");
-        isCompleted = true;
+        state = State.Completed;
     }
 
     public enum State { None, Accepted, Completed, Finished, Failed }

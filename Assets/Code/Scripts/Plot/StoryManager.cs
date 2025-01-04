@@ -81,6 +81,13 @@ public class StoryManager : Singleton<StoryManager>
         currentPlot = plot;
         GotoState(State.Ongoing);
     }
+    public async void TryInvokePlotByLabel(string label)
+    {
+        var plot = await MongoManager.Instance.GetPlotByLabelAsync(label);
+        if (plot == null) return;
+        currentPlot = plot;
+        GotoState(State.Ongoing);
+    }
 
     private void GotoState(State nextState)
     {
