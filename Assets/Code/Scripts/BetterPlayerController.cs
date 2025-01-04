@@ -382,8 +382,9 @@ public class BetterPlayerController : MonoBehaviour
         enabled = false;
     }
 
-    public void Respawn()
+    public void Respawn(Vector3 position)
     {
+        transform.position = position;
         enabled = true;
         GoToState(STATE.IDLE);
         anim.CrossFadeInFixedTime("idle", 0.1f);

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2615710560534619842}
-  - component: {fileID: 2011675473837451348}
   m_Layer: 12
   m_Name: Entity
   m_TagString: Untagged
@@ -33,29 +32,6 @@ Transform:
   - {fileID: 4282289868105273347}
   m_Father: {fileID: 7454298994145741228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2011675473837451348
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2362708581113490931}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.18
-  m_Height: 3.85
-  m_Direction: 0
-  m_Center: {x: -0.59, y: 0, z: 0}
 --- !u!1 &2849417271943269036
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7454298994145741228}
   - component: {fileID: 4889292665476344054}
+  - component: {fileID: 7956545233301609702}
   m_Layer: 12
   m_Name: Stick
   m_TagString: Untagged
@@ -196,3 +173,26 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: e6ac2eb29b1dfda408697ee8cdf16987, type: 3}
   entity: {fileID: 5929921577238317952}
   realName: "\u6A39\u679D"
+--- !u!136 &7956545233301609702
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5929921577238317952}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.22
+  m_Height: 3.56
+  m_Direction: 0
+  m_Center: {x: -0.67, y: 0, z: 0}

@@ -14,10 +14,10 @@ public class EventUI : Singleton<EventUI>
     {
         eventPanel.SetActive(false);
         confirmButton.onClick.AddListener(HandleConfirm);
-        if (cancelButton != null)
+        cancelButton.onClick.AddListener(() =>
         {
-            cancelButton.gameObject.SetActive(false);
-        }
+            Application.Quit();
+        });
     }
 
     public void ShowDeathPanel(UnityAction onRespawn)

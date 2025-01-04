@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Unity.VisualStudio.Editor;
 using MongoDB.Driver.Linq;
 using TMPro;
 using UnityEngine;
@@ -24,6 +23,8 @@ public class InventoryUI : Singleton<InventoryUI>
     private Button cancelButton;
     [SerializeField]
     private TextMeshProUGUI cancelButtonText;
+    [SerializeField]
+    private Image snowman;
 
 
     public void OnItemClick(Item item)
@@ -128,5 +129,10 @@ public class InventoryUI : Singleton<InventoryUI>
                 inventoryItems[i].SetUp(item: ie.Item, count: ie.Count, ie.Item == GameManager.Instance.PlayerInstance.GetEquippedWeapon());
             }
         }
+    }
+    private void Update()
+    {
+        if (inventoryPanel.activeSelf)
+            snowman.sprite = InGameUI.Instance.GetHealthSprite();
     }
 }

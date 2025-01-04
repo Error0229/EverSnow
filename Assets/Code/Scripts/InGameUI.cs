@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,42 +7,30 @@ using UnityEngine.UI;
 
 public class InGameUI : Singleton<InGameUI>
 {
-    [SerializeField]
-    private TextMeshProUGUI iceCountText;
-    [SerializeField]
-    private GameObject iceImage;
-    [SerializeField]
-    private Image currentWeapon;
-    [SerializeField]
-    private Image healthSnowman;
+    [SerializeField] private TextMeshProUGUI iceCountText;
+    [SerializeField] private GameObject iceImage;
+    [SerializeField] private Image currentWeapon;
+    [SerializeField] private Image healthSnowman;
 
-    [SerializeField]
-    private List<Sprite> healthSprites;
+    [SerializeField] private List<Sprite> healthSprites;
 
-    [SerializeField]
-    private GameObject hintPanel;
+    [SerializeField] private GameObject hintPanel;
 
-    [SerializeField]
-    private TextMeshProUGUI hintText;
+    [SerializeField] private TextMeshProUGUI hintText;
 
-    [SerializeField]
-    private RectTransform notificationPanel;
+    [SerializeField] private RectTransform notificationPanel;
 
-    [SerializeField]
-    private float slideDistance = 1600f; // Increased for full screen width
+    [SerializeField] private float slideDistance = 1600f; // Increased for full screen width
 
-    [SerializeField]
-    private float slideDuration = 0.3f; // Duration of slide animation
-    [SerializeField]
-    private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private float slideDuration = 0.3f; // Duration of slide animation
+    [SerializeField] private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private Vector2 notificationHiddenPos;
     private Vector2 notificationVisiblePos;
     private Coroutine currentNotificationCoroutine;
 
 
-    [SerializeField]
-    private TextMeshProUGUI notificationText;
+    [SerializeField] private TextMeshProUGUI notificationText;
 
     private void Update()
     {
@@ -64,6 +53,7 @@ public class InGameUI : Singleton<InGameUI>
             currentWeapon.sprite = weapon.Icon;
         }
         else currentWeapon.enabled = false;
+
         switch (GameManager.Instance.PlayerInstance.Health)
         {
             case 3:
@@ -78,9 +68,10 @@ public class InGameUI : Singleton<InGameUI>
                 break;
         }
     }
+
     public Sprite GetHealthSprite()
     {
-        return healthSprites[3 - GameManager.Instance.PlayerInstance.Health];
+        return healthSprites[Math.Clamp(3 - GameManager.Instance.PlayerInstance.Health, 0, 2)];
     }
 
     public void ShowHint(string text)
@@ -91,8 +82,11 @@ public class InGameUI : Singleton<InGameUI>
 
     public void HideHint()
     {
-        hintPanel.SetActive(false);
-        hintText.text = "";
+        if (hintPanel)
+        {
+            hintPanel.SetActive(false);
+            hintText.text = "";
+        }
     }
 
     protected override void Init()
@@ -113,6 +107,7 @@ public class InGameUI : Singleton<InGameUI>
         {
             StopCoroutine(currentNotificationCoroutine);
         }
+
         currentNotificationCoroutine = StartCoroutine(ShowNotificationCoroutine(text, lifespan));
     }
 

@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
 
     public void StartGame()
     {
+        inventory.Add(ItemFactory.Instance.CreateItem("Knife"));
         GoToState(State.InGame);
     }
 
@@ -165,9 +166,9 @@ public class Player : MonoBehaviour
     public void Respawn()
     {
         Health = MaxHealth;
-        transform.position = lastCheckpoint;
+        // transform.position = lastCheckpoint;
         GoToState(State.InGame);
-        playerEntity.Respawn();
+        playerEntity.Respawn(lastCheckpoint);
     }
 
     public void UpdateCheckpoint(Vector3 position)
@@ -179,6 +180,10 @@ public class Player : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX("UseItem");
         item.Entity.SetActive(false);
+        if (item is Weapon weapon)
+        {
+            weapon.DisableCollider();
+        }
         inventory.Add(item);
     }
 
