@@ -63,6 +63,8 @@ namespace Enemy
 
         private void SpawnDragon()
         {
+            if (dragonSpawnPoints.Count == 0)
+                return;
             var spawnPoint = dragonSpawnPoints[UnityEngine.Random.Range(0, dragonSpawnPoints.Count)];
             var enemy = Instantiate(dragonPrefab, spawnPoint.GetPosition(), Quaternion.identity);
             enemy.AddDestroyListener(() => enemies.Remove(enemy));
@@ -71,6 +73,8 @@ namespace Enemy
 
         private void SpawnRabbit()
         {
+            if (rabbitSpawnPoints.Count == 0)
+                return;
             var spawnPoint = rabbitSpawnPoints[UnityEngine.Random.Range(0, rabbitSpawnPoints.Count)];
             var enemy = Instantiate(rabbitPrefab, spawnPoint.GetPosition(), Quaternion.identity);
             enemy.AddDestroyListener(() => enemies.Remove(enemy));
@@ -79,6 +83,8 @@ namespace Enemy
 
         void SpawnBee()
         {
+            if (beeSpawnPoints.Count == 0)
+                return;
             var spawnPoint = beeSpawnPoints[UnityEngine.Random.Range(0, beeSpawnPoints.Count)];
             // var randomTwoOrThree = UnityEngine.Random.Range(2, 4);
             var randomTwoOrThree = 1;
