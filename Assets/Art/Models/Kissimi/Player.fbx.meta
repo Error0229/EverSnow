@@ -383,38 +383,38 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: testPlayer(Clone)
+    - name: Player(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Cube_003
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: Cube_004
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: Cylinder_004
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: Cylinder_005
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: Cylinder_006
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: root
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
@@ -625,7 +625,7 @@ ModelImporter:
       scale: {x: 0.9999998, y: 0.9999999, z: 1}
     - name: head
       parentName: neck_01
-      position: {x: -0.208, y: -0, z: 0.001}
+      position: {x: -0.277, y: -0.01, z: 0.001}
       rotation: {x: 0.000022678465, y: -0.0000007900259, z: -0.16081001, w: 0.9869854}
       scale: {x: 0.9999999, y: 1, z: 0.9999998}
     - name: CC_Base_FacialBone
@@ -726,7 +726,7 @@ ModelImporter:
     - name: CC_Base_L_MidToe1
       parentName: ball_l
       position: {x: -0.053896345, y: 0.0000009679793, z: -0.0000008201598}
-      rotation: {x: -0.57101506, y: 0.3546145, z: 0.62093943, w: 0.40326756}
+      rotation: {x: -0.571015, y: 0.35461447, z: 0.6209394, w: 0.4032675}
       scale: {x: 0.9999998, y: 0.99999994, z: 0.99999994}
     - name: CC_Base_L_PinkyToe1
       parentName: ball_l
@@ -829,12 +829,12 @@ ModelImporter:
       rotation: {x: -0.000038498423, y: -0.000008394943, z: 0.000015164248, w: 1}
       scale: {x: 0.9999997, y: 0.9999999, z: 0.9999999}
     - name: Sphere_002
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
     - name: Sphere_006
-      parentName: testPlayer(Clone)
+      parentName: Player(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}

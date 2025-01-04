@@ -200,6 +200,10 @@ public class BetterPlayerController : MonoBehaviour
 
                 // Maintain rolling direction and speed
                 break;
+
+            case STATE.DEAD:
+                // No movement when dead
+                return;
         }
 
         newVelocity = Mathf.Lerp(lastVelocity, newVelocity, Time.deltaTime);
@@ -352,6 +356,20 @@ public class BetterPlayerController : MonoBehaviour
         enabled = true;
     }
 
+    public void PlayDeathAnimation()
+    {
+        GoToState(STATE.DEAD);
+        anim.CrossFadeInFixedTime("Die", 0.1f);
+        enabled = false;
+    }
+
+    public void Respawn()
+    {
+        enabled = true;
+        GoToState(STATE.IDLE);
+        anim.CrossFadeInFixedTime("idle", 0.1f);
+    }
+
     private void Move(Vector2 vac)
     {
         movingVec = vac;
@@ -418,6 +436,24 @@ public class BetterPlayerController : MonoBehaviour
             lastFootstepTime = Time.time;
         }
     }
+
+    public string GetInteractionHint()
+    {
+        var npc = CheckLookAtNpc();
+        if (npc != null)
+        {
+            return "點擊 滑鼠右鍵 進行對話";
+        }
+
+        var item = CheckLookAtItem();
+        if (item != null)
+        {
+            return $"點擊 滑鼠右鍵 拾取 {item.RealName}";
+        }
+
+        return null;
+    }
+
     private enum Attacks
     {
         Heavy,
@@ -431,6 +467,7 @@ public class BetterPlayerController : MonoBehaviour
         JUMP,
         FALL,
         ROLL,
-        ATTACK
+        ATTACK,
+        DEAD
     }
 }

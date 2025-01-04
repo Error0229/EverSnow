@@ -14,7 +14,20 @@ public class Player : MonoBehaviour
 
     private State state;
     private bool triggerEnter;
-    public int Health { get; set; }
+    private Vector3 lastCheckpoint;
+    private int _health;
+    public int Health
+    {
+        get => _health;
+        set
+        {
+            _health = Mathf.Clamp(value, 0, MaxHealth);
+            if (_health <= 0 && state != State.Dead)
+            {
+                Die();
+            }
+        }
+    }
     public int MaxHealth { get; set; }
     public string RealName { get; } = "Kissimi";
     public string StoryState
@@ -59,6 +72,7 @@ public class Player : MonoBehaviour
         MaxHealth = 3;
         Health = MaxHealth;
         state = State.InGame;
+        lastCheckpoint = transform.position; // Set initial checkpoint
     }
 
     private void UseItem()
@@ -94,6 +108,12 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+        if (Health <= 0 && state != State.Dead)
+        {
+            Die();
+            return;
+        }
+
         switch (state)
         {
             case State.InDialog:
@@ -111,6 +131,15 @@ public class Player : MonoBehaviour
                     playerEntity.enabled = true;
                     playerEntity.Activate();
                 }
+                string hint = playerEntity.GetInteractionHint();
+                if (!string.IsNullOrEmpty(hint))
+                {
+                    InGameUI.Instance.ShowHint(hint);
+                }
+                else
+                {
+                    InGameUI.Instance.HideHint();
+                }
                 break;
             case State.Dead:
                 break;
@@ -124,6 +153,26 @@ public class Player : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void Die()
+    {
+        GoToState(State.Dead);
+        playerEntity.PlayDeathAnimation();
+        EventUI.Instance.ShowDeathPanel(Respawn);
+    }
+
+    public void Respawn()
+    {
+        Health = MaxHealth;
+        transform.position = lastCheckpoint;
+        GoToState(State.InGame);
+        playerEntity.Respawn();
+    }
+
+    public void UpdateCheckpoint(Vector3 position)
+    {
+        lastCheckpoint = position;
     }
 
     public void Obtain(Item item)

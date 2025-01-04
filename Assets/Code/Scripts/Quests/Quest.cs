@@ -13,6 +13,7 @@ public abstract class Quest
 
     public virtual void Finish()
     {
+        state = State.Finished;
     }
     public virtual void Reset()
     {
@@ -48,7 +49,9 @@ public abstract class Quest
         }
     }
 
-    public virtual void SyncProgressions() { }
+    public virtual void SyncProgressions()
+    {
+    }
 
 
     public string QuestName
@@ -73,5 +76,5 @@ public abstract class Quest
         isCompleted = true;
     }
 
-    public enum State { None, Accepted, Completed, Failed }
+    public enum State { None, Accepted, Completed, Finished, Failed }
 }

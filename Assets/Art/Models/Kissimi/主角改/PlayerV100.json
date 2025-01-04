@@ -1,0 +1,721 @@
+﻿{
+    "PlayerV100": {
+        "Version": "1.10.1822.1",
+        "Scene": {
+            "Name": true,
+            "SupportShaderSelect": true
+        },
+        "Export Directory": "D:/EverSnow/Assets/Art/Models/Kissimi/主角改",
+        "Object": {
+            "PlayerV100": {
+                "Generation": "AccuRig",
+                "Physics": {},
+                "Meshes": {
+                    "BezierCurve_002": {
+                        "Materials": {
+                            "Material_009_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "BezierCurve_003": {
+                        "Materials": {
+                            "Material_009_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Circle_006": {
+                        "Materials": {
+                            "Material_001_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Circle_007": {
+                        "Materials": {
+                            "Material_001_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Circle_008": {
+                        "Materials": {
+                            "Material_001_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Cube_012": {
+                        "Materials": {
+                            "Material_004_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cube_014": {
+                        "Materials": {
+                            "Material_007_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    42.908592224121097,
+                                    42.908592224121097,
+                                    42.908592224121097
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    42.908592224121097,
+                                    42.908592224121097,
+                                    42.908592224121097
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cube_018": {
+                        "Materials": {
+                            "Material_002_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_002_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_002_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Cube_019": {
+                        "Materials": {
+                            "Material_004_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            },
+                            "Material_005_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    225.14613342285157,
+                                    225.14613342285157,
+                                    225.14613342285157
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    225.14613342285157,
+                                    225.14613342285157,
+                                    225.14613342285157
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cube_020": {
+                        "Materials": {
+                            "Material_004_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            },
+                            "Material_002_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_002_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_002_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            },
+                            "Material_003_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    20.98216438293457,
+                                    23.164710998535158,
+                                    30.48219108581543
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    20.98216438293457,
+                                    23.164710998535158,
+                                    30.48219108581543
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cube_021": {
+                        "Materials": {
+                            "Material_010_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    225.14613342285157,
+                                    225.14613342285157,
+                                    225.14613342285157
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    225.14613342285157,
+                                    225.14613342285157,
+                                    225.14613342285157
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cube_022": {
+                        "Materials": {
+                            "Material_012_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    20.98216438293457,
+                                    23.164710998535158,
+                                    30.48219108581543
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    20.98216438293457,
+                                    23.164710998535158,
+                                    30.48219108581543
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cylinder_004": {
+                        "Materials": {
+                            "Material_005_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    225.14613342285157,
+                                    225.14613342285157,
+                                    225.14613342285157
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    225.14613342285157,
+                                    225.14613342285157,
+                                    225.14613342285157
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Cylinder_005": {
+                        "Materials": {
+                            "Material_002_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_002_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_002_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Mesh": {
+                        "Materials": {
+                            "Material_009_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    18.42936134338379,
+                                    14.740275382995606,
+                                    14.740275382995606
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Plane_003": {
+                        "Materials": {
+                            "Material_008_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    42.908592224121097,
+                                    42.908592224121097,
+                                    42.908592224121097
+                                ],
+                                "Ambient Color": [
+                                    12.973380088806153,
+                                    12.973380088806153,
+                                    12.973380088806153
+                                ],
+                                "Specular Color": [
+                                    42.908592224121097,
+                                    42.908592224121097,
+                                    42.908592224121097
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {}
+                            }
+                        }
+                    },
+                    "Sphere_001": {
+                        "Materials": {
+                            "Material_001_Pbr": {
+                                "Material Type": "Pbr",
+                                "MultiUV Index": 0,
+                                "Two Side": true,
+                                "Diffuse Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Ambient Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Specular Color": [
+                                    255.0,
+                                    255.0,
+                                    255.0
+                                ],
+                                "Opacity": 1.0,
+                                "Self Illumination": 0.0,
+                                "Textures": {
+                                    "Base Color": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    },
+                                    "Opacity": {
+                                        "Texture Path": "./PlayerV100.fbm/Material_001_Pbr_Diffuse.png",
+                                        "Strength": 100.0,
+                                        "Offset": [
+                                            0.0,
+                                            0.0
+                                        ],
+                                        "Tiling": [
+                                            1.0,
+                                            1.0
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

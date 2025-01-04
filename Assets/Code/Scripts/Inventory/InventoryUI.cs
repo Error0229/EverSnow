@@ -88,6 +88,7 @@ public class InventoryUI : Singleton<InventoryUI>
     }
     private void InvokeInventory()
     {
+        if (!GameManager.Instance.PlayerInstance.IsInGame()) return;
         if (inventoryPanel.activeSelf)
         {
             CloseInventory();

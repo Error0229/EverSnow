@@ -30,7 +30,7 @@ public class QuestInfoHandler : MonoBehaviour
 
         // Setup initial position and start slide in
         Vector2 endPosition = rectTransform.anchoredPosition;
-        rectTransform.anchoredPosition = new Vector2(endPosition.x - slideDistance, endPosition.y);
+        rectTransform.anchoredPosition = new Vector2(endPosition.x + slideDistance, endPosition.y);
 
         if (slideCoroutine != null) StopCoroutine(slideCoroutine);
         slideCoroutine = StartCoroutine(SlideAnimation(endPosition.x));
