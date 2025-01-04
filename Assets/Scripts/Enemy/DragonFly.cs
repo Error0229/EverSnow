@@ -26,5 +26,10 @@ namespace Enemy
         {
             return 1.5f;
         }
+
+        protected override void GoToAttack()
+        {
+            iEnemyState = new RabbitAttackState();
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace Enemy
 
         [SerializeField, SerializeReference] private IEnemyState _iEnemyState;
         float sfxTime = 0;
-        float sfxMaxTime = 5f;
+        float sfxMaxTime = 2f;
 
         public void SetSfxMaxTime(float v)
         {

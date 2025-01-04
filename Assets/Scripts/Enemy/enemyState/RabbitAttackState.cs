@@ -43,7 +43,7 @@ namespace Enemy.enemyState
             // GameObject.Destroy(debugFlag);
             enemy.weaponCollider.enabled = false;
             enemy.navMeshAgentWrapper.SetSpeed(NavMeshAgentWrapper.MoveSpeed.Run);
-            enemy.animator.Play("Idle");
+            // enemy.animator.Play("Idle");
             var parti = enemy.GetComponentInChildren<ParticleSystem>();
             if (parti)
             {
@@ -56,7 +56,7 @@ namespace Enemy.enemyState
         {
             var view = enemy.GetView();
             view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.localPosition.y, 0, 0.5f), 0);
+                enemy.GetDefaultHeight()+Mathf.Lerp(view.transform.localPosition.y, 0, 0.5f), 0);
             var enemyState = Enemy.EnemyState.Attack;
             if (attackTime >= attackMaxTime || enemy.navMeshAgentWrapper.IsArrived() || enemy.weapon.IsHited)
             {
