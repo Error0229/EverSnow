@@ -20,9 +20,17 @@ namespace Enemy
 
         private GameObject view;
 
-        private IEnemyState _iEnemyState;
+        [SerializeField, SerializeReference] private IEnemyState _iEnemyState;
+        float sfxTime = 0;
+        float sfxMaxTime = 2f;
 
-        private IEnemyState iEnemyState
+        public void SetSfxMaxTime(float v)
+        {
+        sfxMaxTime = v;
+        } 
+        public float GetSfxMaxTime() => sfxMaxTime;
+
+        public IEnemyState iEnemyState
         {
             get => _iEnemyState;
             set
@@ -33,11 +41,21 @@ namespace Enemy
             }
         }
 
+        virtual protected string GetSFXName()
+        {
+            return "FootStep";
+        }
+        public void PlaySFX()
+        {
+            var soundManager = AudioManager.Instance;
+            soundManager.PlaySFX(GetSFXName(), transform.position, 0.5f);
+        }
 
         private List<EnemyHate> enemyHateList = new();
         public NavMeshAgentWrapper navMeshAgentWrapper;
 
         public EnemyHate targetEnemy;
+        public Vector3 targetPosition;
 
         // private NavMeshAgent navMeshAgent;
         public Animator animator;
@@ -55,7 +73,7 @@ namespace Enemy
             enemyHateList = new List<EnemyHate>(enemyHate);
 
             weapon = GetComponentInChildren<Weapon>();
-            weaponCollider = weapon.gameObject.GetComponent<CapsuleCollider>();
+            weaponCollider = weapon.gameObject.GetComponent<Collider>();
             if (weaponCollider == null)
             {
                 throw new Exception("Weapon collider not found");
@@ -67,19 +85,36 @@ namespace Enemy
         private float runtime = 0;
         private float maxRuntime = 3;
 
+        public virtual float GetDefaultHeight()
+        {
+            return 0f;
+        }
+
 
         protected void Update()
         {
-            iEnemyState.OnUpdate(this);
+            iEnemyState?.OnUpdate(this);
+            if (sfxTime < GetSfxMaxTime())
+                sfxTime += Time.deltaTime;
+            else
+            {
+                sfxTime = 0;
+                PlaySFX();
+            }
         }
 
         public float GetAttackRange()
         {
-            var attackRange = 1f;
+            var attackRange = 8f;
             return attackRange;
         }
 
         #region destroy
+
+        private void OnDestroy()
+        {
+            onDestroy?.Invoke();
+        }
 
         UnityAction onDestroy;
 
@@ -125,21 +160,37 @@ namespace Enemy
             switch (state)
             {
                 case EnemyState.Idle:
-                    iEnemyState = new IdleState();
+                    GoToIdle();
                     break;
                 case EnemyState.Chase:
                     iEnemyState = new ChaseState();
                     break;
                 case EnemyState.Attack:
-                    iEnemyState = new AttackState();
+                    GoToAttack();
                     break;
                 case EnemyState.Away:
                     iEnemyState = new AwayState();
                     break;
             }
         }
+
+        protected virtual void GoToAttack()
+        {
+            iEnemyState = new AttackState();
+        }
+        protected virtual void GoToIdle()
+        {
+            iEnemyState = new IdleState();
+        }
+
+        public virtual ParticleSystem GetParticle()
+        {
+            return null;
+        }
+
+        public void ResetSfxMaxTime()
+        {
+            sfxMaxTime = 5f;
+        }
     }
-
-
-
 }

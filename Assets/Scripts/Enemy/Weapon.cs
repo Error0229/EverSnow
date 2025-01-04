@@ -7,6 +7,7 @@ namespace Enemy
     public class Weapon : MonoBehaviour
     {
         List<EnemyHate> hitedEnemies = new List<EnemyHate>();
+        public bool IsHited => hitedEnemies.Count > 0;
 
         private void Start()
         {
@@ -21,14 +22,16 @@ namespace Enemy
         private void OnTriggerEnter(Collider other)
         {
             var target = other.GetComponent<EnemyHate>();
-            print(other.name);
             if (target)
             {
-                print(target);
                 if (hitedEnemies.Contains(target))
                     return;
+                var con = target.GetComponentInChildren<BetterPlayerController>();
+                if (con)
+                {
+                    con.Knockback(transform.position);
+                }
                 target.Damage();
-                print("Damage");
                 hitedEnemies.Add(target);
             }
         }

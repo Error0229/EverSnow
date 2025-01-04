@@ -5,21 +5,30 @@ namespace Enemy
 {
     public  class EnemyHate: MonoBehaviour
     {
+        private bool isPlayer = false;
+        Player player;
         private void Awake()
         {
-            if (!GetComponentInChildren<Collider>())
+            // if (!GetComponentInChildren<Collider>())
+            // {
+            //     throw new Exception("EnemyHate must have a collider");
+            // }
+            // if (!GetComponentInChildren<Rigidbody>())
+            // {
+            //     throw new Exception("EnemyHate must have a rigidbody");
+            // }
+            player = GetComponentInParent<Player>();
+            if (player == null)
             {
-                throw new Exception("EnemyHate must have a collider");
+                isPlayer = false;
             }
-            if (!GetComponentInChildren<Rigidbody>())
+            else
             {
-                throw new Exception("EnemyHate must have a rigidbody");
+                isPlayer = true;
             }
-            
-
         }
 
-        private int hp = 3;
+        // private int hp = 3;
         public Vector3 GetPosition()
         {
             return transform.position;
@@ -28,12 +37,15 @@ namespace Enemy
 
         public void Damage()
         {
-            hp--;
-            if (hp <= 0)
+            if(isPlayer)
             {
-                // Destroy(gameObject);
-                // gameOver()
+                player.Health--;
             }
+        }
+
+        public void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            
         }
     }
 }

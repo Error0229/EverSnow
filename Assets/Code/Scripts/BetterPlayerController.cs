@@ -204,12 +204,31 @@ public class BetterPlayerController : MonoBehaviour
             case STATE.DEAD:
                 // No movement when dead
                 return;
+            case STATE.KNOCKBACK:
+                newVelocity = lastVelocity;
+                if (triggerEnter)
+                {
+                    anim.CrossFadeInFixedTime("hit_toBack", 0.1f);
+                    triggerEnter = false;
+                    knockBackTime = 0;
+                }
+                else
+                {
+                    playerVelocity = Vector3.Lerp(playerVelocity, Vector3.zero, Time.deltaTime);
+                    ApplyVerticalMovement(playerVelocity);
+                    if (knockBackTime >= knockBackMaxTime)
+                        GoToState(STATE.IDLE);
+                    else
+                    {
+                        knockBackTime += Time.deltaTime;
+                    }
+                }
+                break;
         }
 
         newVelocity = Mathf.Lerp(lastVelocity, newVelocity, Time.deltaTime);
         MoveOn(movingVec, newVelocity);
         lastVelocity = newVelocity;
-
     }
 
     private bool CanChangeDirection()
@@ -468,6 +487,24 @@ public class BetterPlayerController : MonoBehaviour
         FALL,
         ROLL,
         ATTACK,
-        DEAD
+        DEAD,
+        KNOCKBACK
     }
+
+    #region kickback
+    float knockBackTime = 0;
+    float knockBackMaxTime = 0.7f;
+
+    public void Knockback(Vector3 transformPosition)
+    {
+        if (state == STATE.KNOCKBACK)
+        {
+            return;
+        }
+        var direction = transform.position - transformPosition;
+        playerVelocity = direction * 10;
+        AudioManager.Instance.PlaySFX("MonsterAttack", transform.position, 1f);
+        GoToState(STATE.KNOCKBACK);
+    }
+    #endregion
 }

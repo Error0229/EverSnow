@@ -20,36 +20,36 @@ namespace Enemy.enemyState
         {
         }
 
-        float triggerRange = 10f;
+        float triggerRange = 20f;
 
         public void OnUpdate(Enemy enemy)
         {
             var t = Time.time;
-            var height = 1;
+            var height = 0.5f;
             var view = enemy.GetView();
             var enemyHateList = enemy.GetHateList();
             view.transform.localPosition = new Vector3(0,
-                Mathf.Lerp(view.transform.position.y, Mathf.Sin(t) * height, 0.5f), 0);
+                enemy.GetDefaultHeight()+ Mathf.Lerp(view.transform.localPosition.y, Mathf.Sin(t) * height, 0.5f), 0);
             var nextEnemyState = Enemy.EnemyState.Idle;
-            runtime += Time.deltaTime;
             if (enemy.IsArrived() || runtime > maxRuntime)
             {
                 var randomDirection = UnityEngine.Random.Range(0, 360);
                 var randomRange = UnityEngine.Random.Range(1, 2);
-                var randomPosition = enemy.transform.position + new Vector3(Mathf.Cos(randomDirection) * randomRange, 0,
+                var randomPosition = 
+                    enemy.transform.position + 
+                    new Vector3(Mathf.Cos(randomDirection) * randomRange, 0,
                     Mathf.Sin(randomDirection) * randomRange);
                 enemy.SetDestination(randomPosition);
                 runtime = 0;
             }
+            else
+            {
+                runtime += Time.deltaTime;
+            }
             if (enemyHateList.Count != 0)
             {
                 var closestEnemy = GetClosestEnemy(enemy, enemyHateList);
-                if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) <
-                    enemy.GetAttackRange())
-                {
-                    nextEnemyState = Enemy.EnemyState.Attack;
-                }
-                else if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) < triggerRange)
+                if (Vector3.Distance(enemy.transform.position, closestEnemy.transform.position) < triggerRange)
                 {
                     nextEnemyState = Enemy.EnemyState.Chase;
                     enemy.SetTargetEnemy(closestEnemy);
