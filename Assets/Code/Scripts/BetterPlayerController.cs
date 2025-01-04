@@ -69,15 +69,6 @@ public class BetterPlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isKnockBack)
-        {
-            knockBackTime += Time.deltaTime;
-            if (knockBackTime >= knockBackMaxTime)
-            {
-                isKnockBack = false;
-                knockBackTime = 0;
-            }
-        }
         if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f; // Small negative value to keep grounded
@@ -208,6 +199,26 @@ public class BetterPlayerController : MonoBehaviour
                 }
 
                 // Maintain rolling direction and speed
+                break;
+            case STATE.KNOCKBACK:
+                newVelocity = lastVelocity;
+                if (triggerEnter)
+                {
+                    anim.CrossFadeInFixedTime("hit_toBack", 0.1f);
+                    triggerEnter = false;
+                    knockBackTime = 0;
+                }
+                else
+                {
+                    playerVelocity = Vector3.Lerp(playerVelocity, Vector3.zero, Time.deltaTime);
+                    ApplyVerticalMovement(playerVelocity);
+                    if(knockBackTime >= knockBackMaxTime)
+                        GoToState(STATE.IDLE);
+                    else
+                    {
+                        knockBackTime += Time.deltaTime;
+                    }
+                }
                 break;
         }
 
@@ -439,26 +450,23 @@ public class BetterPlayerController : MonoBehaviour
         JUMP,
         FALL,
         ROLL,
-        ATTACK
+        ATTACK,
+        KNOCKBACK
     }
 
     #region kickback
-    bool isKnockBack = false;
     float knockBackTime = 0;
-    float knockBackMaxTime = 3f;
+    float knockBackMaxTime = 0.7f;
 
     public void Knockback(Vector3 transformPosition)
     {
-        if(isKnockBack)
+        if (state == STATE.KNOCKBACK)
+        {
             return;
+        }
         var direction = transform.position - transformPosition;
-        direction.y = 0;
-        direction.Normalize();
-        
-        playerVelocity = direction * 100;
-        playerVelocity.y = 10;
-        isKnockBack = true;
-        ApplyVerticalMovement(playerVelocity);
+        playerVelocity = direction * 10;
+        GoToState(STATE.KNOCKBACK);
     }
     #endregion
 }
