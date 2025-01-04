@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3093421343114086036}
-  - component: {fileID: 6954739434903214151}
   m_Layer: 12
   m_Name: Entity
   m_TagString: Untagged
@@ -36,27 +35,6 @@ Transform:
   - {fileID: 1603440231986067813}
   m_Father: {fileID: 8063124011077307536}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6954739434903214151
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018033667996094050}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.06
-  m_Center: {x: 1.97, y: 1.95, z: -5.13}
 --- !u!1 &3714906935468161214
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8063124011077307536}
   - component: {fileID: 2261766172800286723}
+  - component: {fileID: 6736967378349648125}
   m_Layer: 12
   m_Name: Ice
   m_TagString: Untagged
@@ -111,6 +90,27 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 93dd8240b77883c45afcb5ff3863cfcc, type: 3}
   entity: {fileID: 1018033667996094050}
   realName: "\u51B0\u584A"
+--- !u!135 &6736967378349648125
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3714906935468161214}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: -0.58, y: 0.6, z: -0.55}
 --- !u!1 &3865115191514073155
 GameObject:
   m_ObjectHideFlags: 0

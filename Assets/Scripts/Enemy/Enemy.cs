@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enemy.enemyState;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -26,8 +27,8 @@ namespace Enemy
 
         public void SetSfxMaxTime(float v)
         {
-        sfxMaxTime = v;
-        } 
+            sfxMaxTime = v;
+        }
         public float GetSfxMaxTime() => sfxMaxTime;
 
         public IEnemyState iEnemyState
@@ -62,6 +63,10 @@ namespace Enemy
         public Collider weaponCollider;
         public Weapon weapon;
 
+        public Collider selfCollider;
+        private int health;
+        private int maxHealth;
+
         protected void Start()
         {
             view = transform.GetChild(0).gameObject;
@@ -78,7 +83,13 @@ namespace Enemy
             {
                 throw new Exception("Weapon collider not found");
             }
-
+            selfCollider = gameObject.GetComponent<Collider>();
+            if (selfCollider == null)
+            {
+                throw new Exception("The enemy collider is not found");
+            }
+            maxHealth = 1;
+            health = 1;
             iEnemyState = new IdleState();
         }
 
@@ -90,6 +101,21 @@ namespace Enemy
             return 0f;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Harmful"))
+            {
+                health--;
+            }
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
+        private void Die()
+        {
+            Destroy(this.gameObject);
+        }
 
         protected void Update()
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -70,7 +71,7 @@ public class InGameUI : Singleton<InGameUI>
 
     public Sprite GetHealthSprite()
     {
-        return healthSprites[3 - GameManager.Instance.PlayerInstance.Health];
+        return healthSprites[Math.Clamp(3 - GameManager.Instance.PlayerInstance.Health, 0, 2)];
     }
 
     public void ShowHint(string text)

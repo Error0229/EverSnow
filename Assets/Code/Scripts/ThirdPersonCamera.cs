@@ -188,7 +188,7 @@ public class ThirdPersonCamera : MonoBehaviour
             if (angle <= lockOnFOV)
             {
                 // get the item from the collider's parent
-                return cldr.transform.parent.GetComponent<Item>();
+                return cldr.gameObject.GetComponent<Item>();
             }
         }
         return null;

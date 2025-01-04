@@ -58,7 +58,8 @@ public class MongoManager : Singleton<MongoManager>
 
     public async Task<Plot> GetPlotByLabelAsync(string label)
     {
-        return await (await Plots.FindAsync(plot => plot.Label == label)).FirstOrDefaultAsync();
+        var playerState = GameManager.Instance.PlayerInstance.StoryState;
+        return await (await Plots.FindAsync(plot => plot.Label == label && plot.PlayerState == playerState)).FirstOrDefaultAsync();
     }
 
     public async Task<Plot> GetPlotByPlayerStateAsync(string playerState)

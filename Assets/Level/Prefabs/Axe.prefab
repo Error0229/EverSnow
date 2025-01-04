@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5512087672236468730}
   - component: {fileID: 7225978846531224}
-  m_Layer: 12
+  - component: {fileID: 3674536335390525424}
+  m_Layer: 13
   m_Name: Entity
-  m_TagString: Untagged
+  m_TagString: Harmful
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.24808717, y: 0.24808717, z: 0.24808717}
+  m_LocalScale: {x: 0.1306815, y: 0.1306815, z: 0.1306815}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1504857138617378322}
@@ -53,10 +54,37 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.19
-  m_Height: 7.17
-  m_Direction: 1
-  m_Center: {x: 0.52, y: -1.56, z: 0}
+  m_Radius: 3
+  m_Height: 12.84
+  m_Direction: 0
+  m_Center: {x: -2.5, y: 0.87, z: 0}
+--- !u!54 &3674536335390525424
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906011795475806105}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5979482288582824623
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3193279481719383387}
   - component: {fileID: 2157338022269455368}
+  - component: {fileID: 762638531250107839}
   m_Layer: 12
   m_Name: Axe
   m_TagString: Untagged
@@ -112,6 +141,30 @@ MonoBehaviour:
   entity: {fileID: 906011795475806105}
   realName: "\u65A7\u982D"
   damage: 10
+  cldr: {fileID: 762638531250107839}
+--- !u!136 &762638531250107839
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979482288582824623}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.36177233
+  m_Height: 1.8729624
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.48351103, z: 0}
 --- !u!1 &7608308784740685775
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +176,7 @@ GameObject:
   - component: {fileID: 2952875643643746897}
   - component: {fileID: 7287777901226200487}
   - component: {fileID: 8198266899301060468}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +263,7 @@ GameObject:
   - component: {fileID: 1504857138617378322}
   - component: {fileID: 3316457067775294975}
   - component: {fileID: 4317974879420557663}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
