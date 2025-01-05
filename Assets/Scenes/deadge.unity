@@ -385,6 +385,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1395875625196178116, guid: 6fb6895405585964a8fb9756390c1915, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395875625196178116, guid: 6fb6895405585964a8fb9756390c1915, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6287054971582918357, guid: 6fb6895405585964a8fb9756390c1915, type: 3}
       propertyPath: m_Name
       value: Deadge

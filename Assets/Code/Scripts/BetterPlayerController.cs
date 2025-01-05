@@ -166,10 +166,12 @@ public class BetterPlayerController : MonoBehaviour
                     AudioManager.Instance.PlaySFX("PlayerAttack");
                     ResetHorizontalVelocity();
                     triggerEnter = false;
+                    GameManager.Instance.PlayerInstance.GetEquippedWeapon()?.PlayEffect();
                 }
 
                 if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
                 {
+                    GameManager.Instance.PlayerInstance.GetEquippedWeapon()?.StopEffect();
                     if (movingVec.magnitude <= 0.1f)
                     {
                         GoToState(STATE.IDLE);

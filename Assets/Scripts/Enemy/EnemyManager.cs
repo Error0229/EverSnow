@@ -38,56 +38,77 @@ namespace Enemy
             beePrefab = Resources.Load<Enemy>("Bee");
             dragonPrefab = Resources.Load<Enemy>("DragonFly");
             rabbitPrefab = Resources.Load<Enemy>("Rabbit");
+
+            foreach (var bsp in beeSpawnPoints) { SpawnBee(bsp); }
+            foreach (var rsp in rabbitSpawnPoints) { SpawnRabbit(rsp); }
+            foreach (var dsp in dragonSpawnPoints) { SpawnDragon(dsp); }
+            
         }
 
         private void Update()
         {
-            var limit = 20;
+            var limit = 20 + dragonSpawnPoints.Count + rabbitSpawnPoints.Count + beeSpawnPoints.Count;
             if (enemies.Count < limit)
             {
                 var random = UnityEngine.Random.Range(0, 3);
                 if (random == 0)
                 {
-                    SpawnBee();
+                    RandomSpawnBee();
                 }
                 else if (random == 1)
                 {
-                    SpawnDragon();
+                    RandomSpawnDragon();
                 }
                 else
                 {
-                    SpawnRabbit();
+                    RandomSpawnRabbit();
                 }
             }
         }
 
-        private void SpawnDragon()
+        private void RandomSpawnDragon()
         {
             if (dragonSpawnPoints.Count == 0)
                 return;
             var spawnPoint = dragonSpawnPoints[UnityEngine.Random.Range(0, dragonSpawnPoints.Count)];
+            SpawnDragon(spawnPoint);
+        }
+        
+        void SpawnDragon(DragonFlySpawnPoint spawnPoint)
+        {
             var enemy = Instantiate(dragonPrefab, spawnPoint.GetPosition(), Quaternion.identity);
             enemy.AddDestroyListener(() => enemies.Remove(enemy));
             enemies.Add(enemy);
         }
 
-        private void SpawnRabbit()
+        private void RandomSpawnRabbit()
         {
             if (rabbitSpawnPoints.Count == 0)
                 return;
             var spawnPoint = rabbitSpawnPoints[UnityEngine.Random.Range(0, rabbitSpawnPoints.Count)];
+            SpawnRabbit(spawnPoint);
+        }
+
+        private void SpawnRabbit(SpawnPoint spawnPoint)
+        {
             var enemy = Instantiate(rabbitPrefab, spawnPoint.GetPosition(), Quaternion.identity);
             enemy.AddDestroyListener(() => enemies.Remove(enemy));
             enemies.Add(enemy);
         }
+        
+        
 
-        void SpawnBee()
+        void RandomSpawnBee()
         {
             if (beeSpawnPoints.Count == 0)
                 return;
             var spawnPoint = beeSpawnPoints[UnityEngine.Random.Range(0, beeSpawnPoints.Count)];
-            // var randomTwoOrThree = UnityEngine.Random.Range(2, 4);
-            var randomTwoOrThree = 1;
+            SpawnBee(spawnPoint);
+        }
+
+        void SpawnBee(SpawnPoint spawnPoint)
+        {
+            var randomTwoOrThree = UnityEngine.Random.Range(2, 4);
             var spawnRange = UnityEngine.Random.Range(1, 2);
             var randomDirection = UnityEngine.Random.Range(0, 2);
             for (int i = 0; i < randomTwoOrThree; i++)
@@ -99,6 +120,7 @@ namespace Enemy
                 enemy.AddDestroyListener(() => enemies.Remove(enemy));
                 enemies.Add(enemy);
             }
+            
         }
     }
 }
