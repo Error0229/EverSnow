@@ -7,10 +7,11 @@ public class Weapon : Item
     [SerializeField] private Collider cldr;
     private List<ParticleSystem> particleSystem;
 
-    private void Awake()
+    private void Start()
     {
         cldr = gameObject.GetComponent<Collider>();
         particleSystem = new List<ParticleSystem>(GetComponentsInChildren<ParticleSystem>());
+        particleSystem?.ForEach(e => e.Stop());
     }
 
     public void DisableCollider()
@@ -25,11 +26,13 @@ public class Weapon : Item
 
     public void PlayEffect()
     {
+        if(particleSystem == null) return;
         particleSystem.ForEach(e => e.Play());
     }
 
     public void StopEffect()
     {
+        if(particleSystem == null) return;
         particleSystem.ForEach(e => e.Stop());
     }
 }

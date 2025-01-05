@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5809529710433749736}
   - component: {fileID: 4630987851284305659}
-  - component: {fileID: 7738501090771550933}
+  - component: {fileID: 1196870788018056958}
   m_Layer: 13
   m_Name: Entity
   m_TagString: Harmful
@@ -139,7 +139,7 @@ CapsuleCollider:
   m_Height: 14.46
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -6.73}
---- !u!54 &7738501090771550933
+--- !u!54 &1196870788018056958
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,7 +335,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -830,14 +830,14 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 2
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 90, y: -90, z: 90}
+    m_Rotation: {x: 180, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 2
     m_MeshMaterialIndex: 0
