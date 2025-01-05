@@ -114,6 +114,7 @@ namespace Enemy
         }
         private void Die()
         {
+            Deadge.SpawnDeadgeEffect(transform.position);
             Destroy(this.gameObject);
         }
 
