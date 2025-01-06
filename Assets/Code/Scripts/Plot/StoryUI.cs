@@ -208,6 +208,10 @@ public class StoryUI : Singleton<StoryUI>
         {
             isLeftSide = CharacterPositionMapping[dialogData.Speaker] == "Left";
         }
+        if (dialogData.SoundEffect != string.Empty)
+        {
+            AudioManager.Instance.PlayMusic(dialogData.SoundEffect);
+        }
 
 
         currentBubble.SetUp(dialogData, isLeftSide ? "Left" : "Right");

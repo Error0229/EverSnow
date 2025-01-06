@@ -39,6 +39,7 @@ public class BetterPlayerController : MonoBehaviour
     [SerializeField] private float fallAnimationDelay = 0.5f; // Time before fall animation plays
     [SerializeField] private float fallSpeed = 1.0f;
     private float fallAnimationTimer = 0f;
+    private Weapon currentWeapon;
     private AnimatorStateInfo StateInfo
     {
         get => anim.GetCurrentAnimatorStateInfo(0);
@@ -166,10 +167,12 @@ public class BetterPlayerController : MonoBehaviour
                     AudioManager.Instance.PlaySFX("PlayerAttack");
                     ResetHorizontalVelocity();
                     triggerEnter = false;
+                    currentWeapon?.Attack();
                 }
 
                 if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
                 {
+                    currentWeapon?.OnAttackFinish();
                     if (movingVec.magnitude <= 0.1f)
                     {
                         GoToState(STATE.IDLE);
@@ -278,12 +281,11 @@ public class BetterPlayerController : MonoBehaviour
     {
         if (weapon.Name == "Axe")
         {
-            axeHandler.SetActive(true);
-
             weapon.Entity.transform.SetParent(axeHandler.transform);
             weapon.Entity.transform.localPosition = Vector3.zero;
             weapon.Entity.transform.localRotation = Quaternion.identity;
             weapon.Entity.SetActive(true);
+            axeHandler.SetActive(true);
             knifeHandler.SetActive(false);
         }
         else if (weapon.Name == "Knife")
@@ -295,6 +297,7 @@ public class BetterPlayerController : MonoBehaviour
             axeHandler.SetActive(false);
             knifeHandler.SetActive(true);
         }
+        currentWeapon = weapon;
     }
     public void Remove(Weapon weapon)
     {
@@ -340,13 +343,13 @@ public class BetterPlayerController : MonoBehaviour
 
     private void HeavyAttack(bool invoked)
     {
-        if (!invoked || state == STATE.ATTACK) return;
+        if (!invoked || (state != STATE.LOCOMOTION && state != STATE.IDLE)) return;
         attack = Attacks.Heavy;
         GoToState(STATE.ATTACK);
     }
     private void NormalAttack(bool invoked)
     {
-        if (!invoked || state == STATE.ATTACK) return;
+        if (!invoked || (state != STATE.LOCOMOTION && state != STATE.IDLE)) return;
         attack = Attacks.Normal;
         GoToState(STATE.ATTACK);
     }

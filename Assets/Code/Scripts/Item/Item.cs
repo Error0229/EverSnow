@@ -50,6 +50,12 @@ public abstract class Item : MonoBehaviour
     {
         get => entity;
     }
+
+    public void OnObtained()
+    {
+        Entity.SetActive(false);
+        GetComponent<Collider>().enabled = false;
+    }
     public Sprite Icon { get => icon; }
 
     public virtual void Equip()

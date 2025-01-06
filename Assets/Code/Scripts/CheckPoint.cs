@@ -11,7 +11,8 @@ public class CheckPoint : MonoBehaviour
             if (player != null)
             {
                 player.UpdateCheckpoint(transform.position);
-                InGameUI.Instance.ShowNotification("復活點更新", 2f);
+                InGameUI.Instance.ShowNotification("復活點已更新", 2f);
+                AudioManager.Instance.PlaySFX("UseItem");
             }
         }
     }

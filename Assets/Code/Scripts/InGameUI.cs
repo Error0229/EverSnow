@@ -24,6 +24,7 @@ public class InGameUI : Singleton<InGameUI>
 
     [SerializeField] private float slideDuration = 0.3f; // Duration of slide animation
     [SerializeField] private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private Button debugButton;
 
     private Vector2 notificationHiddenPos;
     private Vector2 notificationVisiblePos;
@@ -31,7 +32,13 @@ public class InGameUI : Singleton<InGameUI>
 
 
     [SerializeField] private TextMeshProUGUI notificationText;
-
+    protected void Start()
+    {
+        debugButton.onClick.AddListener(() =>
+        {
+            GameManager.Instance.GoToEnding("A");
+        });
+    }
     private void Update()
     {
         var iceCount = GameManager.Instance.PlayerInstance.GetIceCount();

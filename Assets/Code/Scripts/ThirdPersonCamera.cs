@@ -35,6 +35,7 @@ public class ThirdPersonCamera : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
     private InputAction look;
     private Vector2 lookDelta;
+    [SerializeField] private WorldSpaceUIPositioner lockOnUI; // Replace indicatorCanvas and indicatorScaler
 
     private void Awake()
     {
@@ -131,6 +132,7 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             _lockOnTarget = null;
             _isLockOn = false;
+            lockOnUI.Unlock();
             evtUnlock.Invoke();
             return;
         }
@@ -146,6 +148,13 @@ public class ThirdPersonCamera : MonoBehaviour
         if (closestEnemy == null) return;
         _lockOnTarget = closestEnemy;
         _isLockOn = true;
+
+        // Update UI position
+        if (lockOnUI != null)
+        {
+            lockOnUI.LockOn(_lockOnTarget);
+        }
+
         evtLock.Invoke(_lockOnTarget.gameObject);
     }
     public Npc CheckLookAtNpc()

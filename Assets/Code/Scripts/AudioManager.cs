@@ -31,12 +31,26 @@ public class AudioManager : Singleton<AudioManager>
     // Add new method for UI sounds
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
+        if (clip != null)
+        {
+            AudioSource audioSource = Instantiate(sfxObject, Vector3.zero, Quaternion.identity);
+            audioSource.clip = clip;
+            audioSource.volume = volume;
+            audioSource.spatialBlend = 0.0f;
+            audioSource.Play();
+            Destroy(audioSource.gameObject, clip.length);
+        }
         PlaySFX(clip, Vector3.zero, volume);
     }
 
     public void PlaySFX(string soundEffectName, float volume = 1f)
     {
-        PlaySFX(soundEffectName, Vector3.zero, volume);
+        if (string.IsNullOrEmpty(soundEffectName)) return;
+        if (sfxNames.Contains(soundEffectName))
+        {
+            int index = sfxNames.IndexOf(soundEffectName);
+            PlaySFX(sfxClips[index], volume);
+        }
     }
     public void PlaySFX(string soundEffectName, Vector3 position, float volume = 1f)
     {
@@ -47,18 +61,28 @@ public class AudioManager : Singleton<AudioManager>
             PlaySFX(sfxClips[index], position, volume);
         }
     }
-    public void PlayMusic(AudioClip clip, float volume = 1f)
+    public void PlayMusic(AudioClip clip, float volume = 0.5f)
     {
         if (clip != null)
         {
             if (musicAudioSource.isPlaying)
             {
-                StartCoroutine(FadeOutMusic(0.5f));
+                StartCoroutine(FadeOutAndPlayNew(clip, volume, 0.1f));
             }
-            musicAudioSource.volume = volume;
-            musicAudioSource.clip = clip;
-            StartCoroutine(FadeInMusic(0.5f));
+            else
+            {
+                musicAudioSource.volume = volume;
+                musicAudioSource.clip = clip;
+                StartCoroutine(FadeInMusic(0.1f));
+            }
         }
+    }
+    private IEnumerator FadeOutAndPlayNew(AudioClip newClip, float targetVolume, float duration)
+    {
+        yield return StartCoroutine(FadeOutMusic(duration));
+        musicAudioSource.clip = newClip;
+        musicAudioSource.volume = targetVolume;
+        yield return StartCoroutine(FadeInMusic(duration));
     }
     private IEnumerator FadeOutMusic(float duration)
     {
@@ -83,7 +107,7 @@ public class AudioManager : Singleton<AudioManager>
         }
         musicAudioSource.volume = startVolume;
     }
-    public void PlayMusic(string musicName, float volume = 1f)
+    public void PlayMusic(string musicName, float volume = 0.5f)
     {
         if (string.IsNullOrEmpty(musicName)) return;
         if (musicNames.Contains(musicName))

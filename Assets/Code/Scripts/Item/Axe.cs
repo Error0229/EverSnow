@@ -3,6 +3,7 @@ public class Axe : Weapon
 
     public void Awake()
     {
+        DisableCollider();
         this.Entity.SetActive(false);
         QuestManager.Instance.evtQuestFinished.AddListener(OnQuestFinish);
     }
@@ -10,6 +11,7 @@ public class Axe : Weapon
     {
         if (questName == "AxeQuest")
         {
+            EnableCollider();
             this.Entity.SetActive(true);
         }
     }

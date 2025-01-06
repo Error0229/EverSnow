@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -10,7 +11,9 @@ public class GameManager : Singleton<GameManager>
     private readonly IList<Npc> npcs = new List<Npc>();
 
     private State state = State.MainMenu;
-    private bool triggerEnter;
+    private string ending;
+    private State pendingState;
+    private bool hasStateChange;
 
     public Player PlayerInstance
     {
@@ -35,10 +38,6 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateStoryState(IList<PlotDialogEndState> states)
     {
-        foreach (var s in states)
-        {
-            Debug.Log(s.Name + " " + s.State);
-        }
         var nextPlayerState = states.FirstOrDefault(s => s.Name == player.RealName);
         if (nextPlayerState != null)
             player.StoryState = nextPlayerState.State;
@@ -54,35 +53,56 @@ public class GameManager : Singleton<GameManager>
     protected override void Init()
     {
         base.Init();
-        // Register to scene loading events
+        SceneManager.sceneLoaded += OnSceneLoaded;
         GoToState(State.MainMenu);
     }
-    private void Update()
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (triggerEnter)
+        if (!hasStateChange) return;
+
+        if (pendingState == State.Ending)
         {
-            switch (state)
-            {
-                case State.MainMenu:
-                    MainMenuUI.Instance.ShowMainMenu();
-                    AudioManager.Instance.PlayMusic("Opening");
-                    break;
-                case State.InGame:
-                    MainMenuUI.Instance.HideMainMenu();
-                    AudioManager.Instance.PlayMusic("Normal");
-                    break;
-                case State.Ending:
-                    break;
-            }
-            triggerEnter = false;
+            var endingObj = GameObject.FindFirstObjectByType<Ending>();
+            endingObj.ShowEnding(ending);
+            state = pendingState;
+            hasStateChange = false;
+        }
+        else if (pendingState == State.MainMenu)
+        {
+            player = GameObject.FindFirstObjectByType<Player>();
+            MainMenuUI.Instance.ShowMainMenu();
+            AudioManager.Instance.PlayMusic("Opening");
+            state = pendingState;
+            hasStateChange = false;
         }
     }
+
     private void GoToState(State newState)
     {
-        triggerEnter = true;
-        state = newState;
+        pendingState = newState;
+        hasStateChange = true;
+
+        // Handle immediate state transitions for same-scene states
+        if (newState == State.InGame)
+        {
+            MainMenuUI.Instance.HideMainMenu();
+            AudioManager.Instance.PlayMusic("Normal");
+            state = newState;
+            hasStateChange = false;
+        }
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void Restart()
+    {
+        GoToState(State.MainMenu);
+        SceneManager.LoadScene("Latest");
+    }
 
     public void StartGame()
     {
@@ -92,6 +112,13 @@ public class GameManager : Singleton<GameManager>
             npc.StartGame();
         }
         GoToState(State.InGame);
+    }
+    public void GoToEnding(string endingType)
+    {
+        npcs.Clear();
+        GoToState(State.Ending);
+        SceneManager.LoadScene("Ending");
+        ending = endingType;
     }
     public enum State
     {

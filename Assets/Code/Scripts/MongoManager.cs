@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -8,6 +10,7 @@ public class MongoManager : Singleton<MongoManager>
 {
     private readonly System.Random _random = new System.Random();
     private IMongoCollection<Plot> Plots { get; set; }
+    private IList<Plot> localPlots = new List<Plot>();
     protected override void Init()
     {
         var connectionUri = DotEnv.Instance.Get("MONGO_URI");
@@ -22,6 +25,7 @@ public class MongoManager : Singleton<MongoManager>
         try
         {
             Plots = client.GetDatabase("EverSnow").GetCollection<Plot>("Plot");
+            localPlots = Plots.AsQueryable().ToList();
             Debug.Log("Connected to MongoDB");
         }
         catch (Exception ex)
@@ -30,22 +34,14 @@ public class MongoManager : Singleton<MongoManager>
         }
     }
 
-    public async Task<Plot> GetPlotByStatesAsync(string playerState, string npcState, string npcName)
+    public Plot GetPlotByStates(string playerState, string npcState, string npcName)
     {
-        var filter = Builders<Plot>.Filter.Or(
-            Builders<Plot>.Filter.And(
-                Builders<Plot>.Filter.Eq(p => p.PlayerState, playerState),
-                Builders<Plot>.Filter.Eq(p => p.NPCState, npcState),
-                Builders<Plot>.Filter.Eq(p => p.NPCName, npcName)
-            ),
-            Builders<Plot>.Filter.And(
-                Builders<Plot>.Filter.Eq(p => p.PlayerState, ""),
-                Builders<Plot>.Filter.Eq(p => p.NPCState, npcState),
-                Builders<Plot>.Filter.Eq(p => p.NPCName, npcName)
-            )
-        );
+        var result = localPlots.Where(p =>
+            (p.PlayerState == playerState || p.PlayerState == "") &&
+            p.NPCState == npcState &&
+            p.NPCName == npcName
+        ).ToList();
 
-        var result = await (await Plots.FindAsync(filter)).ToListAsync();
         var exactMatches = result.Where(p => p.PlayerState == playerState).ToList();
 
         if (exactMatches.Any())
@@ -56,14 +52,24 @@ public class MongoManager : Singleton<MongoManager>
         return result.Any() ? result[_random.Next(result.Count)] : null;
     }
 
-    public async Task<Plot> GetPlotByLabelAsync(string label)
+    public Plot GetPlotByLabel(string label)
     {
         var playerState = GameManager.Instance.PlayerInstance.StoryState;
-        return await (await Plots.FindAsync(plot => plot.Label == label && plot.PlayerState == playerState)).FirstOrDefaultAsync();
+        var result = localPlots.Where(p =>
+            (p.PlayerState == playerState || p.PlayerState == "") &&
+            p.Label == label
+        ).ToList();
+
+        var exactMatches = result.Where(p => p.PlayerState == playerState).ToList();
+        if (exactMatches.Any())
+        {
+            return exactMatches[_random.Next(exactMatches.Count)];
+        }
+        return result.Any() ? result[_random.Next(result.Count)] : null;
     }
 
-    public async Task<Plot> GetPlotByPlayerStateAsync(string playerState)
+    public Plot GetPlotByPlayerState(string playerState)
     {
-        return await (await Plots.FindAsync(plot => plot.PlayerState == playerState)).FirstOrDefaultAsync();
+        return localPlots.FirstOrDefault(plot => plot.PlayerState == playerState);
     }
 }

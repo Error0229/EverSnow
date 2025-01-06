@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         MaxHealth = 3;
         Health = MaxHealth;
         state = State.InGame;
-        lastCheckpoint = transform.position; // Set initial checkpoint
+        lastCheckpoint = transform.position;
     }
 
     private void UseItem()
@@ -143,6 +143,12 @@ public class Player : MonoBehaviour
                 }
                 break;
             case State.Dead:
+                if (triggerEnter)
+                {
+                    playerEntity.PlayDeathAnimation();
+                    AudioManager.Instance.PlayMusic("SnowmanDead");
+                    EventUI.Instance.ShowDeathPanel(Respawn);
+                }
                 break;
             case State.Inventory:
                 if (triggerEnter)
@@ -159,16 +165,19 @@ public class Player : MonoBehaviour
     private void Die()
     {
         GoToState(State.Dead);
-        playerEntity.PlayDeathAnimation();
-        EventUI.Instance.ShowDeathPanel(Respawn);
     }
 
     public void Respawn()
     {
+        AudioManager.Instance.PlayMusic("Normal");
         Health = MaxHealth;
-        // transform.position = lastCheckpoint;
         GoToState(State.InGame);
         playerEntity.Respawn(lastCheckpoint);
+        ItemFactory.Instance.RespawnItem();
+        for (var i = 0; i < 3; i++)
+        {
+            inventory.Add(ItemFactory.Instance.CreateItem("Ice"));
+        }
     }
 
     public void UpdateCheckpoint(Vector3 position)
@@ -179,7 +188,7 @@ public class Player : MonoBehaviour
     public void Obtain(Item item)
     {
         AudioManager.Instance.PlaySFX("UseItem");
-        item.Entity.SetActive(false);
+        item.OnObtained();
         if (item is Weapon weapon)
         {
             weapon.DisableCollider();

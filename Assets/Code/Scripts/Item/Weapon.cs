@@ -3,7 +3,7 @@ public class Weapon : Item
 {
     public int damage;
     [SerializeField]
-    private Collider cldr;
+    protected Collider cldr;
     private void Awake()
     {
         cldr = gameObject.GetComponent<Collider>();
@@ -11,6 +11,20 @@ public class Weapon : Item
     public void DisableCollider()
     {
         cldr.enabled = false;
+        Entity.GetComponent<Collider>().enabled = false;
+    }
+    public void EnableCollider()
+    {
+        cldr.enabled = true;
+        Entity.GetComponent<Collider>().enabled = true;
+    }
+    public void Attack()
+    {
+        Entity.GetComponent<Collider>().enabled = true;
+    }
+    public void OnAttackFinish()
+    {
+        Entity.GetComponent<Collider>().enabled = false;
     }
 
     public override void Equip()

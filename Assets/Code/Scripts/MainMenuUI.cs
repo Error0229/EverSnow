@@ -25,6 +25,7 @@ public class MainMenuUI : Singleton<MainMenuUI>
     }
     public void ShowMainMenu()
     {
+        menuButtonPanel.SetActive(true);
         mainMenuPanel.SetActive(true);
     }
     public void HideMainMenu()

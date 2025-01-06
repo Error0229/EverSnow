@@ -3,7 +3,7 @@ using System.Linq;
 using MongoDB.Driver.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class InventoryUI : Singleton<InventoryUI>
 {
@@ -103,6 +103,10 @@ public class InventoryUI : Singleton<InventoryUI>
     {
         RefreshInventory();
         inventoryPanel.SetActive(true);
+        if (GameManager.Instance.PlayerInstance.GetInventory().Any())
+        {
+            EventSystem.current.SetSelectedGameObject(inventoryItems[0].gameObject);
+        }
         AudioManager.Instance.PlaySFX("OpenInventory");
     }
     public void CloseInventory()

@@ -46,6 +46,14 @@ public class StoryManager : Singleton<StoryManager>
                     StoryUI.Instance.EndPlot();
                     triggerEnter = false;
                     evtLeaveDialog?.Invoke();
+                    if (GameManager.Instance.PlayerInstance.StoryState == "EndA")
+                    {
+                        GameManager.Instance.GoToEnding("A");
+                    }
+                    else if (GameManager.Instance.PlayerInstance.StoryState == "EndB")
+                    {
+                        GameManager.Instance.GoToEnding("B");
+                    }
                 }
                 GotoState(State.Idle);
                 break;
@@ -65,25 +73,25 @@ public class StoryManager : Singleton<StoryManager>
         GotoState(State.Idle);
     }
 
-    public async void TryInvokePlot(Npc talker = null)
+    public void TryInvokePlot(Npc talker = null)
     {
         var player = GameManager.Instance.PlayerInstance;
         Plot plot;
         if (talker == null)
         {
-            plot = await MongoManager.Instance.GetPlotByPlayerStateAsync(player.StoryState);
+            plot = MongoManager.Instance.GetPlotByPlayerState(player.StoryState);
         }
         else
         {
-            plot = await MongoManager.Instance.GetPlotByStatesAsync(player.StoryState, talker.StoryState, talker.RealName);
+            plot = MongoManager.Instance.GetPlotByStates(player.StoryState, talker.StoryState, talker.RealName);
         }
         if (plot == null) return;
         currentPlot = plot;
         GotoState(State.Ongoing);
     }
-    public async void TryInvokePlotByLabel(string label)
+    public void TryInvokePlotByLabel(string label)
     {
-        var plot = await MongoManager.Instance.GetPlotByLabelAsync(label);
+        var plot = MongoManager.Instance.GetPlotByLabel(label);
         if (plot == null) return;
         currentPlot = plot;
         GotoState(State.Ongoing);

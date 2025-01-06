@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 public class ItemFactory : Singleton<ItemFactory>
 {
@@ -6,6 +8,12 @@ public class ItemFactory : Singleton<ItemFactory>
     [SerializeField] private GameObject mistletoePrefab;
     [SerializeField] private GameObject icePrefab;
     [SerializeField] private GameObject knifePrefab;
+    private List<Item> staticItems;
+
+    private void Start()
+    {
+        staticItems = GameObject.FindObjectsByType<Item>(FindObjectsSortMode.None).ToList();
+    }
     public Item CreateItem(string itemName)
     {
         switch (itemName)
@@ -23,5 +31,16 @@ public class ItemFactory : Singleton<ItemFactory>
             default:
                 return null;
         }
+    }
+    public void RespawnItem()
+    {
+        foreach (var item in staticItems)
+        {
+            if (item is Ice ice)
+            {
+                ice.Respawn();
+            }
+        }
+
     }
 }
