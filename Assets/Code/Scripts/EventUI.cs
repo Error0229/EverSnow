@@ -6,7 +6,6 @@ public class EventUI : Singleton<EventUI>
 {
     [SerializeField] private GameObject eventPanel;
     [SerializeField] private Button confirmButton;
-    [SerializeField] private Button cancelButton;
 
     private UnityAction onConfirm;
 
@@ -14,10 +13,7 @@ public class EventUI : Singleton<EventUI>
     {
         eventPanel.SetActive(false);
         confirmButton.onClick.AddListener(HandleConfirm);
-        cancelButton.onClick.AddListener(() =>
-        {
-            Application.Quit();
-        });
+
     }
 
     public void ShowDeathPanel(UnityAction onRespawn)

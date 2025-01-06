@@ -6,13 +6,13 @@ public class Weapon : Item
     public int damage;
     [SerializeField]
     protected Collider cldr;
-    private List<ParticleSystem> particleSystem;
+    private List<ParticleSystem> weaponParticle;
 
     private void Start()
     {
         cldr = gameObject.GetComponent<Collider>();
-        particleSystem = new List<ParticleSystem>(GetComponentsInChildren<ParticleSystem>());
-        particleSystem?.ForEach(e => e.Stop());
+        weaponParticle = new List<ParticleSystem>(GetComponentsInChildren<ParticleSystem>());
+        weaponParticle?.ForEach(e => e.Stop());
     }
 
     public void DisableCollider()
@@ -41,13 +41,13 @@ public class Weapon : Item
 
     public void PlayEffect()
     {
-        if (particleSystem == null) return;
-        particleSystem.ForEach(e => e.Play());
+        if (weaponParticle == null) return;
+        weaponParticle.ForEach(e => e.Play());
     }
 
     public void StopEffect()
     {
-        if (particleSystem == null) return;
-        particleSystem.ForEach(e => e.Stop());
+        if (weaponParticle == null) return;
+        weaponParticle.ForEach(e => e.Stop());
     }
 }

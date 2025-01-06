@@ -67,7 +67,7 @@ public abstract class Quest
 
     public virtual void Complete()
     {
-        AudioManager.Instance.PlaySFX("UseItem");
+        AudioManager.Instance.PlaySFX("QuestComplete");
         state = State.Completed;
     }
 

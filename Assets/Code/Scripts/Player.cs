@@ -174,6 +174,7 @@ public class Player : MonoBehaviour
         GoToState(State.InGame);
         playerEntity.Respawn(lastCheckpoint);
         ItemFactory.Instance.RespawnItem();
+        inventory.RemoveAll(item => item is Ice);
         for (var i = 0; i < 3; i++)
         {
             inventory.Add(ItemFactory.Instance.CreateItem("Ice"));

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 public class BetterPlayerController : MonoBehaviour
 {
     private static readonly int Speed = Animator.StringToHash("speed");
@@ -174,7 +175,6 @@ public class BetterPlayerController : MonoBehaviour
                 if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
                 {
                     currentWeapon?.OnAttackFinish();
-                    currentWeapon?.StopEffect();
                     if (movingVec.magnitude <= 0.1f)
                     {
                         GoToState(STATE.IDLE);
@@ -359,6 +359,7 @@ public class BetterPlayerController : MonoBehaviour
     private void GoToState(STATE newState)
     {
         state = newState;
+        if (newState != STATE.ATTACK) currentWeapon?.StopEffect();
         triggerEnter = true;
     }
 

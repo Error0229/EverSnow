@@ -14,5 +14,6 @@ public class Ice : Thing
     public void Respawn()
     {
         Entity.SetActive(true);
+        GetComponent<Collider>().enabled = true;
     }
 }
