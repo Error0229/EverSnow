@@ -357,6 +357,7 @@ public class BetterPlayerController : MonoBehaviour
 
     private void HeavyAttack(bool invoked)
     {
+        if (!GameManager.Instance.IsPlayerInGame || !GameManager.Instance.PlayerInstance.IsInGame()) return;
         if (!invoked || (state != STATE.LOCOMOTION && state != STATE.IDLE)) return;
         // if (currentWeapon == null) return; // Prevent heavy attack without weapon
         attack = Attacks.Heavy;
@@ -364,6 +365,7 @@ public class BetterPlayerController : MonoBehaviour
     }
     private void NormalAttack(bool invoked)
     {
+        if (!GameManager.Instance.IsPlayerInGame || !GameManager.Instance.PlayerInstance.IsInGame()) return;
         if (!invoked || (state != STATE.LOCOMOTION && state != STATE.IDLE)) return;
         attack = Attacks.Normal;
         GoToState(STATE.ATTACK);
