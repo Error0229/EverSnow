@@ -71,6 +71,7 @@ public class BetterPlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.IsPlayerInGame || !GameManager.Instance.PlayerInstance.IsInGame()) return;
         if (controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = -2f; // Small negative value to keep grounded
@@ -404,7 +405,9 @@ public class BetterPlayerController : MonoBehaviour
 
     public void Respawn(Vector3 position)
     {
+        controller.enabled = false;
         transform.position = position;
+        controller.enabled = true;
         enabled = true;
         GoToState(STATE.IDLE);
         string idleAnim = currentWeapon != null ? "weapon_idle" : "idle";

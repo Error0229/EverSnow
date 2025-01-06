@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         PlayerInputManager.Instance.evtUseItem.AddListener(UseItem);
         MaxHealth = 3;
         Health = MaxHealth;
-        state = State.InGame;
+        state = State.MainMenu;
         lastCheckpoint = transform.position;
     }
 
@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
+        if (state == State.MainMenu) return;
         if (Health <= 0 && state != State.Dead)
         {
             Die();
@@ -149,6 +150,7 @@ public class Player : MonoBehaviour
             case State.Dead:
                 if (triggerEnter)
                 {
+                    triggerEnter = false;
                     playerEntity.PlayDeathAnimation();
                     AudioManager.Instance.PlayMusic("SnowmanDead");
                     EventUI.Instance.ShowDeathPanel(Respawn);
@@ -283,8 +285,10 @@ public class Player : MonoBehaviour
         triggerEnter = true;
     }
 
+
     private enum State
     {
+        MainMenu,
         InDialog,
         InGame,
         Dead,

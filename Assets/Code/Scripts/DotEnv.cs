@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 public class DotEnv : Singleton<DotEnv>
@@ -24,6 +25,11 @@ public class DotEnv : Singleton<DotEnv>
     }
     public string Get(string key)
     {
-        return env[key] ?? string.Empty;
+        string result;
+        if (!env.TryGetValue(key, out result))
+        {
+            result = string.Empty;
+        }
+        return result;
     }
 }

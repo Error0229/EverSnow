@@ -59,7 +59,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HeavyAttack_weapon
+  m_Name: Weapon_HeavyAttack
   m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions: []
@@ -471,7 +471,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NormalAttack_weapon
+  m_Name: Weapon_NormalAttack
   m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions: []

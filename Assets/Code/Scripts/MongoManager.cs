@@ -17,7 +17,7 @@ public class MongoManager : Singleton<MongoManager>
         if (connectionUri == string.Empty)
         {
             Debug.Log("MONGO_URI environment variable not found");
-            return;
+            connectionUri = @"mongodb+srv://production:production@eversnow.bu1wn.mongodb.net/?retryWrites=true&w=majority&appName=EverSnow";
         }
         var settings = MongoClientSettings.FromConnectionString(connectionUri);
         settings.ServerApi = new ServerApi(ServerApiVersion.V1);

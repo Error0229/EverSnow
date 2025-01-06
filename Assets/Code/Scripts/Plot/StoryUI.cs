@@ -5,17 +5,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using TMPro;
-using System;
 public class StoryUI : Singleton<StoryUI>
 {
     // Define a const dict for position and index mapping
     private static readonly Dictionary<string, int> PositionIndexMapping = new Dictionary<string, int>
     {
-        ["Left"] = 0,
-        ["Right"] = 1,
-        ["BottomRight"] = 2,
-        ["Top"] = 3
+        ["Left"] = 0, ["Right"] = 1, ["BottomRight"] = 2, ["Top"] = 3
     };
 
     [Header("UI Elements"), SerializeField]
@@ -28,19 +23,18 @@ public class StoryUI : Singleton<StoryUI>
     [SerializeField] private float bubbleMoveDuration = 0.5f;
     [SerializeField] private float bubbleStretchDuration = 0.3f;
     [SerializeField] private VerticalLayoutGroup layoutGroup;
-    [SerializeField] private TextMeshProUGUI debugText;
     [SerializeField] private AnimationCurve CharacterImageShakingCurve;
-    [SerializeField] private AnimationCurve CharacterImageJumpCurve;  // Add this field
+    [SerializeField] private AnimationCurve CharacterImageJumpCurve; // Add this field
 
     public UnityEvent<string> evtOptionClick = new UnityEvent<string>();
-    private Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
+
+    private readonly Dictionary<string, Coroutine> animationCoroutines = new Dictionary<string, Coroutine>();
+    private readonly Dictionary<string, Vector2> characterOriginalPosition = new Dictionary<string, Vector2>();
+    private readonly Dictionary<string, string> CharacterPositionMapping = new Dictionary<string, string>();
 
     private DialogBubble currentBubble;
     private IList<PlotDialog> dialogs = new List<PlotDialog>();
     private List<UIImageFader> faders = new List<UIImageFader>();
-
-    private Dictionary<string, Coroutine> animationCoroutines = new Dictionary<string, Coroutine>();
-    private Dictionary<string, Vector2> characterOriginalPosition = new Dictionary<string, Vector2>();
 
     public bool IsAnimating
     {
@@ -51,15 +45,6 @@ public class StoryUI : Singleton<StoryUI>
     {
         faders = GetComponentsInChildren<UIImageFader>().ToList();
     }
-    private void Update()
-    {
-        var text = $"Story States:\nKissimi: {GameManager.Instance.PlayerInstance.StoryState}\n";
-        foreach (var npc in GameManager.Instance.GetNpcs())
-        {
-            text += $"{npc.RealName}: {npc.StoryState}\n";
-        }
-        debugText.text = text;
-    }
     private bool IsTalkingToPet()
     {
         return CharacterPositionMapping.ContainsKey("Ila") && CharacterPositionMapping["Ila"] != "BottomRight";
@@ -69,7 +54,10 @@ public class StoryUI : Singleton<StoryUI>
     {
         var index = PositionIndexMapping[character.Position ?? "Left"];
         var characterImage = characterImages[index];
-        var spritePath = new[] { "Assets", "Art", "Textures", "Character", character.Name, character.Image }.Aggregate((a, b) => $"{a}/{b}") + ".png";
+        var spritePath = new[]
+        {
+            "Assets", "Art", "Textures", "Character", character.Name, character.Image
+        }.Aggregate((a, b) => $"{a}/{b}") + ".png";
         Debug.Log($"Loading sprite from path: {spritePath}");
         var sprite = defaultSprite;
         if (!File.Exists(spritePath))
@@ -78,8 +66,8 @@ public class StoryUI : Singleton<StoryUI>
         }
         else
         {
-            byte[] fileData = File.ReadAllBytes(spritePath);
-            Texture2D tex = new Texture2D(2, 2);
+            var fileData = File.ReadAllBytes(spritePath);
+            var tex = new Texture2D(2, 2);
             if (tex.LoadImage(fileData))
             {
                 sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
@@ -101,7 +89,7 @@ public class StoryUI : Singleton<StoryUI>
         }
 
         // Start shaking if animation is "shaking"
-        if (character.Animation != String.Empty)
+        if (character.Animation != string.Empty)
         {
             characterOriginalPosition[character.Name] = characterImage.rectTransform.anchoredPosition;
             switch (character.Animation)
@@ -112,8 +100,6 @@ public class StoryUI : Singleton<StoryUI>
                 case "Jumping":
                     animationCoroutines[character.Name] = StartCoroutine(JumpCharacter(characterImage.rectTransform));
                     break;
-                default:
-                    break;
             }
         }
     }
@@ -121,9 +107,9 @@ public class StoryUI : Singleton<StoryUI>
     private IEnumerator ShakeCharacter(RectTransform imageTransform)
     {
         float elapsed = 0;
-        Vector2 originalPosition = imageTransform.anchoredPosition;
-        float shakeDuration = 0.125f; // Adjust this to control how long one shake cycle takes
-        float shakeAmount = 22f;  // Adjust this to control shake intensity
+        var originalPosition = imageTransform.anchoredPosition;
+        var shakeDuration = 0.125f; // Adjust this to control how long one shake cycle takes
+        var shakeAmount = 22f; // Adjust this to control shake intensity
         var cycleCount = 0;
         var cycleLimit = 5; // Adjust this to control how many shake cycles to perform
 
@@ -137,8 +123,8 @@ public class StoryUI : Singleton<StoryUI>
                 elapsed = 0; // Reset for next cycle
             }
 
-            float curveTime = elapsed / shakeDuration;
-            float xOffset = CharacterImageShakingCurve.Evaluate(curveTime) * shakeAmount;
+            var curveTime = elapsed / shakeDuration;
+            var xOffset = CharacterImageShakingCurve.Evaluate(curveTime) * shakeAmount;
 
             imageTransform.anchoredPosition = originalPosition + new Vector2(xOffset, 0);
 
@@ -148,9 +134,9 @@ public class StoryUI : Singleton<StoryUI>
 
     private IEnumerator JumpCharacter(RectTransform imageTransform)
     {
-        float jumpDuration = 0.33f;
-        float jumpHeight = 40f;
-        Vector2 originalPosition = imageTransform.anchoredPosition;
+        var jumpDuration = 0.33f;
+        var jumpHeight = 40f;
+        var originalPosition = imageTransform.anchoredPosition;
         var cycleCount = 0;
         var cycleLimit = 3; // Adjust this to control how many shake cycles to perform
 
@@ -161,10 +147,10 @@ public class StoryUI : Singleton<StoryUI>
             while (elapsed < jumpDuration)
             {
                 elapsed += Time.deltaTime;
-                float normalizedTime = elapsed / jumpDuration;
+                var normalizedTime = elapsed / jumpDuration;
 
                 // Use animation curve to control the jump height
-                float yOffset = CharacterImageJumpCurve.Evaluate(normalizedTime) * jumpHeight;
+                var yOffset = CharacterImageJumpCurve.Evaluate(normalizedTime) * jumpHeight;
                 imageTransform.anchoredPosition = originalPosition + new Vector2(0, yOffset);
                 yield return null;
             }
@@ -202,6 +188,7 @@ public class StoryUI : Singleton<StoryUI>
         var dialog = Instantiate(dialogBubblePrefab, dialogContent.transform);
         currentBubble = dialog.GetComponent<DialogBubble>();
         // refresh the ui
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dialogContent.GetComponent<RectTransform>());
 
         // Get speaker position
         var isLeftSide = false; // Default to right side
@@ -230,13 +217,14 @@ public class StoryUI : Singleton<StoryUI>
 
         while (elapsed < bubbleMoveDuration)
         {
+            if (!rectTransform) break;
             elapsed += Time.deltaTime;
             var t = elapsed / bubbleMoveDuration;
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, Mathf.SmoothStep(0, 1, t));
             yield return null;
         }
 
-        rectTransform.anchoredPosition = targetPos;
+        if (rectTransform) rectTransform.anchoredPosition = targetPos;
     }
 
 

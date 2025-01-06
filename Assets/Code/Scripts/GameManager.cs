@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
 
         if (pendingState == State.Ending)
         {
+            Cursor.visible = true;
             var endingObj = GameObject.FindFirstObjectByType<Ending>();
             endingObj.ShowEnding(ending);
             state = pendingState;

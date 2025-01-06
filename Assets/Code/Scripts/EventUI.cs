@@ -13,7 +13,6 @@ public class EventUI : Singleton<EventUI>
     {
         eventPanel.SetActive(false);
         confirmButton.onClick.AddListener(HandleConfirm);
-
     }
 
     public void ShowDeathPanel(UnityAction onRespawn)
