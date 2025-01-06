@@ -43,6 +43,11 @@ public class InventoryItemHandler : MonoBehaviour
         button.enabled = false;
     }
 
+    public Item HoldingItem()
+    {
+        return item;
+    }
+
 
 
 

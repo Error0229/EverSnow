@@ -21,16 +21,30 @@ public class MainMenuUI : Singleton<MainMenuUI>
         startButton.onClick.AddListener(OnStartButtonClick);
         settingsButton.onClick.AddListener(OnSettingsButtonClick);
         exitButton.onClick.AddListener(OnExitButtonClick);
-        backButton.onClick.AddListener(ShowMenu);
     }
     public void ShowMainMenu()
     {
         menuButtonPanel.SetActive(true);
         mainMenuPanel.SetActive(true);
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(ShowMenu);
     }
     public void HideMainMenu()
     {
         mainMenuPanel.SetActive(false);
+    }
+    public void ShowAudioSetting()
+    {
+        mainMenuPanel.SetActive(true);
+        settingsPanel.SetActive(true);
+        menuButtonPanel.SetActive(false);
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(HideAudioSetting);
+    }
+    private void HideAudioSetting()
+    {
+        mainMenuPanel.SetActive(false);
+        settingsPanel.SetActive(false);
     }
 
 

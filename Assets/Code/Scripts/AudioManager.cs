@@ -16,7 +16,7 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private List<string> musicNames;
     [SerializeField] private List<AudioClip> musicClip;
 
-    public void PlaySFX(AudioClip clip, Vector3 position, float volume = 1f)
+    public void PlaySFX(AudioClip clip, Vector3 position, float volume = 0.6f)
     {
         if (clip != null)
         {
@@ -29,7 +29,7 @@ public class AudioManager : Singleton<AudioManager>
     }
 
     // Add new method for UI sounds
-    public void PlaySFX(AudioClip clip, float volume = 1f)
+    public void PlaySFX(AudioClip clip, float volume = 0.6f)
     {
         if (clip != null)
         {
@@ -43,7 +43,7 @@ public class AudioManager : Singleton<AudioManager>
         PlaySFX(clip, Vector3.zero, volume);
     }
 
-    public void PlaySFX(string soundEffectName, float volume = 1f)
+    public void PlaySFX(string soundEffectName, float volume = 0.6f)
     {
         if (string.IsNullOrEmpty(soundEffectName)) return;
         if (sfxNames.Contains(soundEffectName))
@@ -52,7 +52,7 @@ public class AudioManager : Singleton<AudioManager>
             PlaySFX(sfxClips[index], volume);
         }
     }
-    public void PlaySFX(string soundEffectName, Vector3 position, float volume = 1f)
+    public void PlaySFX(string soundEffectName, Vector3 position, float volume = 0.6f)
     {
         if (string.IsNullOrEmpty(soundEffectName)) return;
         if (sfxNames.Contains(soundEffectName))
@@ -61,7 +61,7 @@ public class AudioManager : Singleton<AudioManager>
             PlaySFX(sfxClips[index], position, volume);
         }
     }
-    public void PlayMusic(AudioClip clip, float volume = 0.5f)
+    public void PlayMusic(AudioClip clip, float volume = 0.2f)
     {
         if (clip != null)
         {
@@ -107,7 +107,7 @@ public class AudioManager : Singleton<AudioManager>
         }
         musicAudioSource.volume = startVolume;
     }
-    public void PlayMusic(string musicName, float volume = 0.5f)
+    public void PlayMusic(string musicName, float volume = 0.2f)
     {
         if (string.IsNullOrEmpty(musicName)) return;
         if (musicNames.Contains(musicName))

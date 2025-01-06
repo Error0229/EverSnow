@@ -52,6 +52,7 @@ public class ThirdPersonCamera : MonoBehaviour
             _lockOnTarget = null;
             _isLockOn = false;
             evtUnlock.Invoke();
+            lockOnUI.Unlock();
             // Lock camera onto the target
         }
 
@@ -96,6 +97,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void HandleCameraRotation()
     {
+        lockOnUI.Unlock();
         // 水平旋轉
         currentRotationY += Mathf.Clamp(lookDelta.x * rotationSpeed, -90f, 90f);
         // currentRotationY = Mathf.Clamp(currentRotationX, -90f, 90f);

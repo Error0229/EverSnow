@@ -24,7 +24,7 @@ public class InGameUI : Singleton<InGameUI>
 
     [SerializeField] private float slideDuration = 0.3f; // Duration of slide animation
     [SerializeField] private AnimationCurve slideCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    [SerializeField] private Button debugButton;
+    [SerializeField] private Button audioSettingButton;
 
     private Vector2 notificationHiddenPos;
     private Vector2 notificationVisiblePos;
@@ -34,9 +34,9 @@ public class InGameUI : Singleton<InGameUI>
     [SerializeField] private TextMeshProUGUI notificationText;
     protected void Start()
     {
-        debugButton.onClick.AddListener(() =>
+        audioSettingButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.GoToEnding("A");
+            MainMenuUI.Instance.ShowAudioSetting();
         });
     }
     private void Update()

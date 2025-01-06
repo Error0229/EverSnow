@@ -27,7 +27,7 @@ public class InventoryUI : Singleton<InventoryUI>
     private Image snowman;
 
 
-    public void OnItemClick(Item item)
+    public void OnItemClick(Item item, bool playSFX = true)
     {
         itemName.text = item.RealName;
         itemDescription.text = item.Description;
@@ -81,7 +81,8 @@ public class InventoryUI : Singleton<InventoryUI>
                 useButton.interactable = false;
             }
         }
-        AudioManager.Instance.PlaySFX("SelectItem");
+        if (playSFX)
+            AudioManager.Instance.PlaySFX("SelectItem");
     }
     protected override void Init()
     {
@@ -106,6 +107,7 @@ public class InventoryUI : Singleton<InventoryUI>
         if (GameManager.Instance.PlayerInstance.GetInventory().Any())
         {
             EventSystem.current.SetSelectedGameObject(inventoryItems[0].gameObject);
+            OnItemClick(inventoryItems[0].HoldingItem());
         }
         AudioManager.Instance.PlaySFX("OpenInventory");
     }

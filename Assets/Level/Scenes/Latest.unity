@@ -12692,7 +12692,7 @@ GameObject:
   - component: {fileID: 365271435}
   - component: {fileID: 365271434}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AudioSettingButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12715,8 +12715,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 66.912, y: 208.792}
-  m_SizeDelta: {x: 133.82, y: 22.416}
+  m_AnchoredPosition: {x: 376.74075, y: 206.48502}
+  m_SizeDelta: {x: 34.3912, y: 27.046}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365271434
 MonoBehaviour:
@@ -12782,8 +12782,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 422effba10166754ca00feda94e4610a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -15559,7 +15559,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  debugButton: {fileID: 365271434}
+  audioSettingButton: {fileID: 365271434}
   notificationText: {fileID: 1923830839}
 --- !u!114 &466637564
 MonoBehaviour:
@@ -27677,7 +27677,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Debug
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
   m_sharedMaterial: {fileID: -272072232891919080, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
@@ -27686,8 +27686,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4287072135
+  m_fontColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

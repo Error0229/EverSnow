@@ -20,6 +20,7 @@ public class WorldSpaceUIPositioner : MonoBehaviour
         {
             worldSpaceCanvas.renderMode = RenderMode.WorldSpace;
         }
+        worldSpaceCanvas.enabled = false;
     }
     private void LateUpdate()
     {
@@ -29,6 +30,7 @@ public class WorldSpaceUIPositioner : MonoBehaviour
     }
     public void Unlock()
     {
+        worldSpaceCanvas.enabled = false;
         enabled = false;
         GetComponentInChildren<Image>().enabled = false;
     }
@@ -36,6 +38,7 @@ public class WorldSpaceUIPositioner : MonoBehaviour
     public void LockOn(Transform target)
     {
         if (!canvasRect) return;
+        worldSpaceCanvas.enabled = true;
         enabled = true;
         targetTransform = target;
         GetComponentInChildren<Image>().enabled = true;
