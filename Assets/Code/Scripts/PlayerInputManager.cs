@@ -26,6 +26,7 @@ public class PlayerInputManager : InputManager
     private InputAction useItem;
     private InputAction walk;
     private InputAction inventory;
+    private InputAction skip;
 
 
     protected override void Init()
@@ -48,6 +49,7 @@ public class PlayerInputManager : InputManager
         walk = InputSystem.actions.FindAction("Walk");
         submit = InputSystem.actions.FindAction("Submit");
         inventory = InputSystem.actions.FindAction("Inventory");
+        skip = InputSystem.actions.FindAction("Skip");
     }
 
     protected override void CalculateAttack()
@@ -124,5 +126,11 @@ public class PlayerInputManager : InputManager
     {
         if (useItem.WasPressedThisFrame())
             evtUseItem?.Invoke();
+    }
+
+    protected override void CalculateSkip()
+    {
+        if (skip.WasPressedThisFrame())
+            evtSkip?.Invoke();
     }
 }

@@ -123,6 +123,8 @@ public class Player : MonoBehaviour
                     triggerEnter = false;
                     playerEntity.Deactivate();
                     playerEntity.enabled = false;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
                 }
                 break;
             case State.InGame:
@@ -131,6 +133,8 @@ public class Player : MonoBehaviour
                     triggerEnter = false;
                     playerEntity.enabled = true;
                     playerEntity.Activate();
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Confined;
                 }
                 string hint = playerEntity.GetInteractionHint();
                 if (!string.IsNullOrEmpty(hint))
@@ -148,6 +152,8 @@ public class Player : MonoBehaviour
                     playerEntity.PlayDeathAnimation();
                     AudioManager.Instance.PlayMusic("SnowmanDead");
                     EventUI.Instance.ShowDeathPanel(Respawn);
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
                 }
                 break;
             case State.Inventory:
@@ -156,6 +162,8 @@ public class Player : MonoBehaviour
                     triggerEnter = false;
                     playerEntity.Deactivate();
                     InventoryUI.Instance.OpenInventory();
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
                 }
                 break;
         }

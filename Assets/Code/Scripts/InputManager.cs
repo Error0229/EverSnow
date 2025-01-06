@@ -14,6 +14,7 @@ public abstract class InputManager : Singleton<InputManager>
     public UnityEvent evtInteract;
     public UnityEvent evtInventory;
     public UnityEvent evtUseItem;
+    public UnityEvent evtSkip;
 
     private void Update()
     {
@@ -30,6 +31,7 @@ public abstract class InputManager : Singleton<InputManager>
         CalculateDialogClick();
         CalculateInventory();
         CalculateUseItem();
+        CalculateSkip();
     }
     private void FixedUpdate()
     { }
@@ -46,4 +48,5 @@ public abstract class InputManager : Singleton<InputManager>
     protected abstract void CalculateAttack();
     protected abstract void CalculateInventory();
     protected abstract void CalculateUseItem();
+    protected abstract void CalculateSkip();
 }

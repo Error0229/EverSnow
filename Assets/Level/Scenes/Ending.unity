@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 548033735}
   - component: {fileID: 548033737}
   - component: {fileID: 548033736}
+  - component: {fileID: 548033738}
   m_Layer: 5
   m_Name: Snow
   m_TagString: Untagged
@@ -483,14 +484,14 @@ RectTransform:
   m_GameObject: {fileID: 548033734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8674, y: 0.8674, z: 0.8674}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1187461139}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -352, y: 179}
+  m_AnchoredPosition: {x: -257, y: 1243}
   m_SizeDelta: {x: 7326.15, y: 3259.425}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &548033736
@@ -531,6 +532,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548033734}
   m_CullTransparentMesh: 1
+--- !u!95 &548033738
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548033734}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ce1a0e0d1b37f064091ece8330cf67b4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &763897420
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +641,7 @@ GameObject:
   - component: {fileID: 1187461138}
   - component: {fileID: 1187461137}
   - component: {fileID: 1187461136}
+  - component: {fileID: 1187461140}
   m_Layer: 5
   m_Name: Ending
   m_TagString: Untagged
@@ -712,6 +736,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &1187461140
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187461135}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c046847396b40934cb5abaf8658a822b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1242563454
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,8 +792,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 446.19, y: 313}
-  m_SizeDelta: {x: 960, y: 254.66}
+  m_AnchoredPosition: {x: 543.35944, y: 313.438}
+  m_SizeDelta: {x: 833.291, y: 155.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1242563456
 MonoBehaviour:
@@ -769,10 +815,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Eversnow
+  m_text: The SpringThaw
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
-  m_sharedMaterial: {fileID: -272072232891919080, guid: c96721f4141d6254cbd4ae403402965c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7f60f2b5b325e01449a9e78dd377ca85, type: 2}
+  m_sharedMaterial: {fileID: -272072232891919080, guid: 7f60f2b5b325e01449a9e78dd377ca85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -796,8 +842,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 112.7
-  m_fontSizeBase: 112.7
+  m_fontSize: 90.4
+  m_fontSizeBase: 90.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1018,7 +1064,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0.083236}
+  m_AnchoredPosition: {x: 0.000030517578, y: 385}
   m_SizeDelta: {x: 1920, y: 1079.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870203599
@@ -1089,11 +1135,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endingSprites:
-  - {fileID: 21300000, guid: f7ead65efc1516543a2e1d9ad36efb66, type: 3}
-  - {fileID: 21300000, guid: 34644b9dc8f33444f95e18acda6b087d, type: 3}
+  - {fileID: 21300000, guid: ff01ad0f569fcd240a7819d27d386bdb, type: 3}
+  - {fileID: 21300000, guid: 2de11521dee90354580334fd5d97439e, type: 3}
   endButton: {fileID: 465026128}
   text: {fileID: 1242563456}
   endingImage: {fileID: 1870203599}
+  animator: {fileID: 1187461140}
 --- !u!4 &1877353132
 Transform:
   m_ObjectHideFlags: 0

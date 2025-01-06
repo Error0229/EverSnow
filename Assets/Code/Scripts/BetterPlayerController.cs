@@ -82,7 +82,7 @@ public class BetterPlayerController : MonoBehaviour
         // Update fall timer when not grounded and not in JUMP state
         if (!controller.isGrounded && state != STATE.JUMP)
         {
-            fallTimer += Time.fixedDeltaTime;
+            fallTimer += Time.deltaTime;
         }
 
         var newVelocity = 0.0f;
@@ -92,7 +92,8 @@ public class BetterPlayerController : MonoBehaviour
                 if (triggerEnter)
                 {
                     ResetHorizontalVelocity();
-                    anim.CrossFadeInFixedTime("idle", 0.1f);
+                    string idleAnim = currentWeapon != null ? "weapon_idle" : "idle";
+                    anim.CrossFadeInFixedTime(idleAnim, 0.1f);
                     triggerEnter = false;
                 }
 
@@ -102,7 +103,10 @@ public class BetterPlayerController : MonoBehaviour
             case STATE.LOCOMOTION:
                 if (triggerEnter)
                 {
-                    anim.CrossFadeInFixedTime(isLockOn ? "lockon_locomotion" : "locomotion", 0.1f);
+                    string animName = isLockOn ? "lockon_locomotion" : "locomotion";
+                    if (currentWeapon != null)
+                        animName = isLockOn ? "weapon_lockon_locomotion" : "weapon_locomotion";
+                    anim.CrossFadeInFixedTime(animName, 0.1f);
                     triggerEnter = false;
                 }
 
@@ -150,7 +154,7 @@ public class BetterPlayerController : MonoBehaviour
                 }
 
                 // Update fall animation timer
-                fallAnimationTimer += Time.fixedDeltaTime;
+                fallAnimationTimer += Time.deltaTime;
 
                 // Play fall animation only after delay
                 if (fallAnimationTimer >= fallAnimationDelay && !StateInfo.IsName("fall"))
@@ -164,7 +168,11 @@ public class BetterPlayerController : MonoBehaviour
                 newVelocity = lastVelocity;
                 if (triggerEnter)
                 {
-                    anim.CrossFadeInFixedTime(attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack", 0.1f);
+                    string attackAnim = attack == Attacks.Normal ? "NormalAttack" : "HeavyAttack";
+                    if (currentWeapon != null)
+                        attackAnim = attack == Attacks.Normal ? "Weapon_NormalAttack" : "Weapon_HeavyAttack";
+
+                    anim.CrossFadeInFixedTime(attackAnim, 0.1f);
                     AudioManager.Instance.PlaySFX("PlayerAttack");
                     ResetHorizontalVelocity();
                     triggerEnter = false;
@@ -172,7 +180,9 @@ public class BetterPlayerController : MonoBehaviour
                     currentWeapon?.PlayEffect();
                 }
 
-                if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
+                if (StateInfo.normalizedTime > 0.9f &&
+                    (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack") ||
+                     StateInfo.IsName("Weapon_NormalAttack") || StateInfo.IsName("Weapon_HeavyAttack")))
                 {
                     currentWeapon?.OnAttackFinish();
                     if (movingVec.magnitude <= 0.1f)
@@ -312,6 +322,7 @@ public class BetterPlayerController : MonoBehaviour
             knifeHandler.SetActive(false);
         }
         weapon.Entity.SetActive(false);
+        currentWeapon = null;
     }
 
     public void OnControllerColliderHit(ControllerColliderHit hit)
@@ -340,12 +351,13 @@ public class BetterPlayerController : MonoBehaviour
 
     private void ResetHorizontalVelocity()
     {
-        lastVelocity = lastVelocity * 0.5f;
+        lastVelocity = lastVelocity * 0.1f;
     }
 
     private void HeavyAttack(bool invoked)
     {
         if (!invoked || (state != STATE.LOCOMOTION && state != STATE.IDLE)) return;
+        // if (currentWeapon == null) return; // Prevent heavy attack without weapon
         attack = Attacks.Heavy;
         GoToState(STATE.ATTACK);
     }
@@ -366,14 +378,16 @@ public class BetterPlayerController : MonoBehaviour
     public void EnterDialog()
     {
         state = STATE.IDLE;
-        anim.CrossFadeInFixedTime("idle", 0.1f);
+        string idleAnim = currentWeapon != null ? "weapon_idle" : "idle";
+        anim.CrossFadeInFixedTime(idleAnim, 0.1f);
     }
 
     public void Deactivate()
     {
         playerVelocity = Vector3.zero;
         state = STATE.IDLE;
-        anim.CrossFadeInFixedTime("idle", 0.1f);
+        string idleAnim = currentWeapon != null ? "weapon_idle" : "idle";
+        anim.CrossFadeInFixedTime(idleAnim, 0.1f);
         enabled = false;
     }
     public void Activate()
@@ -393,7 +407,8 @@ public class BetterPlayerController : MonoBehaviour
         transform.position = position;
         enabled = true;
         GoToState(STATE.IDLE);
-        anim.CrossFadeInFixedTime("idle", 0.1f);
+        string idleAnim = currentWeapon != null ? "weapon_idle" : "idle";
+        anim.CrossFadeInFixedTime(idleAnim, 0.1f);
     }
 
     private void Move(Vector2 vac)

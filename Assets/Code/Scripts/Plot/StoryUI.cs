@@ -179,7 +179,7 @@ public class StoryUI : Singleton<StoryUI>
         }
     }
 
-    public void ShowDialog(PlotDialog dialogData, bool visibility = true)
+    public void ShowDialog(PlotDialog dialogData, bool skip = false)
     {
         foreach (var character in dialogData.Characters)
         {
@@ -189,7 +189,7 @@ public class StoryUI : Singleton<StoryUI>
         characterImages[PositionIndexMapping["BottomRight"]].sprite = InGameUI.Instance.GetHealthSprite();
         characterImages[PositionIndexMapping["BottomRight"]].enabled = !IsTalkingToPet();
 
-        dialogContent.SetActive(visibility);
+        dialogContent.SetActive(true);
 
         // Move existing bubbles up
         var existingBubbles = dialogContent.transform.Cast<Transform>().ToList();
@@ -201,6 +201,7 @@ public class StoryUI : Singleton<StoryUI>
         // Create and animate new bubble
         var dialog = Instantiate(dialogBubblePrefab, dialogContent.transform);
         currentBubble = dialog.GetComponent<DialogBubble>();
+        // refresh the ui
 
         // Get speaker position
         var isLeftSide = false; // Default to right side
@@ -213,8 +214,12 @@ public class StoryUI : Singleton<StoryUI>
             AudioManager.Instance.PlayMusic(dialogData.SoundEffect);
         }
 
+        currentBubble.SetUp(dialogData, isLeftSide ? "Left" : "Right", skip);
 
-        currentBubble.SetUp(dialogData, isLeftSide ? "Left" : "Right");
+    }
+    public void Refresh()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dialogContent.GetComponent<RectTransform>());
     }
 
     private IEnumerator MoveBubbleUp(RectTransform rectTransform)

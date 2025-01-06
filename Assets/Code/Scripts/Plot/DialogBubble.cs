@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Internal.Commands;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,22 +60,33 @@ public class DialogBubble : MonoBehaviour
         }
     }
 
-    public void SetUp(PlotDialog dialogData, string direction)
+    public void SetUp(PlotDialog dialogData, string direction, bool skip = false)
     {
         setupComplete = false;
         IsAnimating = true;
         pendingDialogData = dialogData;
 
-        // Play sound effect if specified
-        if (!string.IsNullOrEmpty(dialogData.SoundEffect))
-        {
-            AudioManager.Instance.PlaySFX(dialogData.SoundEffect);
-        }
-
         // Set animation hash
         currentAnimationHash = Animator.StringToHash(direction == "Left" ? "BubblePopLeft" : "BubblePopRight");
-        animator.Play(currentAnimationHash);
+        if (skip)
+        {
+            // Skip animation and complete setup directly
+            setupComplete = true;
+            IsAnimating = false;
 
+            animator.Play(currentAnimationHash, 0, 1.0f);
+            CompleteSetup(skip);
+        }
+        else
+        {
+            // Play sound effect if specified
+            if (!string.IsNullOrEmpty(dialogData.SoundEffect))
+            {
+                AudioManager.Instance.PlaySFX(dialogData.SoundEffect);
+            }
+            // Play normal animation
+            animator.Play(currentAnimationHash);
+        }
         // Only set up the background image and position first
         if (dialogData.Options.Any())
         {
@@ -87,7 +99,7 @@ public class DialogBubble : MonoBehaviour
         }
     }
 
-    private void CompleteSetup()
+    private void CompleteSetup(bool skip = false)
     {
 
         if (pendingDialogData.Options.Any())
@@ -109,6 +121,7 @@ public class DialogBubble : MonoBehaviour
             Speaker = pendingDialogData.Speaker;
         }
 
+        if (skip) return;
         var typewriter = GetComponentInChildren<TypewriterEffect>();
         if (typewriter)
         {

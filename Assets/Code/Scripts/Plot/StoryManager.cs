@@ -70,6 +70,7 @@ public class StoryManager : Singleton<StoryManager>
     {
         StoryUI.Instance.evtOptionClick.AddListener(OnOptionClick);
         PlayerInputManager.Instance.evtDialogClick.AddListener(OnDialogClicked);
+        PlayerInputManager.Instance.evtSkip.AddListener(SkipTillOption);
         GotoState(State.Idle);
     }
 
@@ -120,6 +121,18 @@ public class StoryManager : Singleton<StoryManager>
             currentPlot.NextDialog(null);
             StoryUI.Instance.ShowDialog(currentPlot.CurrentDialog);
         }
+    }
+    private void SkipTillOption()
+    {
+        if (state != State.Ongoing) return;
+        while (!currentPlot.CurrentDialog.IsOption && !currentPlot.CurrentDialog.IsLastDialog)
+        {
+            if (currentPlot.CurrentDialog.EndDialog?.NextState != null)
+                GameManager.Instance.UpdateStoryState(currentPlot.CurrentDialog.EndDialog.NextState);
+            currentPlot.NextDialog(null);
+            StoryUI.Instance.ShowDialog(currentPlot.CurrentDialog, skip: true);
+        }
+        StoryUI.Instance.Refresh();
     }
 
     private enum State
