@@ -10,9 +10,9 @@ namespace Enemy
         private void Start()
         {
             base.Start();
+            particleSystem = GetComponentInChildren<ParticleSystem>();
             if (particleSystem)
             {
-                particleSystem = GetComponentInChildren<ParticleSystem>();
                 particleSystem.Stop();
             }
         }

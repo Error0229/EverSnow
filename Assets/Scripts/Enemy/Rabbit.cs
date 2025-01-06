@@ -26,5 +26,13 @@ namespace Enemy
         {
             iEnemyState = new RabbitAttackState();
         }
+
+        protected override void Die()
+        {
+            var stick = ItemFactory.Instance.CreateItem("Branch");
+            stick.transform.position = transform.position;
+            base.Die();
+        }
+        
     }
 }

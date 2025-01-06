@@ -112,8 +112,9 @@ namespace Enemy
                 Die();
             }
         }
-        private void Die()
+        protected virtual void Die()
         {
+            Deadge.SpawnDeadgeEffect(transform.position);
             Destroy(this.gameObject);
         }
 

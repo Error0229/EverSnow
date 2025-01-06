@@ -168,11 +168,13 @@ public class BetterPlayerController : MonoBehaviour
                     ResetHorizontalVelocity();
                     triggerEnter = false;
                     currentWeapon?.Attack();
+                    currentWeapon?.PlayEffect();
                 }
 
                 if (StateInfo.normalizedTime > 0.9f && (StateInfo.IsName("NormalAttack") || StateInfo.IsName("HeavyAttack")))
                 {
                     currentWeapon?.OnAttackFinish();
+                    currentWeapon?.StopEffect();
                     if (movingVec.magnitude <= 0.1f)
                     {
                         GoToState(STATE.IDLE);
