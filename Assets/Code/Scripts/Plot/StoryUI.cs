@@ -10,7 +10,10 @@ public class StoryUI : Singleton<StoryUI>
     // Define a const dict for position and index mapping
     private static readonly Dictionary<string, int> PositionIndexMapping = new Dictionary<string, int>
     {
-        ["Left"] = 0, ["Right"] = 1, ["BottomRight"] = 2, ["Top"] = 3
+        ["Left"] = 0,
+        ["Right"] = 1,
+        ["BottomRight"] = 2,
+        ["Top"] = 3
     };
 
     [Header("UI Elements"), SerializeField]
@@ -54,24 +57,14 @@ public class StoryUI : Singleton<StoryUI>
     {
         var index = PositionIndexMapping[character.Position ?? "Left"];
         var characterImage = characterImages[index];
-        var spritePath = new[]
+        var spritePath = $"Textures/Character/{character.Name}/{character.Image}";
+        Debug.Log($"Loading sprite from Resources path: {spritePath}");
+
+        var sprite = Resources.Load<Sprite>(spritePath);
+        if (sprite == null)
         {
-            "Assets", "Art", "Textures", "Character", character.Name, character.Image
-        }.Aggregate((a, b) => $"{a}/{b}") + ".png";
-        Debug.Log($"Loading sprite from path: {spritePath}");
-        var sprite = defaultSprite;
-        if (!File.Exists(spritePath))
-        {
-            Debug.LogError($"Sprite not found at path: {spritePath}");
-        }
-        else
-        {
-            var fileData = File.ReadAllBytes(spritePath);
-            var tex = new Texture2D(2, 2);
-            if (tex.LoadImage(fileData))
-            {
-                sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
-            }
+            Debug.LogError($"Sprite not found in Resources: {spritePath}");
+            sprite = defaultSprite;
         }
 
         characterImage.enabled = true;
